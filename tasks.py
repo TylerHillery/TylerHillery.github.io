@@ -151,8 +151,7 @@ def pelican_run(cmd):
 @task
 def deploy(c):
     """Push to GitHub Pages"""
-    CONFIG['commit_message'] = "Build Site"
     clean(c)
     preview(c)
-    c.run("ghp-import -m '{commit_message}' -b {github_pages_branch} {deploy_path}".format(**CONFIG))
+    c.run('ghp-import -b {github_pages_branch} ' '-m {commit_message} ''{deploy_path} -p'.format(**CONFIG))
     c.run("git push origin {github_pages_branch}".format(**CONFIG))
