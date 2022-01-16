@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Tyler Hillery - Blog</title><link href="https://tylerhillery.github.io/" rel="alternate"></link><link href="https://tylerhillery.github.io/feeds/blog.atom.xml" rel="self"></link><id>https://tylerhillery.github.io/</id><updated>2022-01-14T08:49:00-06:00</updated><subtitle>Data Generalist &amp; Life Long Learner</subtitle><entry><title>👋 Welcome to my Website!</title><link href="https://tylerhillery.github.io/welcome.html" rel="alternate"></link><published>2022-01-14T08:49:00-06:00</published><updated>2022-01-14T08:49:00-06:00</updated><author><name>Tyler Hillery</name></author><id>tag:tylerhillery.github.io,2022-01-14:/welcome.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;My name is Tyler Hillery! I made this website using Pelican, a static site generator that uses Python &amp;amp; Markdown files
+to generate statics HTML files that you are looking at right now! &lt;/p&gt;
+&lt;p&gt;There are a few reasons for this website:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A place to showcase some of the projects I am working on. &lt;/li&gt;
+&lt;li&gt;Somewhere I can write about what I am learning. &lt;/li&gt;
+&lt;li&gt;Creating the website was a project in itself to help improve on my Python, Git, HTML &amp;amp; CSS skills. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If any of the below areas interest you, keep an eye out for future posts! You can also connect with me on any of my socials by clicking their respective icons on the left side of the website.&lt;/p&gt;
+&lt;h3&gt;Areas of Interest&lt;/h3&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;Data &amp;amp; Analytics Engineering&lt;/li&gt;
+&lt;li&gt;The Modern Data Stack&lt;/li&gt;
+&lt;li&gt;Machine-Learning&lt;/li&gt;
+&lt;li&gt;Data Science&lt;/li&gt;
+&lt;li&gt;Computer Science&lt;/li&gt;
+&lt;li&gt;Finance &amp;amp; Investments&lt;/li&gt;
+&lt;li&gt;Learning&lt;/li&gt;
+&lt;li&gt;Technology&lt;/li&gt;
+&lt;li&gt;Web Development&lt;/li&gt;
+&lt;li&gt;Open Source &lt;/li&gt;
+&lt;li&gt;Sports (Basketball, Football, Golf)&lt;/li&gt;
+&lt;li&gt;Fitness (Lifting, Running, Biking, Hiking)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Specific Tooling I plan on Learning About&lt;/h3&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;PostgresSQL &amp;amp; More advanced SQL techniques &lt;img src="/images/postgresql-logo.png" alt="postgresSQL logo"  width="20" height ="20"/&gt;&lt;/li&gt;
+&lt;li&gt;Applied Data Science with Python (NumPy, Pandas)  &lt;img src="/images/python-logo.png" alt="Python logo"  width="20" height ="20"/&gt;&lt;/li&gt;
+&lt;li&gt;API development using backend frameworks such as Django, Flask &amp;amp; Fast API &lt;img src="/images/fastAPI-logo.png" alt="fastAPI logo"  width="20" height ="20"/&gt;&lt;/li&gt;
+&lt;li&gt;Workflow Orchestration Tools (Airflow, Dagster, Prefect) &lt;img src="/images/airflow-logo.png" alt="Airflow logo"  width="15" height ="15"/&gt;&lt;/li&gt;
+&lt;li&gt;Data Build Tool (dbt) &lt;img src="/images/dbt-logo.png" alt="dbt logo"  width="20" height ="15"/&gt;&lt;/li&gt;
+&lt;li&gt;Cloud Technologies (AWS, GCP, Snowflake) &lt;img src="/images/snowflake-logo.png" alt="Snowflake logo"  width="20" height ="15"/&gt;&lt;/li&gt;
+&lt;li&gt;Data Visualization Tools (Looker, Preset, Dash, D3.js)&lt;/li&gt;
+&lt;li&gt;NoSQL (MongoDB, Redis)&lt;/li&gt;
+&lt;li&gt;Data Ingestion Tools (Airbyte, Meltano) &lt;img src="/images/airbyte-logo.png" alt="Airbyte logo"  width="20" height ="15"/&gt;&lt;/li&gt;
+&lt;li&gt;Apache Spark &amp;amp; Apache Kafka&lt;/li&gt;
+&lt;li&gt;Scala &lt;img src="/images/scala-logo.png" alt="Scala logo"  width="15" height ="15"/&gt;&lt;/li&gt;
+&lt;li&gt;DevOps (Docker, Kubernetes, TerraForm, CI/CD) &lt;img src="/images/docker-logo.png" alt="Docker logo"  width="20" height ="20"/&gt;&lt;/li&gt;
+&lt;li&gt;Basic Web Development (HTML, CSS, JavaScript)&lt;/li&gt;
+&lt;li&gt;Web Frameworks (Tailwinds, HTMX, Alpine.js, Vue.js)&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Blog"></category><category term="pelican"></category></entry></feed>
