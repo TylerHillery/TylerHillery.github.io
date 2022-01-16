@@ -11,7 +11,7 @@ Status: published
 ## Introduction
 ___
 My name is Tyler Hillery! I made this website using Pelican, a static site generator that uses Python & Markdown files
-to generate statics HTML files that you are looking at right now! 
+to generate static files that are then hosting on GitHub Pages.
 
 There are a few reasons for this website:
 
