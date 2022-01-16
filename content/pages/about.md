@@ -5,7 +5,7 @@ Modified: 2022-01-15
 ---
 I'm currently a BI developer at Mutual of Omaha. My primary goal is to deliver comprehensive analytical solutions to help improve accessibility of information & provide valuable insights to our Income & Wealth Planning department. 
 
-I enjoy learning about the "Modern Data Stack" & the rapidly evolving data landscape. To see for yourself take a look at all the different [technologies](http://46eybw2v1nh52oe80d3bi91u-wpengine.netdna-ssl.com/wp-content/uploads/2021/12/2021-MAD-Landscape-v3.pdf). I recommend checking out my [first post](http://localhost:8000/welcome.html#welcome) to find out about the technologies I am particularly interested in.
+I enjoy learning about the "Modern Data Stack" & the rapidly evolving data landscape. To see for yourself take a look at all the different [technologies](http://46eybw2v1nh52oe80d3bi91u-wpengine.netdna-ssl.com/wp-content/uploads/2021/12/2021-MAD-Landscape-v3.pdf). I recommend checking out my [first post](https://tylerhillery.github.io/welcome.html#welcome) to find out about the technologies I am particularly interested in.
 
 I graduated college with a B.S. in Finance in 2019. During my undergrad I worked as a research assistant and helped co-author a paper based on grit & it's application in the hiring process. I have aspirations to obtain a M.S. in Analytics with a focus on Computational Analytics.
 

@@ -11,6 +11,6 @@ ___
 ___
 
 ###### This website! Built using [Pelican](http://getpelican.com/).
-<a href="https://github.com/TylerHillery" target="_blank">
+<a href="https://github.com/TylerHillery/TylerHillery.github.io" target="_blank">
   <img src="https://targettrend.com/wp-content/uploads/2021/02/pelican-1024x900.jpg" alt="Pelican Logo"  width="400" height="300"/>
 </a>
