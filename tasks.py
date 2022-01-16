@@ -155,5 +155,5 @@ def deploy(c):
     clean(c)
     preview(c)
     #c.run('ghp-import -b {github_pages_branch} ' '-m {commit_message} ''{deploy_path} -p'.format(**CONFIG))
-    c.run("ghp-import -b {github_pages_branch} -m '{commit_message}' {deploy_path} -p".format(**CONFIG))
+    c.run("ghp-import -m '{commit_message}' -b {github_pages_branch} {deploy_path} -p".format(**CONFIG))
     c.run("git push origin {github_pages_branch}".format(**CONFIG))

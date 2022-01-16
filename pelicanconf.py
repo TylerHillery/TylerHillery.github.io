@@ -41,7 +41,7 @@ SOCIAL = (
 
 #Path variables
 PATH = 'content'
-OUTPUT_PATH = 'output/'
+OUTPUT_PATH = 'output'
 PAGE_PATHS = ['pages']
 ARTICLE_PATHS = ['articles']
 STATIC_PATHS = ['images','extra']
@@ -78,5 +78,5 @@ MARKDOWN = {
 #         ('You can modify those links in your config file', '#'),)
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
 
