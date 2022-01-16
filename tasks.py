@@ -152,8 +152,10 @@ def pelican_run(cmd):
 @task
 def deploy(c):
     """Push to GitHub Pages"""
-    clean(c)
-    preview(c)
+    #preview(c)
+    c.run("pelican content -o output -s pelicanconf.py")
+    c.run("ghp-import output -b master")
+    c.run("git push origin master")
     #c.run('ghp-import -b {github_pages_branch} ' '-m {commit_message} ''{deploy_path} -p'.format(**CONFIG))
-    c.run("ghp-import {deploy_path} -b {github_pages_branch}".format(**CONFIG))
-    c.run("git push origin {github_pages_branch}".format(**CONFIG))
+    #c.run("ghp-import {deploy_path} -b {github_pages_branch}".format(**CONFIG))
+    #c.run("git push origin {github_pages_branch}".format(**CONFIG))
