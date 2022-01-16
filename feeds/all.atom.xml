@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Tyler Hillery</title><link href="https://tylerhillery.github.io/" rel="alternate"></link><link href="https://tylerhillery.github.io/feeds/all.atom.xml" rel="self"></link><id>https://tylerhillery.github.io/</id><updated>2022-01-14T08:49:00-06:00</updated><subtitle>Data Generalist &amp; Life Long Learner</subtitle><entry><title>👋 Welcome to my Website!</title><link href="https://tylerhillery.github.io/welcome.html" rel="alternate"></link><published>2022-01-14T08:49:00-06:00</published><updated>2022-01-14T08:49:00-06:00</updated><author><name>Tyler Hillery</name></author><id>tag:tylerhillery.github.io,2022-01-14:/welcome.html</id><summary type="html"></summary><content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;hr&gt;
-&lt;p&gt;My name is Tyler Hillery! I made this website using Pelican, a static site generator that uses Python &amp;amp; Markdown files
-to generate statics HTML files that you are looking at right now! &lt;/p&gt;
+&lt;p&gt;My name is Tyler Hillery! I made this website using Pelican, a static site generator that uses Python.&lt;/p&gt;
 &lt;p&gt;There are a few reasons for this website:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;A place to showcase some of the projects I am working on. &lt;/li&gt;
 &lt;li&gt;Somewhere I can write about what I am learning. &lt;/li&gt;
 &lt;li&gt;Creating the website was a project in itself to help improve on my Python, Git, HTML &amp;amp; CSS skills. &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;If any of the below areas interest you, keep an eye out for future posts! You can also connect with me on any of my socials by clicking their respective icons on the left side of the website.&lt;/p&gt;
+&lt;p&gt;If any of the below areas interest you, keep an eye out for future posts!&lt;/p&gt;
 &lt;h3&gt;Areas of Interest&lt;/h3&gt;
 &lt;hr&gt;
 &lt;ul&gt;
