@@ -56,7 +56,7 @@ If you're interested in writing a blog post for the website, you need to:
 
 ## Hosting
 
-This blog is hosted by [GitHub Pages](https://pages.github.com/) and uses [CloudFlare](https://www.cloudflare.com) for CDN and HTTPS. A Custom domain is used.
+This blog is hosted by [GitHub Pages](https://pages.github.com/)
 
 ## License
 
