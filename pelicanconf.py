@@ -19,6 +19,9 @@ GITHUB_CORNER_URL = "https://github.com/TylerHillery"
 #Menu items which are show on top of the page
 MAIN_MENU = True
 MENUITEMS = (
+    ('About', '/pages/about.html'),
+     ('Contact', '/pages/contact.html'),
+    ('Projects', '/pages/projects.html'),
     ('Archives', '/archives.html'),
     ('Categories', '/categories.html'),
     ('Tags', '/tags.html')

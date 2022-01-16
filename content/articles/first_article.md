@@ -10,8 +10,7 @@ Status: published
 
 ## Introduction
 ___
-My name is Tyler Hillery! I made this website using Pelican, a static site generator that uses Python & Markdown files
-to generate static files that are then hosting on GitHub Pages.
+My name is Tyler Hillery! I made this website using Pelican, a static site generator that uses Python.
 
 There are a few reasons for this website:
 
@@ -19,7 +18,7 @@ There are a few reasons for this website:
 2. Somewhere I can write about what I am learning. 
 3. Creating the website was a project in itself to help improve on my Python, Git, HTML & CSS skills. 
 
-If any of the below areas interest you, keep an eye out for future posts! You can also connect with me on any of my socials by clicking their respective icons on the left side of the website.
+If any of the below areas interest you, keep an eye out for future posts!
 
 ### Areas of Interest
 ___
