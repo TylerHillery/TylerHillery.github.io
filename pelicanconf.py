@@ -47,7 +47,8 @@ PATH = 'content'
 OUTPUT_PATH = 'output'
 PAGE_PATHS = ['pages']
 ARTICLE_PATHS = ['articles']
-STATIC_PATHS = ['images','extra']
+STATIC_PATHS = ['images','extra', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 
 #License 
 COPYRIGHT_NAME = 'Tyler Hillery'
