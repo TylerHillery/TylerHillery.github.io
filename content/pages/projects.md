@@ -8,16 +8,7 @@ ___
   <img src="/images/stock-market-data-pipeline.png" alt="data-pipeline"  width="600" height ="400"/>
 </a>
 ___
-<iframe
-  width="600"
-  height="400"
-  seamless
-  frameBorder="0"
-  scrolling="no"
-  src="https://0b99782f.us2a.app.preset.io/superset/explore/?form_data=%7B%22slice_id%22%3A%2079%7D&standalone=1&height=400"
->
-</iframe>
-___
+
 #### [**#100DaysOfCode**](https://github.com/TylerHillery/100-days-of-code/blob/master/log.md)
 ###### Follow my journey where I code at least one hour a day for 100 Days.
 <a href="https://github.com/TylerHillery/100-days-of-code/blob/master/log.md" target="_blank">
