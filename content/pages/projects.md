@@ -3,7 +3,7 @@ Date: 2022-01-15
 Modified: 2022-03-29
 ___
 #### [**Stock Market Data Pipeline**](https://github.com/TylerHillery/Stock-Market-Data)
-###### A personal project that utilizes the Modern Data Stack to ingest, store and visualize stock data.
+###### A personal project that utilizes the Modern Data Stack to ingest, store and visualize stock data. I wrote about me experience here ➡️ [Article](https://www.tylerhillery.com/Stock-Market-Data-Pipeline.html#Stock-Market-Data-Pipeline)
 <a href="https://github.com/TylerHillery/Stock-Market-Data" target="_blank">
   <img src="/images/stock-market-data-pipeline.png" alt="data-pipeline"  width="600" height ="400"/>
 </a>

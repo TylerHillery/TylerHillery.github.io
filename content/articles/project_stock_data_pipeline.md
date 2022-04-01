@@ -5,7 +5,7 @@ Category: Projects
 Tags: Open-Source, Projects, dbt, Preset, Dagster, Airbyte, BigQuery
 Slug: Stock-Market-Data-Pipeline
 Authors: Tyler Hillery
-Summary: I wrote about my experience on setting up a data pipeline to help extract, ingest, store, transform and visualize stock market data using open source technologies such as Airbyte, Dagster, dbt & Preset. <img src="\images\preset-dashboard.jpg" alt="Dashboard"  width="450" height ="200"/>
+Summary: I wrote about my experience on setting up a data pipeline to help extract, ingest, store, transform and visualize stock market data using open source technologies such as Airbyte, Dagster, dbt & Preset.
 
 ____
 
