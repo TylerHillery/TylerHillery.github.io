@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+    <link id="dark-theme-style" rel="stylesheet" type="text/css"
+          media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"
+    href="./theme/stylesheet/dark-theme.min.css">
+
+    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
+              media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"
+          href="./theme/pygments/monokai.min.css">
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+              media="(prefers-color-scheme: light)"
+          href="./theme/pygments/pastie.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/solid.css">
+
+
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WMBW4XCBHK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WMBW4XCBHK');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="Tyler Hillery" />
+<meta name="description" content="I wrote about my experience on setting up a data pipeline to help extract, ingest, store, transform and visualize stock market data using open source technologies such as Airbyte, Dagster, dbt &amp; Preset." />
+<meta name="keywords" content="Open-Source, Projects, dbt, Preset, Dagster, Airbyte, BigQuery">
+
+
+  <meta property="og:site_name" content="Tyler Hillery"/>
+  <meta property="og:title" content="Stock Market Data Pipeline"/>
+  <meta property="og:description" content="I wrote about my experience on setting up a data pipeline to help extract, ingest, store, transform and visualize stock market data using open source technologies such as Airbyte, Dagster, dbt &amp; Preset."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="./Stock-Market-Data-Pipeline.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2022-03-30 06:42:00-05:00"/>
+  <meta property="article:modified_time" content="2022-03-30 06:42:00-05:00"/>
+  <meta property="article:author" content="./author/tyler-hillery.html">
+  <meta property="article:section" content="Projects"/>
+  <meta property="article:tag" content="Open-Source"/>
+  <meta property="article:tag" content="Projects"/>
+  <meta property="article:tag" content="dbt"/>
+  <meta property="article:tag" content="Preset"/>
+  <meta property="article:tag" content="Dagster"/>
+  <meta property="article:tag" content="Airbyte"/>
+  <meta property="article:tag" content="BigQuery"/>
+  <meta property="og:image" content="/images/profile.png">
+
+  <title>Tyler Hillery &ndash; Stock Market Data Pipeline</title>
+
+</head>
+<body >
+  <aside>
+    <div>
+      <a href="./">
+        <img src="/images/profile.png" alt="Tyler Hillery" title="Tyler Hillery">
+      </a>
+
+      <h1>
+        <a href="./">Tyler Hillery</a>
+      </h1>
+
+<p>Data Enthusiast & Lifelong Learner</p>
+
+      <nav>
+        <ul class="list">
+
+
+              <li>
+                <a target="_self"
+                   href="./pages/about.html#about">
+                  About
+                </a>
+              </li>
+              <li>
+                <a target="_self"
+                   href="./pages/contact.html#contact">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a target="_self"
+                   href="./pages/projects.html#projects">
+                  Projects
+                </a>
+              </li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+          <li>
+            <a  class="sc-github" href="https://github.com/TylerHillery" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-linkedin" href="https://www.linkedin.com/in/tylerhillery/" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_TylerHillery" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-envelope" href="mailto:tyhillery@gmail.com" target="_blank">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="./">Home</a>
+
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/projects.html">Projects</a>
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="Stock-Market-Data-Pipeline">Stock Market Data Pipeline</h1>
+    <p>
+      Posted on Wed 30 March 2022 in <a href="./category/projects.html">Projects</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <hr>
+<h4><strong>Project Overview</strong></h4>
+<p>Purpose of this project was to get more experience building an end to end data pipeline. I also used an opportunity to learn about different tooling in the modern data stack. For the scope of this project I wanted to limit the amount of stocks to only those in the S&amp;P 500 index and I am only refreshing the data once a day after market close to get the most recent closing price.</p>
+<h5><strong>Data Pipeline Diagram</strong></h5>
+<p><a href="https://github.com/TylerHillery/Stock-Market-Data" target="_blank">
+  <img src="/images/stock-market-data-pipeline.png" alt="data-pipeline"  width="750" height ="450"/>
+</a></p>
+<h6><strong>1. Source, Extraction &amp; Storage</strong></h6>
+<p><strong>Wikipedia</strong></p>
+<p>Wikipedia was used so I can retrieve an active list of the companies in the S&amp;P 500 index. I used a python package called <a href="https://beautiful-soup-4.readthedocs.io/en/latest/">Beautiful Soup</a> to scrape a table from this <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies">wiki page</a>. This table also provided me additional information about each company such as GICS Sector and Sub-Industry. After the wiki table is converted into a pandas data frame I export the data frame as a CSV file to a bucket on Google Cloud Storage. My original plan was to keep the file on a local folder but I ran into issues with the Airbyte connection later on that made it difficult to ingest a local file into BigQuery. Once the file was in cloud storage the Airbyte connection process was seamless.</p>
+<p><em>Side Note: While researching about exporting data frames to csv on google could storage I came across a method to load a data frame directly to a BigQuery table which seemed interesting. I didn't choose this way because I wanted to learn about Airbyte but I would be interested in trying this method in the future.</em><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>One road block that I ran into was some ticker symbols were not in the same format as how Yahoo Finance had them (e.g. BRK.B). This is why I had to replace the periods with a hyphen. </p>
+<div class="highlight"><pre><span></span><code><span class="nd">@op</span>
+<span class="k">def</span> <span class="nf">download_active_snp500_stocks</span><span class="p">():</span>
+    <span class="n">wikiurl</span> <span class="o">=</span> <span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_S%26P_500_companies&quot;</span>
+    <span class="n">response</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">wikiurl</span><span class="p">)</span>
+
+    <span class="c1">#Parse data from html into a beautifulsoup object</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="n">snp500tbl</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s2">&quot;wikitable&quot;</span><span class="p">},{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;constituents&#39;</span><span class="p">})</span>
+
+    <span class="c1">#Convert wiki table into python data frame</span>
+    <span class="n">snp500df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">snp500tbl</span><span class="p">)))</span>
+    <span class="n">snp500df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">snp500df</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1">#replace . in symbols with - to match yfinance format</span>
+    <span class="n">snp500list</span> <span class="o">=</span> <span class="n">snp500df</span><span class="p">[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">snp500list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ticker</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">ticker</span> <span class="k">else</span> <span class="n">ticker</span> <span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">snp500list</span> <span class="p">]</span>
+
+    <span class="c1">#export data frame as csv to google could storage</span>
+    <span class="n">bucket</span><span class="o">.</span><span class="n">blob</span><span class="p">(</span><span class="s1">&#39;data_sync/SnP500Companies.csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upload_from_string</span><span class="p">(</span><span class="n">snp500df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;text/csv&#39;</span><span class="p">)</span>
+
+    <span class="c1">#return list of tickers </span>
+    <span class="k">return</span> <span class="n">snp500list</span>
+</code></pre></div>
+
+<p><strong>Yahoo Finance</strong></p>
+<p>Yahoo Finance was used to retrieve stock price data for each company in the list. I used <a href="https://github.com/ranaroussi/yfinance">yfinance</a> to retrieve YTD price information &amp; <a href="https://pandas-datareader.readthedocs.io/en/latest/readers/yahoo.html">pandas_datareader</a> to get current quote information which provided me with additional data about the company like market cap. Originally I tried to use yfiance's <code>.info</code> method to get market cap but was running into errors when using the method on a large list of stocks. Pandas Datareader was much faster and I may end up even refactoring the code to also retrieve the YTD price information with this package as well. </p>
+<p>The two Dagster op's download_price_data and download quote data do essentially the same thing the only difference is I am doing <code>yf.download</code> opposed to <code>pdr.get_quote_yahoo</code> to get different data. Originally I had both of these loops in the same op but with Dagster I can run them concurrently and since it takes awhile for the download_price_data to finish I can have other jobs start running upstream that depend on the quote data before download_price_data even finishes. After each op finishes it exports the data frame as a CSV to a bucket on Google Cloud Storage. </p>
+<div class="highlight"><pre><span></span><code><span class="nd">@op</span>
+<span class="k">def</span> <span class="nf">download_quote_data</span><span class="p">(</span><span class="n">snp500list</span><span class="p">):</span>
+    <span class="n">quoteDataList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span> 
+    <span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">snp500list</span><span class="p">:</span>        
+        <span class="c1">#Getting current yahoo quote data from pandas data reader</span>
+        <span class="n">quoteData</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_quote_yahoo</span><span class="p">(</span><span class="n">ticker</span><span class="p">)</span>
+        <span class="n">quoteData</span><span class="p">[</span><span class="s1">&#39;AsOfDataTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">quoteDataList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">quoteData</span><span class="p">)</span>
+
+    <span class="c1"># combine all dataframes into a single dataframe</span>
+    <span class="n">quoteDataDf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">quoteDataList</span><span class="p">)</span>
+
+    <span class="c1">#adding name data frame index</span>
+    <span class="n">quoteDataDf</span> <span class="o">=</span> <span class="n">quoteDataDf</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;ticker&#39;</span><span class="p">)</span> 
+
+    <span class="c1">#Export dataframes as csv to google cloud storage      </span>
+    <span class="n">bucket</span><span class="o">.</span><span class="n">blob</span><span class="p">(</span><span class="s1">&#39;data_sync/QuoteData.csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upload_from_string</span><span class="p">(</span><span class="n">quoteDataDf</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;text/csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h6><strong>2. Load</strong></h6>
+<p>Loading the CSV files into BigQuery was a breeze... after countless hours trying to figure out how to configure Airbyte to load a local CSV file. I gave up on that method and instead I decided to store the CSV files store on Google Cloud Storage &amp; once I made that change the set up process was very straight forward. I was really impressed the ease of creating a connection. I have experience with SSIS which is a legacy ETL tool &amp; the Airbyte experience was refreshing. With the movement to ELT oppose to ETL, I believe it has made it easier for these new tools to specialize on developing these connections. SSIS was tasked to do too much, jack of trades &amp; master of none. I have several times Visual Studio will crash &amp; the package wont load or the package runs indefinitely. </p>
+<p>The integration with Dagster was also very helpful. I was able to define my Airbyte resource and configure my connections so when the CSV files were upload it immediately triggered Airbyte to run and load the data into BigQuery. 
+<img src="\images\dagster_UI.jpg" alt="Dashboard"  width="750" height ="400"/></p>
+<h6><strong>3. Transform</strong></h6>
+<p>After the data is loaded into some raw tables on BigQuery it's time to start transforming the data. Many people may wonder what does "transforming data" all entail because that was one of the first questions I had when learning about ETL/ELT. Transforming data could be anything from changing data types, fixing date formats, in my case I had to adjust the ticker symbols to replace all periods with a hyphen so I can join on the field later on. </p>
+<p>After we do some of these light transformations we can start modeling our data &amp; adding some business logic to it. This is where we start creating fact &amp; dimension tables. </p>
+<blockquote>
+<p><strong>Fact tables</strong> <em>are tables whose records are immutable "facts", such as service logs and measurement information. Records are progressively appended into the table in a streaming fashion or in large chunks. The records stay there until they're removed because of cost or because they've lost their value. Records are otherwise never updated<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</em>  </p>
+<p><strong>Dimension tables</strong>:
+<em>Hold reference data, such as lookup tables from an entity identifier to its properties
+Hold snapshot-like data in tables whose entire contents change in a single transaction<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</em></p>
+</blockquote>
+<p>I created a dim_companies table which is suppose to represent additional information about the company that doesn't frequently change (name, region, exchange, HQ location, GICS sector &amp; industry). I also created a dim_GICS table which was very specific to the visualization I created for this project. I needed a way to have the GICS Sub-industry on the x axis so I had to convert them into numeric values. I was able to use the <code>DENSE_RANK</code> function to help with this. I have been trying to learn more about
+SQL window functions as well so this was a create way to practice. </p>
+<p>The last table I created was the fct_price_data which has the all the YTD price data for each company and then I also joined on some additional data about the company from the dim_companies table. The one thing I am very proud of in this table is the use of a CTE and another windows function called <code>LAG</code>. I was able to calculate the 1 day performance of each stock for every record by partitioning the data by ticker and ordering it by date. The <code>LAG</code> function then allows me to look at the prior record so I can grab the previous market close price and use it to calculate the one day performance. </p>
+<p>Since I also had the market cap of each company I was able to also calculate the attribution of each stock by taking the weighted return. Once again I had to use a windows function so I can take the market cap of each individual company divided by the total market cap of the S&amp;P 500 index. Summing all the weighted returns of each stock was able to give me the 1 day performance for the S&amp;P 500 index.</p>
+<h6><strong>4. Visualize</strong></h6>
+<p><img src="\images\preset-dashboard.jpg" alt="Dashboard"  width="750" height ="400"/></p>
+<p>For the visualization I took inspiration from <a href="https://finviz.com/bubbles.ashx">finviz</a> bubble chart which I believe does a great job of displaying how the market performed that day. The dashboard can lead to a lot of further questions about why specific sectors underperformed or outperformed. It also clearly shows any outliers which may leave you wondering what the story is behind that stock. </p>
+<h6><strong>5. Conclusion</strong></h6>
+<p>There are many things I would still like to add to this project.</p>
+<ul>
+<li>Ability to pick custom date ranges oppose to just 1 day performance</li>
+<li>Have data refreshed more frequently </li>
+<li>Account for days where market is closed</li>
+<li>More stocks</li>
+<li>Add additional graphs like a tree heat map</li>
+</ul>
+<p>Overall, I am very happy with the outcome with this project. I was able to learn a lot about the modern data stack and it also really helped me improve upon my technical skills. </p>
+<hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://cloud.google.com/bigquery/docs/samples/bigquery-load-table-dataframe">https://cloud.google.com/bigquery/docs/samples/bigquery-load-table-dataframe</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://docs.microsoft.com/en-us/azure/data-explorer/kusto/concepts/fact-and-dimension-tables">https://docs.microsoft.com/en-us/azure/data-explorer/kusto/concepts/fact-and-dimension-tables</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/open-source.html">Open-Source</a>
+      <a href="./tag/projects.html">Projects</a>
+      <a href="./tag/dbt.html">dbt</a>
+      <a href="./tag/preset.html">Preset</a>
+      <a href="./tag/dagster.html">Dagster</a>
+      <a href="./tag/airbyte.html">Airbyte</a>
+      <a href="./tag/bigquery.html">BigQuery</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="./Career-Path.html" title="From Non-STEM Major to BI Developer">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+  </div>
+
+
+
+<!-- Disqus -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'tylerblogs';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+    Please enable JavaScript to view comments.
+</noscript>
+<!-- End Disqus -->
+</article>
+
+    <footer>
+<p>&copy; 2022 Tyler Hillery</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> based on <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+  <span class="footer-separator">|</span>
+  Switch to the <a href="javascript:void(0)" onclick="theme.switch(`dark`)">dark</a> | <a href="javascript:void(0)" onclick="theme.switch(`light`)">light</a> | <a href="javascript:void(0)" onclick="theme.switch(`browser`)">browser</a> theme
+  <script id="dark-theme-script"
+          src="./theme/dark-theme/dark-theme.min.js"
+          data-enable-auto-detect-theme="True"
+          data-default-theme="dark"
+          type="text/javascript">
+  </script>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tyler Hillery ",
+  "url" : ".",
+  "image": "/images/profile.png",
+  "description": "Tyler's Thoughts and Writings"
+}
+</script>
+
+</body>
+</html>
