@@ -14,7 +14,6 @@ THEME_COLOR_AUTO_DETECT_BROWSER_PREFERENCE = True #Uses clients light/dark mode 
 THEME_COLOR = 'dark' #default is dark
 PYGMENTS_STYLE = 'pastie'
 PYGMENTS_STYLE_DARK = 'monokai'
-GITHUB_CORNER_URL = "https://github.com/TylerHillery"
 
 #Menu items which are show on top of the page
 MAIN_MENU = True

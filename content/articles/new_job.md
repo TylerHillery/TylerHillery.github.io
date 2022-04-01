@@ -5,7 +5,7 @@ Category: Blog
 Tags: Career
 Slug: Career-Path
 Authors: Tyler Hillery
-Summary: I graduated with a degree in Finance & 2 years later I'm a Business Intelligence Developer. How did I do it? Follow my career journey starting from my original aspirations to be a civil engineer 6 years ago. 💰➡️📊
+Summary: I graduated with a degree in Finance & 2 years later I'm a Business Intelligence Developer. How did I do it? Follow my career journey starting from my original aspirations to be a civil engineer 6 years ago.
 Status: published
 
 ___
