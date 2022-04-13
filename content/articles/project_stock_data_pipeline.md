@@ -10,7 +10,7 @@ Summary: I wrote about my experience on setting up a data pipeline to help extra
 ____
 
 #### **Project Overview**
-Purpose of this project was to get more experience building an end to end data pipeline. I also used an opportunity to learn about different tooling in the modern data stack. For the scope of this project I wanted to limit the amount of stocks to only those in the S&P 500 index and I am only refreshing the data once a day after market close to get the most recent closing price.
+Purpose of this project was to get more experience building an end to end data pipeline. I also used it as an opportunity to learn about different tooling in the modern data stack. For the scope of this project I wanted to limit the amount of stocks to only those in the S&P 500 index and I am only refreshing the data once a day after market close to get the most recent closing price.
 
 ##### **Data Pipeline Diagram**
 <a href="https://github.com/TylerHillery/Stock-Market-Data" target="_blank">
