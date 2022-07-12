@@ -1,7 +1,7 @@
 Title: Why and How I Made My First Open Source Contribution
 Date: 2022-07-12 08:00
 Modified: 2022-07-12 08:00
-Category: Open Source
+Category: Blog
 Tags: Open Source, Documentation, dbt, git, GitHub
 Slug: getting-started-in-oss
 Authors: Tyler Hillery
