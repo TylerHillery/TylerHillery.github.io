@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+    <link id="dark-theme-style" rel="stylesheet" type="text/css"
+          media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"
+    href="./theme/stylesheet/dark-theme.min.css">
+
+    <link id="pygments-dark-theme" rel="stylesheet" type="text/css"
+              media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"
+          href="./theme/pygments/monokai.min.css">
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+              media="(prefers-color-scheme: light)"
+          href="./theme/pygments/pastie.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/solid.css">
+
+
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WMBW4XCBHK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WMBW4XCBHK');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="Tyler Hillery" />
+<meta name="description" content="My experience on why and how I made my first open source contribution and why you should too." />
+<meta name="keywords" content="Open Source, Documentation, dbt, git, GitHub">
+
+
+  <meta property="og:site_name" content="Tyler Hillery"/>
+  <meta property="og:title" content="Why and How I Made My First Open Source Contribution"/>
+  <meta property="og:description" content="My experience on why and how I made my first open source contribution and why you should too."/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="./getting-started-in-oss.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2022-07-12 08:00:00-05:00"/>
+  <meta property="article:modified_time" content="2022-07-12 08:00:00-05:00"/>
+  <meta property="article:author" content="./author/tyler-hillery.html">
+  <meta property="article:section" content="Open Source"/>
+  <meta property="article:tag" content="Open Source"/>
+  <meta property="article:tag" content="Documentation"/>
+  <meta property="article:tag" content="dbt"/>
+  <meta property="article:tag" content="git"/>
+  <meta property="article:tag" content="GitHub"/>
+  <meta property="og:image" content="/images/profile.png">
+
+  <title>Tyler Hillery &ndash; Why and How I Made My First Open Source Contribution</title>
+
+</head>
+<body >
+  <aside>
+    <div>
+      <a href="./">
+        <img src="/images/profile.png" alt="Tyler Hillery" title="Tyler Hillery">
+      </a>
+
+      <h1>
+        <a href="./">Tyler Hillery</a>
+      </h1>
+
+<p>Data Enthusiast & Lifelong Learner</p>
+
+      <nav>
+        <ul class="list">
+
+
+              <li>
+                <a target="_self"
+                   href="./pages/about.html#about">
+                  About
+                </a>
+              </li>
+              <li>
+                <a target="_self"
+                   href="./pages/contact.html#contact">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a target="_self"
+                   href="./pages/projects.html#projects">
+                  Projects
+                </a>
+              </li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+          <li>
+            <a  class="sc-github" href="https://github.com/TylerHillery" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-linkedin" href="https://www.linkedin.com/in/tylerhillery/" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_TylerHillery" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-envelope" href="mailto:tyhillery@gmail.com" target="_blank">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="./">Home</a>
+
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/projects.html">Projects</a>
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="getting-started-in-oss">Why and How I Made My First Open Source Contribution</h1>
+    <p>
+      Posted on Tue 12 July 2022 in <a href="./category/open-source.html">Open Source</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <hr>
+<h2><strong>Start With Why</strong></h2>
+<p>Why would I want to dedicate my free time to help out an open source project? Well there was many reasons as to why I wanted to do this:</p>
+<ul>
+<li>To give back</li>
+<li>Learn how to work on large active code base</li>
+<li>Be apart of a something bigger than me - a community.</li>
+</ul>
+<p>I wasn't just contributing to any open source project, this was <a href="https://github.com/dbt-labs/dbt-core">dbt</a>. Dbt is more than a tool that helps with transformation in your data warehouse, is it a community. A community built on empowering others to do more with data. It's even built into their company's <a href="https://www.getdbt.com/dbt-labs/values/">values:</a></p>
+<blockquote>
+<p><strong>We contribute to the knowledge loop</strong>.</p>
+<p>The highest goal of any human is to produce new knowledge that can subsequently be built upon by others. This is the process upon which every good thing in human society has been built. We participate in this most fundamental of human endeavors by thinking in public and defaulting to open source.</p>
+<p><strong>We believe in moving up the stack.</strong>.</p>
+<p>We believe that all team members should seek to replace themselves on an ongoing basis by building processes, technology, and documentation that obviate their existing work. We have an abundance mindset: there is always more, and more valuable, work to do. Moving up the stack presents growth opportunities for both the individual and the team.</p>
+</blockquote>
+<p>I first discovered dbt in 2021 because I kept hearing about the <em>"Modern Data Stack"</em> and had to know what the hype was about. This lead me to come across a video by Tristan Handy, who I soon discovered was the ceo &amp; co-founder of dbt, titled <a href="https://youtu.be/1Zj8gTLdf5s">The Modern Data Stack: Past, Present, Future</a>. This video was a turning point in my career &amp; life. It led me down a rabbit hole of reading through the <a href="https://roundup.getdbt.com/">Analytics Engineering Roundup</a>, <a href="https://www.getdbt.com/analytics-engineering/">The Analytics Engineering Guide</a>, <a href="https://www.getdbt.com/blog/">dbt blog</a> and discovering <a href="https://www.getdbt.com/blog/we-the-purple-people/">I am a purple person</a>. </p>
+<p>The best way I could describe what I was feeling after discovering this community was <em>understood</em>. Not even a few months later I even applied to dbt labs &amp; this is how I responded to a couple of their application questions (shortened). </p>
+<blockquote>
+<p><strong>Why is dbt Labs and this role appealing to you?</strong></p>
+<p>In a world of specialization, I have felt like a square peg being fit into a round hole. I was stuck at the intersection between the business &amp; technical domain. Discovering the practice of analytics engineering, pioneered by dbt Labs, has been empowering because it has defined a role that best fits my strengths. Leveraging my business &amp; technical skills to help disseminate organizational knowledge &amp; empower analysts. Working for dbt Labs appeals to me because I really believe in your mission, values &amp; product and it would be something I can really get behind...</p>
+<p><strong>What are you looking for in your next role?</strong></p>
+<p>In my next role I am looking for an opportunity for professional growth &amp; to work for a company whose mission I firmly believe in. Dbt labs has cultivated this movement of empowering analysts just like me: That is something I want to help contribute to. With dbt labs being on the forefront of new data technology &amp; principals (analytics engineering), I can't think of a better place that would help me grow professionally.</p>
+</blockquote>
+<p>Now I didn't get the role, which is understandable I only had couple months of dbt experience mainly from the <a href="https://courses.getdbt.com/courses/fundamentals">dbt fundamentals course</a> but the dbt Kool-Aid was so strong it made me overly confident in my abilities at the time. This didn't mean I couldn't be apart of the dbt community. Shortly after discovering dbt I found like minded individuals hang out at <a href="https://www.getdbt.com/community/join-the-community/">dbt-slack</a>, <a href="https://locallyoptimistic.com/">Locally Optimistic</a> and <a href="https://twitter.com/i/lists/1479532984269168645?s=20">Data Twitter</a>. I decided to enrich myself in this world without knowing the profound impact it would have on my career. </p>
+<p>One of the most memorable experiences I had was attending <a href="https://www.getdbt.com/coalesce-2021/">Coalesce 2021: The Analytics Engineering Conference</a>. I wanted to find ways to be more active in the virtual conference and found out someone came up with a clever <a href="https://coalesce.bingo/">Coalesce Bingo</a> game as a fun way to make the virtual conference more engaging. The creator was looking for some help on ideas for more squares and I wanted to contribute but there was a problem... I didn't really understand <a href="https://git-scm.com/">git</a>. </p>
+<p>My version of git was copying a file and moving it into a folder called "Backups". Luckily, the creator of the bingo game was kind enough to answer a few of my questions on how to open a pull request to have my idea for a square added. This interaction was very <em>enlightening</em> to me. You're telling me there are thousands of people out in there in the world collaborating on projects together without knowing each other? I mean, I have heard of open source software and projects before but to think I could just go ahead and start contributing to these projects myself was a profounding thing to me. It made me realize behind all these open source projects are just people like me. </p>
+<p>I knew if I wanted to start contributing to larger open source projects it would be best to get the hang of git. Coincidentally, there was a workshop going on at Coalesce 2021, <a href="https://www.getdbt.com/coalesce-2021/git-for-the-rest-of-us/">Git for the rest of us</a>. </p>
+<p><img src="/images/slack_chat_git.jpg" alt="slack-chat-git" /></p>
+<p>Of course I had to drop a git related pun.. </p>
+<p><img src="/images/slack_chat_git_2.jpg" alt="slack-chat-git-2" /></p>
+<p>My main takeaway from this conference was I wanted to not only be apart of this community but I want to contribute to it. It was then and there I made it a personal goal to start contributing to dbt. </p>
+<h2><strong>The How</strong></h2>
+<p>There are many ways to get involved with open source projects. One of the best ways to find something to work on is to find issues on GitHub tagged with "good first issue" and dbt team defines this tag in their <a href="https://docs.getdbt.com/docs/contributing/oss-expectations">OSS expectations</a> as:</p>
+<blockquote>
+<p>This issue does not require deep knowledge of the codebase to implement. This issue is appropriate for a first-time contributor.</p>
+</blockquote>
+<p>After looking into some issues I discovered this issue 👉🏻 <a href="https://github.com/dbt-labs/docs.getdbt.com/issues/1489">Add more adapters to the available adapters page</a>. One of those adapters happened to be <a href="https://github.com/jwills/dbt-duckdb/issues/6">DuckDB</a> which happens to be another open source project I am very interested in. This was perfect opportunity to get my feet wet in contributing to open source. It was extremely helpful the dbt team had <a href="https://docs.getdbt.com/docs/contributing/documenting-a-new-adapter">excellent documentation</a> on how to do this.</p>
+<p>I went ahead and followed the instructions outlined in the documentation and open up my <a href="https://github.com/dbt-labs/docs.getdbt.com/pull/1610">first ever PR</a> which was approved shortly after. I even gave a shout-out on the <code>#case-when</code> dbt-slack channel to thank all the people who helped along the way. </p>
+<p><img src="/images/slack_case_when.jpg" alt="slack-case-when" /></p>
+<h2><strong>Conclusion</strong></h2>
+<p>If you are someone who is interested or thought about getting contributing to open source, go for it! Look for projects which resonate you, that <em>you</em> believe in. This will drive you, motivate you to overcome areas you're unfamiliar with. Join the communities who support these projects and don't be afraid to reach out for help. Remember everyone was once where you were. Behind all open source projects and software are people just like you.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/open-source.html">Open Source</a>
+      <a href="./tag/documentation.html">Documentation</a>
+      <a href="./tag/dbt.html">dbt</a>
+      <a href="./tag/git.html">git</a>
+      <a href="./tag/github.html">GitHub</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="./learning-log.html" title="Make a Public Commitment to Learn">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+  </div>
+
+
+
+<!-- Disqus -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'tylerblogs';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+    Please enable JavaScript to view comments.
+</noscript>
+<!-- End Disqus -->
+</article>
+
+    <footer>
+<p>&copy; 2022 Tyler Hillery</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> based on <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+  <span class="footer-separator">|</span>
+  Switch to the <a href="javascript:void(0)" onclick="theme.switch(`dark`)">dark</a> | <a href="javascript:void(0)" onclick="theme.switch(`light`)">light</a> | <a href="javascript:void(0)" onclick="theme.switch(`browser`)">browser</a> theme
+  <script id="dark-theme-script"
+          src="./theme/dark-theme/dark-theme.min.js"
+          data-enable-auto-detect-theme="True"
+          data-default-theme="dark"
+          type="text/javascript">
+  </script>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Tyler Hillery ",
+  "url" : ".",
+  "image": "/images/profile.png",
+  "description": "Tyler's Thoughts and Writings"
+}
+</script>
+
+</body>
+</html>
