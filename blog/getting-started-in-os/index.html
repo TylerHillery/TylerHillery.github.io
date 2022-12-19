@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tyler Hillery">
+<meta name="dcterms.date" content="2022-07-12">
+<meta name="description" content="My experience on why and how I made my first open source contribution and why you should too.">
+
+<title>Tyler Hillery - Why and How I Made My First Open Source Contribution</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Tyler Hillery</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/TylerHillery"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/_TylerHillery"><i class="bi bi-mastodon" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://data-folks.masto.host/@TylerHillery"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Why and How I Made My First Open Source Contribution</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Open Source</div>
+    <div class="quarto-category">dbt</div>
+    <div class="quarto-category">duckdb</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    My experience on why and how I made my first open source contribution and why you should too.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tyler Hillery </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 12, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="start-with-why" class="level2">
+<h2 class="anchored" data-anchor-id="start-with-why"><strong>Start With Why</strong></h2>
+<p>Why would I want to dedicate my free time to help out an open source project? Well there was many reasons as to why I wanted to do this:</p>
+<ul>
+<li>To give back</li>
+<li>Learn how to work on large active code base</li>
+<li>Be apart of a something bigger than me - a community.</li>
+</ul>
+<p>I wasn’t just contributing to any open source project, this was <a href="https://github.com/dbt-labs/dbt-core">dbt</a>. Dbt is more than a tool that helps with transformation in your data warehouse, is it a community. A community built on empowering others to do more with data. It’s even built into their company’s <a href="https://www.getdbt.com/dbt-labs/values/">values:</a></p>
+<blockquote class="blockquote">
+<p><strong>We contribute to the knowledge loop</strong>.<br>
+The highest goal of any human is to produce new knowledge that can subsequently be built upon by others. This is the process upon which every good thing in human society has been built. We participate in this most fundamental of human endeavors by thinking in public and defaulting to open source.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>We believe in moving up the stack.</strong>.<br>
+We believe that all team members should seek to replace themselves on an ongoing basis by building processes, technology, and documentation that obviate their existing work. We have an abundance mindset: there is always more, and more valuable, work to do. Moving up the stack presents growth opportunities for both the individual and the team.</p>
+</blockquote>
+<p>I first discovered dbt in 2021 because I kept hearing about the <em>“Modern Data Stack”</em> and had to know what the hype was about. This lead me to come across a video by Tristan Handy, who I soon discovered was the ceo &amp; co-founder of dbt, titled <a href="https://youtu.be/1Zj8gTLdf5s">The Modern Data Stack: Past, Present, Future</a>. This video was a turning point in my career &amp; life. It led me down a rabbit hole of reading through the <a href="https://roundup.getdbt.com/">Analytics Engineering Roundup</a>, <a href="https://www.getdbt.com/analytics-engineering/">The Analytics Engineering Guide</a>, <a href="https://www.getdbt.com/blog/">dbt blog</a> and discovering <a href="https://www.getdbt.com/blog/we-the-purple-people/">I am a purple person</a>.</p>
+<p>The best way I could describe what I was feeling after discovering this community was <em>understood</em>. Not even a few months later I even applied to dbt labs &amp; this is how I responded to a couple of their application questions (shortened).</p>
+<blockquote class="blockquote">
+<p><strong>Why is dbt Labs and this role appealing to you?</strong><br>
+In a world of specialization, I have felt like a square peg being fit into a round hole. I was stuck at the intersection between the business &amp; technical domain. Discovering the practice of analytics engineering, pioneered by dbt Labs, has been empowering because it has defined a role that best fits my strengths. Leveraging my business &amp; technical skills to help disseminate organizational knowledge &amp; empower analysts. Working for dbt Labs appeals to me because I really believe in your mission, values &amp; product and it would be something I can really get behind…</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>What are you looking for in your next role?</strong><br>
+In my next role I am looking for an opportunity for professional growth &amp; to work for a company whose mission I firmly believe in. Dbt labs has cultivated this movement of empowering analysts just like me: That is something I want to help contribute to. With dbt labs being on the forefront of new data technology &amp; principals (analytics engineering), I can’t think of a better place that would help me grow professionally.</p>
+</blockquote>
+<p>Now I didn’t get the role, which is understandable I only had couple months of dbt experience mainly from the <a href="https://courses.getdbt.com/courses/fundamentals">dbt fundamentals course</a> but the dbt Kool-Aid was so strong it made me overly confident in my abilities at the time. This didn’t mean I couldn’t be apart of the dbt community. Shortly after discovering dbt I found like minded individuals hang out at <a href="https://www.getdbt.com/community/join-the-community/">dbt-slack</a>, <a href="https://locallyoptimistic.com/">Locally Optimistic</a> and <a href="https://twitter.com/i/lists/1479532984269168645?s=20">Data Twitter</a>. I decided to enrich myself in this world without knowing the profound impact it would have on my career.</p>
+<p>One of the most memorable experiences I had was attending <a href="https://www.getdbt.com/coalesce-2021/">Coalesce 2021: The Analytics Engineering Conference</a>. I wanted to find ways to be more active in the virtual conference and found out someone came up with a clever <a href="https://coalesce.bingo/">Coalesce Bingo</a> game as a fun way to make the virtual conference more engaging. The creator was looking for some help on ideas for more squares and I wanted to contribute but there was a problem… I didn’t really understand <a href="https://git-scm.com/">git</a>.</p>
+<p>My version of git was copying a file and moving it into a folder called “Backups”. Luckily, the creator of the bingo game was kind enough to answer a few of my questions on how to open a pull request to have my idea for a square added. This interaction was very <em>enlightening</em> to me. You’re telling me there are thousands of people out in there in the world collaborating on projects together without knowing each other? I mean, I have heard of open source software and projects before but to think I could just go ahead and start contributing to these projects myself was a profounding thing to me. It made me realize behind all these open source projects are just people like me.</p>
+<p>I knew if I wanted to start contributing to larger open source projects it would be best to get the hang of git. Coincidentally, there was a workshop going on at Coalesce 2021, <a href="https://www.getdbt.com/coalesce-2021/git-for-the-rest-of-us/">Git for the rest of us</a>.</p>
+<p><img src="../../assets/images/slack_chat_git.jpg" alt="slack-chat-git" width="800/"></p>
+<p>Of course I had to drop a git related pun..</p>
+<p><img src="../../assets/images/slack_chat_git_2.jpg" alt="slack-chat-git-2"></p>
+<p>My main takeaway from this conference was I wanted to not only be apart of this community but I want to contribute to it. It was then and there I made it a personal goal to start contributing to dbt.</p>
+</section>
+<section id="the-how" class="level2">
+<h2 class="anchored" data-anchor-id="the-how"><strong>The How</strong></h2>
+<p>There are many ways to get involved with open source projects. One of the best ways to find something to work on is to find issues on GitHub tagged with “good first issue” and dbt team defines this tag in their <a href="https://docs.getdbt.com/docs/contributing/oss-expectations">OSS expectations</a> as:</p>
+<blockquote class="blockquote">
+<p>This issue does not require deep knowledge of the codebase to implement. This issue is appropriate for a first-time contributor.</p>
+</blockquote>
+<p>After looking into some issues I discovered this issue 👉🏻 <a href="https://github.com/dbt-labs/docs.getdbt.com/issues/1489">Add more adapters to the available adapters page</a>. One of those adapters happened to be <a href="https://github.com/jwills/dbt-duckdb/issues/6">DuckDB</a> which happens to be another open source project I am very interested in. This was perfect opportunity to get my feet wet in contributing to open source. It was extremely helpful the dbt team had <a href="https://docs.getdbt.com/docs/contributing/documenting-a-new-adapter">excellent documentation</a> on how to do this.</p>
+<p>I went ahead and followed the instructions outlined in the documentation and open up my <a href="https://github.com/dbt-labs/docs.getdbt.com/pull/1610">first ever PR</a> which was approved shortly after. I even gave a shout-out on the <code>#case-when</code> dbt-slack channel to thank all the people who helped along the way.</p>
+<p><img src="../../assets/images/slack_case_when.jpg" alt="slack-case-when" width="800"></p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion"><strong>Conclusion</strong></h2>
+<p>If you are someone who is interested or thought about getting contributing to open source, go for it! Look for projects which resonate you, that <em>you</em> believe in. This will drive you, motivate you to overcome areas you’re unfamiliar with. Join the communities who support these projects and don’t be afraid to reach out for help. Remember everyone was once where you were. Behind all open source projects and software are people just like you.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
