@@ -1,18 +1,18 @@
 [
   {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/learning-log/index.html",
+      "/projects/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/blog/getting-started-in-os/index.html",
       "/blog/learning-log/index.html",
       "/blog/stock-market-data-pipeline/index.html",
       "/notes/index.html"
-    ]
-  },
-  {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/learning-log/index.html",
-      "/projects/stock-market-data-pipeline/index.html"
     ]
   }
 ]
