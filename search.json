@@ -37,9 +37,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Tyler Hillery",
     "section": "",
-    "text": "I’m a self proclaimed Data practitioner & Lifelong learner with interests in data infrastructure, engineering, distributed systems, programming, analytics, OSS, data processing & storage.\nI currently work at Nasdaq as an Analytics Engineering focusing on customer facing analytics.\nMy ambition is to help build systems, infrastructure and technology that makes data more accessible.\nBefore pursing a career in data, I wanted to work in investment management. I graduated Dec 2019 with a B.S. in Finance.\nMy first job out of college was in the investment management department of a fortune 650 insurance company. It wasn’t till after I passed the CFA level 1 exam that I knew this wasn’t the career for me. What I did discover was my interest in data and technology.\nI started working on my technical skills through various resources (MOOCs, Books, YouTube, Side Projects). I went from Data Analyst –> BI Developer –> Analytics Engineer all within one year. I have found the Analytics Engineer role really fits me as a purple person and generalist.\nI spend most of free time filling in my knowledge gaps about core Computer Science topics. As a finance major I have a lot of catching up to do 🙂\nOutside of data and technology:\n\nI have a beautiful fiance who has a passion for bodybuilding\nI have a twin brother\nCurrently live in Wisconsin\nBig fan of the Milwaukee Bucks #BucksIn6\nOccasional CrossFitter\nI co-authored a paper Inside the hiring process: how managers assess employability based on grit, the big five, and other factors"
+    "text": "Data practitioner & Lifelong learner with interests in data infrastructure, engineering, distributed systems, programming, analytics, OSS, data processing & storage.\nI currently work at Nasdaq as an Analytics Engineering focusing on customer facing analytics.\nMy ambition is to help build systems, infrastructure and technology that makes data more accessible.\nBefore pursing a career in data, I wanted to work in investment management. I graduated Dec 2019 with a B.S. in Finance.\nMy first job out of college was in the investment management department of a fortune 650 insurance company. It wasn’t till after I passed the CFA level 1 exam that I knew this wasn’t the career for me. What I did discover was my interest in data and technology.\nI started working on my technical skills through various resources (MOOCs, Books, YouTube, Side Projects). I went from Data Analyst –> BI Developer –> Analytics Engineer all within one year. I have found the Analytics Engineer role really fits me as a purple person and generalist.\nI spend most of free time filling in my knowledge gaps about core Computer Science topics.\nOutside of data and technology:\n\nI have a beautiful fiance who has a passion for bodybuilding\nI have a twin brother\nCurrently live in Wisconsin\nBig fan of the Milwaukee Bucks #BucksIn6\nOccasional CrossFitter\nI co-authored a paper Inside the hiring process: how managers assess employability based on grit, the big five, and other factors"
   },
   {
     "objectID": "projects.html",
@@ -63,10 +63,87 @@
     "text": "Notes\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nQuarto Reference Notes\n\n\n\n\n\nCool things that you can do with Quarto that I want to be able to reference back to\n\n\n\n\n\n\nDec 25, 2022\n\n\nTyler Hillery\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "notes/index.html",
-    "href": "notes/index.html",
+    "objectID": "notes/quarto-reference/index.html",
+    "href": "notes/quarto-reference/index.html",
     "title": "Quarto Reference Notes",
     "section": "",
-    "text": "This is a test"
+    "text": "Markdown Syntax\nOutput\n\n\n\n\n*italics* and **bold**\nitalics and bold\n\n\nsuperscript^2^ / subscript~2~\nsuperscript2 / subscript2\n\n\n~~strikethrough~~\nstrikethrough\n\n\n`verbatim code`\nverbatim code\n\n\n>quote block\n\nquote block"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#headings",
+    "href": "notes/quarto-reference/index.html#headings",
+    "title": "Quarto Reference Notes",
+    "section": "Headings",
+    "text": "Headings\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n# Header 1\nHeader 1\n\n\n## Header 2\nHeader 2\n\n\n### Header 3\nHeader 3\n\n\n#### Header 4\nHeader 4\n\n\n##### Header 5\nHeader 5\n\n\n###### Header 6\nHeader 6"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#links-images",
+    "href": "notes/quarto-reference/index.html#links-images",
+    "title": "Quarto Reference Notes",
+    "section": "Links & Images",
+    "text": "Links & Images\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n<https://quarto.org>\nhttps://quarto.org\n\n\n[Quarto](https://quarto.org)\nQuarto\n\n\n![Caption](elephant.png)\n\n\n\n[![Caption](elephant.png)](https://quarto.org)\n\n\n\n[![Caption](elephant.png)](https://quarto.org \"An elephant\")\n\n\n\n[![](elephant.png){fig-alt=\"Alt text\"}](https://quarto.org)"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#lists",
+    "href": "notes/quarto-reference/index.html#lists",
+    "title": "Quarto Reference Notes",
+    "section": "Lists",
+    "text": "Lists\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n* unordered list\n    + sub-item 1\n    + sub-item 2\n        - sub-sub-item 1\n\nunordered list\n\nsub-item 1\nsub-item 2\n\nsub-sub-item 1\n\n\n\n\n\n*   item 2\n\n    Continued (indent 4 spaces)\n\nitem 2\nContinued (indent 4 spaces)\n\n\n\n1. ordered list\n2. item 2\n    i) sub-item 1\n         A.  sub-sub-item 1\n\nordered list\nitem 2\n\nsub-item 1\n\nsub-sub-item 1\n\n\n\n\n\n(@)  A list whose numbering\n\ncontinues after\n\n(@)  an interruption\n\nA list whose numbering\n\ncontinues after\n\nan interruption\n\n\n\nterm\n: definition\n\nterm\n\ndefinition"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#tables",
+    "href": "notes/quarto-reference/index.html#tables",
+    "title": "Quarto Reference Notes",
+    "section": "Tables",
+    "text": "Tables\nMarkdown Syntax\n| Right | Left | Default | Center |\n|------:|:-----|---------|:------:|\n|   12  |  12  |    12   |    12  |\n|  123  |  123 |   123   |   123  |\n|    1  |    1 |     1   |     1  |\nOutput\n\n\n\nRight\nLeft\nDefault\nCenter\n\n\n\n\n12\n12\n12\n12\n\n\n123\n123\n123\n123\n\n\n1\n1\n1\n1\n\n\n\n\nTable Cross Reference\nFor tables produced by executable code cells, include a label with a tbl- prefix to make them cross-referenceable. For example:\n\n```{python}\n#| label: tbl-planets\n#| tbl-cap: Planets\n#| tbl-column: margin\nfrom IPython.display import Markdown\nfrom tabulate import tabulate\ntable = [[\"Sun\",696000,1989100000],\n         [\"Earth\",6371,5973.6],\n         [\"Moon\",1737,73.5],\n         [\"Mars\",3390,641.85]]\nMarkdown(tabulate(\n  table, \n  headers=[\"Planet\",\"R (km)\", \"mass (x 10^29 kg)\"]\n))\n```\n\n\n\n\nTable 1: Planets\n\n\nPlanet\nR (km)\nmass (x 10^29 kg)\n\n\n\n\nSun\n696000\n1.9891e+09\n\n\nEarth\n6371\n5973.6\n\n\nMoon\n1737\n73.5\n\n\nMars\n3390\n641.85"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#source-code",
+    "href": "notes/quarto-reference/index.html#source-code",
+    "title": "Quarto Reference Notes",
+    "section": "Source Code",
+    "text": "Source Code\nUse ``` to delimit blocks of source code:\n```python\na_string = \"hello world\"\nprint(a_string)\n```"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#equations",
+    "href": "notes/quarto-reference/index.html#equations",
+    "title": "Quarto Reference Notes",
+    "section": "Equations",
+    "text": "Equations\nUse $ delimiters for inline math and $$ delimiters for display math. For example:\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\ninline math: $E = mc^{2}$\ninline math: \\(E=mc^{2}\\)\n\n\ndisplay math:\n\n$$E = mc^{2}$$\ndisplay math:\n\\[E = mc^{2}\\]"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#diagrams",
+    "href": "notes/quarto-reference/index.html#diagrams",
+    "title": "Quarto Reference Notes",
+    "section": "Diagrams",
+    "text": "Diagrams\nQuarto has native support for embedding Mermaid and Graphviz diagrams. This enables you to create flowcharts, sequence diagrams, state diagrams, gnatt charts, and more using a plain text syntax inspired by markdown.\nFor example, here we embed a flowchart created using Mermaid:\n\n```{mermaid}\nflowchart LR\n  A[Hard edge] --> B(Round edge)\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]\n```\n\n\n\nflowchart LR\n  A[Hard edge] --> B(Round edge)\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#videos",
+    "href": "notes/quarto-reference/index.html#videos",
+    "title": "Quarto Reference Notes",
+    "section": "Videos",
+    "text": "Videos\nYou can include videos in documents using the {{< video >}} shortcode. For example, here we embed a YouTube video:\n\nVideos can refer to video files (e.g. MPEG) or can be links to videos published on YouTube, Vimeo, or BrightCove."
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#page-breaks",
+    "href": "notes/quarto-reference/index.html#page-breaks",
+    "title": "Quarto Reference Notes",
+    "section": "Page Breaks",
+    "text": "Page Breaks\nThe pagebreak shortcode enables you to insert a native pagebreak into a document (.e.g in LaTeX this would be a \\newpage, in MS Word a docx-native pagebreak, in HTML a page-break-after: always CSS directive, etc.):\npage 1\n{{< pagebreak >}}\npage 2\nNative pagebreaks are supported for HTML, LaTeX, Context, MS Word, Open Document, and ePub (for other formats a form-feed character \\f is inserted)."
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#callout-blocks",
+    "href": "notes/quarto-reference/index.html#callout-blocks",
+    "title": "Quarto Reference Notes",
+    "section": "Callout Blocks",
+    "text": "Callout Blocks\n\nMarkdown Syntax\n:::{.callout-note}\nNote that there are five types of callouts, including: \n`note`, `tip`, `warning`, `caution`, and `important`.\n:::\n\n\nOutput\n\n\n\n\n\n\nNote\n\n\n\n\n\nNote that there are five types of callouts, including note, tip, warning, caution, and important. There are 3 different styles simple,minimal,default."
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#code-blocks",
+    "href": "notes/quarto-reference/index.html#code-blocks",
+    "title": "Quarto Reference Notes",
+    "section": "Code Blocks",
+    "text": "Code Blocks\nFor a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\nFigure 1: A line plot on a polar axis\n\n\n\n\n\nInline Code\nTo include executable expressions within markdown in a Python notebook, you use IPython.display.Markdown to dynamically generate markdown from within an ordinary code cell. For example, if we have a variable radius we can use it within markdown as follows:\n\n\nCode\nradius = 10\nfrom IPython.display import display, Markdown\ndisplay(Markdown(f\"\"\"\nThe radius of the circle is {radius}.\n\"\"\"))\n\n\nThe radius of the circle is 10."
   }
 ]

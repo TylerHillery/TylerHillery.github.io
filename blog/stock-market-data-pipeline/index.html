@@ -125,12 +125,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -185,8 +186,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -247,48 +252,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wikipedia was used so I can retrieve an active list of the companies in the S&amp;P 500 index. I used a python package called <a href="https://beautiful-soup-4.readthedocs.io/en/latest/">Beautiful Soup</a> to scrape a table from this <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies">wiki page</a>. This table also provided me additional information about each company such as GICS Sector and Sub-Industry. After the wiki table is converted into a pandas data frame I export the data frame as a CSV file to a bucket on Google Cloud Storage. My original plan was to keep the file on a local folder but I ran into issues with the Airbyte connection later on that made it difficult to ingest a local file into BigQuery. Once the file was in cloud storage the Airbyte connection process was seamless.</p>
 <p><em>Side Note: While researching about exporting data frames to csv on google could storage I came across a method to load a data frame directly to a BigQuery table which seemed interesting. I didn’t choose this way because I wanted to learn about Airbyte but I would be interested in trying this method in the future.</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>One road block that I ran into was some ticker symbols were not in the same format as how Yahoo Finance had them (e.g.&nbsp;BRK.B). This is why I had to replace the periods with a hyphen.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">@op</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_active_snp500_stocks():</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    wikiurl <span class="op">=</span> <span class="st">"https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    response<span class="op">=</span>requests.get(wikiurl)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Parse data from html into a beautifulsoup object</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    soup <span class="op">=</span> BeautifulSoup(response.text, <span class="st">'html.parser'</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    snp500tbl <span class="op">=</span> soup.find(<span class="st">'table'</span>,{<span class="st">'class'</span>:<span class="st">"wikitable"</span>},{<span class="st">'id'</span>:<span class="st">'constituents'</span>})</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Convert wiki table into python data frame</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    snp500df <span class="op">=</span> pd.read_html((<span class="bu">str</span>(snp500tbl)))</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    snp500df <span class="op">=</span> pd.DataFrame(snp500df[<span class="dv">0</span>])</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#replace . in symbols with - to match yfinance format</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    snp500list <span class="op">=</span> snp500df[<span class="st">'Symbol'</span>].tolist()</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    snp500list <span class="op">=</span> [ticker.replace(<span class="st">'.'</span>,<span class="st">'-'</span>) <span class="cf">if</span> <span class="st">'.'</span> <span class="kw">in</span> ticker <span class="cf">else</span> ticker <span class="cf">for</span> ticker <span class="kw">in</span> snp500list ]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">#export data frame as csv to google could storage</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    bucket.blob(<span class="st">'data_sync/SnP500Companies.csv'</span>).upload_from_string(snp500df.to_csv(index<span class="op">=</span><span class="va">False</span>,sep<span class="op">=</span><span class="st">';'</span>,header<span class="op">=</span><span class="va">True</span>), <span class="st">'text/csv'</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">#return list of tickers </span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> snp500list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="at">@op</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">def</span> download_active_snp500_stocks():</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    wikiurl <span class="op">=</span> <span class="st">"https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    response<span class="op">=</span>requests.get(wikiurl)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="co">#Parse data from html into a beautifulsoup object</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    soup <span class="op">=</span> BeautifulSoup(response.text, <span class="st">'html.parser'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    snp500tbl <span class="op">=</span> soup.find(<span class="st">'table'</span>,{<span class="st">'class'</span>:<span class="st">"wikitable"</span>},{<span class="st">'id'</span>:<span class="st">'constituents'</span>})</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="co">#Convert wiki table into python data frame</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    snp500df <span class="op">=</span> pd.read_html((<span class="bu">str</span>(snp500tbl)))</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    snp500df <span class="op">=</span> pd.DataFrame(snp500df[<span class="dv">0</span>])</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="co">#replace . in symbols with - to match yfinance format</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>    snp500list <span class="op">=</span> snp500df[<span class="st">'Symbol'</span>].tolist()</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    snp500list <span class="op">=</span> [ticker.replace(<span class="st">'.'</span>,<span class="st">'-'</span>) <span class="cf">if</span> <span class="st">'.'</span> <span class="kw">in</span> ticker <span class="cf">else</span> ticker <span class="cf">for</span> ticker <span class="kw">in</span> snp500list ]</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="co">#export data frame as csv to google could storage</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    bucket.blob(<span class="st">'data_sync/SnP500Companies.csv'</span>).upload_from_string(snp500df.to_csv(index<span class="op">=</span><span class="va">False</span>,sep<span class="op">=</span><span class="st">';'</span>,header<span class="op">=</span><span class="va">True</span>), <span class="st">'text/csv'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="co">#return list of tickers </span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="cf">return</span> snp500list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Yahoo Finance</strong></p>
 <p>Yahoo Finance was used to retrieve stock price data for each company in the list. I used <a href="https://github.com/ranaroussi/yfinance">yfinance</a> to retrieve YTD price information &amp; <a href="https://pandas-datareader.readthedocs.io/en/latest/readers/yahoo.html">pandas_datareader</a> to get current quote information which provided me with additional data about the company like market cap. Originally I tried to use yfiance’s <code>.info</code> method to get market cap but was running into errors when using the method on a large list of stocks. Pandas Datareader was much faster and I may end up even refactoring the code to also retrieve the YTD price information with this package as well.</p>
 <p>The two Dagster op’s download_price_data and download quote data do essentially the same thing the only difference is I am doing <code>yf.download</code> opposed to <code>pdr.get_quote_yahoo</code> to get different data. Originally I had both of these loops in the same op but with Dagster I can run them concurrently and since it takes awhile for the download_price_data to finish I can have other jobs start running upstream that depend on the quote data before download_price_data even finishes. After each op finishes it exports the data frame as a CSV to a bucket on Google Cloud Storage.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">@op</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_quote_data(snp500list):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    quoteDataList <span class="op">=</span> <span class="bu">list</span>() </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ticker <span class="kw">in</span> snp500list:        </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Getting current yahoo quote data from pandas data reader</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        quoteData <span class="op">=</span> pdr.get_quote_yahoo(ticker)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        quoteData[<span class="st">'AsOfDataTime'</span>] <span class="op">=</span> datetime.now()</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        quoteDataList.append(quoteData)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># combine all dataframes into a single dataframe</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    quoteDataDf <span class="op">=</span> pd.concat(quoteDataList)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#adding name data frame index</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    quoteDataDf <span class="op">=</span> quoteDataDf.rename_axis(<span class="st">'ticker'</span>) </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Export dataframes as csv to google cloud storage      </span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    bucket.blob(<span class="st">'data_sync/QuoteData.csv'</span>).upload_from_string(quoteDataDf.to_csv(index<span class="op">=</span><span class="va">True</span>,sep<span class="op">=</span><span class="st">';'</span>,header<span class="op">=</span><span class="va">True</span>), <span class="st">'text/csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="at">@op</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">def</span> download_quote_data(snp500list):</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    quoteDataList <span class="op">=</span> <span class="bu">list</span>() </span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="cf">for</span> ticker <span class="kw">in</span> snp500list:        </span>
+<span id="cb2-5"><a href="#cb2-5"></a>        <span class="co">#Getting current yahoo quote data from pandas data reader</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>        quoteData <span class="op">=</span> pdr.get_quote_yahoo(ticker)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>        quoteData[<span class="st">'AsOfDataTime'</span>] <span class="op">=</span> datetime.now()</span>
+<span id="cb2-8"><a href="#cb2-8"></a>        quoteDataList.append(quoteData)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="co"># combine all dataframes into a single dataframe</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>    quoteDataDf <span class="op">=</span> pd.concat(quoteDataList)</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>    <span class="co">#adding name data frame index</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>    quoteDataDf <span class="op">=</span> quoteDataDf.rename_axis(<span class="st">'ticker'</span>) </span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="co">#Export dataframes as csv to google cloud storage      </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>    bucket.blob(<span class="st">'data_sync/QuoteData.csv'</span>).upload_from_string(quoteDataDf.to_csv(index<span class="op">=</span><span class="va">True</span>,sep<span class="op">=</span><span class="st">';'</span>,header<span class="op">=</span><span class="va">True</span>), <span class="st">'text/csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="load" class="level5">
 <h5 class="anchored" data-anchor-id="load"><strong>2. Load</strong></h5>
 <p>Loading the CSV files into BigQuery was a breeze… after countless hours trying to figure out how to configure Airbyte to load a local CSV file. I gave up on that method and instead I decided to store the CSV files store on Google Cloud Storage &amp; once I made that change the set up process was very straight forward. I was really impressed the ease of creating a connection. I have experience with SSIS which is a legacy ETL tool &amp; the Airbyte experience was refreshing. With the movement to ELT oppose to ETL, I believe it has made it easier for these new tools to specialize on developing these connections. SSIS was tasked to do too much, jack of trades &amp; master of none. I have several times Visual Studio will crash &amp; the package wont load or the package runs indefinitely.</p>
@@ -475,4 +480,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

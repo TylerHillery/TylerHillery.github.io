@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tyler Hillery - About</title>
+<title>Tyler Hillery</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,7 +34,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -59,12 +58,13 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="floating nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -119,38 +119,50 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    
+</nav>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
+<div class="quarto-about-trestles">
+  <div class="about-entity">
+    <img src="assets/images/profile.jpg" class="about-image
+  rounded " style="width: 20em;">
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Tyler Hillery</h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
   </div>
-  
-
 </header>
-
-<p><img src="assets/images/profile2.jpg" style="border-radius: 5%; margin-left:15px; overflow: hidden; margin-top: 5px" align="right"></p>
-<p>I’m a self proclaimed <em>Data practitioner</em> &amp; <em>Lifelong learner</em> with interests in data infrastructure, engineering, distributed systems, programming, analytics, OSS, data processing &amp; storage.</p>
+    <div class="about-links">
+  <a href="https://github.com/TylerHillery" class="about-link">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">GitHub</span>
+  </a>
+  <a href="https://www.linkedin.com/in/tylerhillery/" class="about-link">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text">LinkedIn</span>
+  </a>
+  <a href="https://twitter.com/_TylerHillery" class="about-link">
+    <i class="bi bi-mastodon"></i>
+     <span class="about-link-text">Mastodon</span>
+  </a>
+  <a href="https://data-folks.masto.host/@TylerHillery" class="about-link">
+    <i class="bi bi-twitter"></i>
+     <span class="about-link-text">Twitter</span>
+  </a>
+</div>
+  </div>
+  <div class="about-contents"><main class="content" id="quarto-document-content">
+<p><em>Data practitioner</em> &amp; <em>Lifelong learner</em> with interests in data infrastructure, engineering, distributed systems, programming, analytics, OSS, data processing &amp; storage.</p>
 <p>I currently work at <a href="https://www.nasdaq.com/">Nasdaq</a> as an <a href="https://www.getdbt.com/what-is-analytics-engineering/">Analytics Engineering</a> focusing on customer facing analytics.</p>
 <p>My ambition is to help build systems, infrastructure and technology that makes data more accessible.</p>
 <p>Before pursing a career in data, I wanted to work in investment management. I graduated Dec 2019 with a B.S. in Finance.</p>
 <p>My first job out of college was in the investment management department of a fortune 650 insurance company. It wasn’t till after I passed the <a href="https://www.cfainstitute.org/en/programs/cfa/charter">CFA</a> level 1 exam that I knew this wasn’t the career for me. What I did discover was my interest in data and technology.</p>
 <p>I started working on my technical skills through various resources (MOOCs, Books, YouTube, Side Projects). I went from Data Analyst –&gt; BI Developer –&gt; Analytics Engineer all within one year. I have found the Analytics Engineer role really fits me as a <a href="https://www.getdbt.com/blog/we-the-purple-people/">purple person</a> and <a href="https://www.youtube.com/watch?v=wB0ulHmvU7E">generalist</a>.</p>
-<p>I spend most of free time filling in my knowledge gaps about core Computer Science topics. As a finance major I have a lot of catching up to do 🙂</p>
+<p>I spend most of free time filling in my knowledge gaps about core Computer Science topics.</p>
 <p>Outside of data and technology:</p>
 <ul>
 <li>I have a beautiful fiance who has a passion for bodybuilding</li>
@@ -162,8 +174,9 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 
 
-
-</main> <!-- /main -->
+</main></div>
+</div>
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -184,13 +197,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;
@@ -301,4 +307,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
