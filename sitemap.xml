@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
-    <lastmod>2023-01-09T17:14:11.485Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
-    <lastmod>2023-01-09T17:14:11.877Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-01-09T17:14:12.325Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/about.html</loc>
-    <lastmod>2023-01-09T17:14:12.629Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/projects.html</loc>
-    <lastmod>2023-01-09T17:14:12.921Z</lastmod>
-  </url>
-  <url>
     <loc>https://www.tylerhillery.com/projects/learning-log/index.html</loc>
-    <lastmod>2023-01-09T17:14:13.201Z</lastmod>
+    <lastmod>2023-01-15T17:49:37.180Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-01-09T17:14:13.477Z</lastmod>
+    <lastmod>2023-01-15T17:49:38.220Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
+    <lastmod>2023-01-15T17:49:39.100Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
+    <lastmod>2023-01-15T17:49:39.940Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2023-01-15T17:49:40.876Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/index.html</loc>
-    <lastmod>2023-01-09T17:14:13.973Z</lastmod>
+    <lastmod>2023-01-15T17:49:41.780Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/about.html</loc>
+    <lastmod>2023-01-15T17:49:42.580Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
-    <lastmod>2023-01-09T17:14:14.489Z</lastmod>
+    <lastmod>2023-01-15T17:49:43.524Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects.html</loc>
+    <lastmod>2023-01-15T17:49:44.180Z</lastmod>
   </url>
 </urlset>
