@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.tylerhillery.com/projects/learning-log/index.html</loc>
-    <lastmod>2023-01-19T02:44:37.835Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-01-19T02:44:38.923Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
-    <lastmod>2023-01-19T02:44:39.799Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
-    <lastmod>2023-01-19T02:44:40.567Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-01-19T02:44:41.439Z</lastmod>
-  </url>
-  <url>
     <loc>https://www.tylerhillery.com/index.html</loc>
-    <lastmod>2023-01-19T02:44:41.919Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/about.html</loc>
-    <lastmod>2023-01-19T02:44:42.251Z</lastmod>
+    <lastmod>2023-01-19T16:56:08.769Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
-    <lastmod>2023-01-19T02:44:43.155Z</lastmod>
+    <lastmod>2023-01-19T16:56:10.333Z</lastmod>
   </url>
   <url>
-    <loc>https://www.tylerhillery.com/projects.html</loc>
-    <lastmod>2023-01-19T02:44:43.451Z</lastmod>
+    <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2023-01-19T16:56:11.245Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects/learning-log/index.html</loc>
+    <lastmod>2023-01-19T16:56:12.077Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/now.html</loc>
-    <lastmod>2023-01-19T02:44:44.219Z</lastmod>
+    <lastmod>2023-01-19T16:56:12.921Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2023-01-19T16:56:13.817Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
+    <lastmod>2023-01-19T16:56:14.637Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
+    <lastmod>2023-01-19T16:56:15.513Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/about.html</loc>
+    <lastmod>2023-01-19T16:56:16.149Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects.html</loc>
+    <lastmod>2023-01-19T16:56:16.457Z</lastmod>
   </url>
 </urlset>
