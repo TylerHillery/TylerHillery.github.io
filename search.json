@@ -11,7 +11,7 @@
     "href": "index.html#notes",
     "title": "Tyler Hillery",
     "section": "Notes",
-    "text": "Notes\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nComputer Science I in C++\n\n\n\n\n\nThese are my notes for CSC 155 Computer Science 1 in C++ through Oakton Community College. The course uses the book C++ Programming From Problem Analysis to Program Design.\n\n\n\n\n\n\nJan 17, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nQuarto Reference Notes\n\n\n\n\n\nCool things that you can do with Quarto that I want to be able to reference back to\n\n\n\n\n\n\nDec 25, 2022\n\n\nTyler Hillery\n\n\n\n\n\n\nNo matching items"
+    "text": "Notes\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nAdvanced SQL\n\n\n\n\n\nThese are my notes for Advanced SQL through CoRise.\n\n\n\n\n\n\nJan 30, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nComputer Science I in C++\n\n\n\n\n\nThese are my notes for CSC 155 Computer Science 1 in C++ through Oakton Community College. The course uses the book C++ Programming From Problem Analysis to Program Design.\n\n\n\n\n\n\nJan 17, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nQuarto Reference Notes\n\n\n\n\n\nCool things that you can do with Quarto that I want to be able to reference back to\n\n\n\n\n\n\nDec 25, 2022\n\n\nTyler Hillery\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "notes/csc-155-cpp-cs-1/index.html",
@@ -105,11 +105,18 @@
     "text": "Code Blocks\nFor a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\nFigure 1: A line plot on a polar axis\n\n\n\n\n\nInline Code\nTo include executable expressions within markdown in a Python notebook, you use IPython.display.Markdown to dynamically generate markdown from within an ordinary code cell. For example, if we have a variable radius we can use it within markdown as follows:\n\n\nCode\nradius = 10\nfrom IPython.display import display, Markdown\ndisplay(Markdown(f\"\"\"\nThe radius of the circle is {radius}.\n\"\"\"))\n\n\nThe radius of the circle is 10."
   },
   {
+    "objectID": "notes/corise-advanced-sql/index.html",
+    "href": "notes/corise-advanced-sql/index.html",
+    "title": "Advanced SQL",
+    "section": "",
+    "text": "For now I am taking my notes in Notion show check out my notes there! In the future I might convert everything over to a qmd file."
+  },
+  {
     "objectID": "now.html",
     "href": "now.html",
     "title": "Now Page",
     "section": "",
-    "text": "This is my now page. If you want to know what I’m focused on right now in my life you’ve come to the right place. This is different then my about me as that describes more of my background. I will update the published date anytime I make changes to this page."
+    "text": "This is my now page. If you want to know what I’m focused on right now in my life you’ve come to the right place. I will update the published date anytime I make changes to this page. This is different then my about me as that describes more of my background."
   },
   {
     "objectID": "now.html#what-i-am-doing-now",
@@ -123,7 +130,7 @@
     "href": "now.html#life-long-learner",
     "title": "Now Page",
     "section": "Life long learner 🧠",
-    "text": "Life long learner 🧠\nOutside of work I spend a lot of time learning. I started a course on 01/17/2023 through Oakton Community College called CSC 155: Computer Science 1 in C++. My plan is take some pre-requisite courses so I can apply to the masters in computer science program at UIUC.\nMy purpose of pursing a computer science masters is because I want to transition into a software engineer. I graduated with a finance degree so most my technical knowledge is self taught. I recommend checking out my notion page if you want to know more about my self learning journey.\nI am all for self taught education and believe you don’t need a computer science a degree to be a great software engineer. For me personally I tend to work better in a more structured environment and my employer has tuition reimbursement so it’s a win win.\nTwo other courses that I will be taking are Advanced SQL starting on 01/30/23 and AWS Cloud Project Bootcamp starting on 02/11/2023. Both of these courses are unrelated to my college pre-requisites but I will be taking them for personal enjoyment.\nSome computer science topics that I’m interested in are database internals, data streaming, data infra, APIs, distributed systems, cloud technology, programming languages and open source software."
+    "text": "Life long learner 🧠\nOutside of work I spend a lot of time learning. I started a course on 01/17/2023 through Oakton Community College called CSC 155: Computer Science 1 in C++. My plan is take some pre-requisite courses so I can apply to the masters in computer science program at UIUC.\nMy purpose of pursing a computer science masters is because I want to transition into a software engineer. I graduated with a finance degree so most my technical knowledge is self taught. I recommend checking out my notion page if you want to know more about my self learning journey.\nI am all for self taught education and believe you don’t need a computer science a degree to be a great software engineer. For me personally I tend to work better in a more structured environment and my employer has tuition reimbursement so it’s a win win.\nI am also taking Advanced SQL which started on 01/30/23 and will be taking AWS Cloud Project Bootcamp starting on 02/11/2023. Both of these courses are unrelated to my college pre-requisites but I will be taking them for personal development.\nSome computer science topics that I’m interested in are database internals, data streaming, data infra, APIs, distributed systems, cloud technology, programming languages and open source software."
   },
   {
     "objectID": "now.html#open-source-development",
@@ -144,7 +151,7 @@
     "href": "now.html#fitness",
     "title": "Now Page",
     "section": "Fitness 🏋🏻‍♂️",
-    "text": "Fitness 🏋🏻‍♂️\nRecently I have been taking my fitness more seriously. I have always been off and on with fitness although the last 3 years since college I have been far more consistent. I primarily lift weights, and walk but I dabble in crossfit, biking, hiking, running, snowshoeing and cross country skiing.\nMy fiancé owns a business Team Champion Physiques where she provides nutrition and fitness coaching. She currently has me on a program that involves lifting 4 times a week and cardio 4 times a week with an average heart rate of 115+ bpm. My goal is to get a physique where I would feel comfortable sharing my before and after transformation pictures on her website to help promote her business."
+    "text": "Fitness 🏋🏻‍♂️\nRecently I have been taking my fitness more seriously. I primarily lift weights and walk but I dabble in crossfit, biking, hiking, running, snowshoeing and cross country skiing.\nMy fiancé owns a business Team Champion Physiques where she provides nutrition and fitness coaching. She currently has me on a program that involves lifting 4 times a week and cardio 4 times a week with an average heart rate of 115+ bpm. My goal is to get a physique where I would feel comfortable sharing my before and after transformation pictures on her website to help promote her business."
   },
   {
     "objectID": "blog/stock-market-data-pipeline/index.html",
