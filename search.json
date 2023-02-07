@@ -137,14 +137,14 @@
     "href": "now.html#open-source-development",
     "title": "Now Page",
     "section": "Open Source Development ⚙️",
-    "text": "Open Source Development ⚙️\nI would also like to be more involved with open-source development. The open source community and people’s willingness to release free publicly available software to empower others is nothing short of amazing to me. I have made some small PRs and I got this feeling I was contributing to this greater purpose which felt amazing.\nKeep an eye out on my GitHub profile to see my activity. I am going to really work towards being more active in open source now and for the foreseeable future."
+    "text": "Open Source Development ⚙️\nI would also like to be more involved with open-source development. The open source community and people’s willingness to release free publicly available software to empower others is nothing short of amazing to me. I have made some small PRs and I got this feeling I was contributing to this greater purpose which felt amazing.\nKeep an eye out on my GitHub profile to see my activity. Currently, I have been focused on building RePort ⚖️ a portfolio rebalancing tool for investors."
   },
   {
     "objectID": "now.html#job",
     "href": "now.html#job",
     "title": "Now Page",
     "section": "Job 👔",
-    "text": "Job 👔\nMy job takes up most of my time. I work as an Analytics Engineer at Nasdaq on the ETF listings product team where our main goal is to get issuers like Vanguard, Fidelity, Blackrock to list their ETFs on our exchange. If you would like to see the impact of my work checkout our team’s 2022 year in review that our marketing team put together. Most of the metrics on this site were developed by me.\nMy current project is focused on building an embedded analytics platform for our customers to provide a more enhance reporting experience. The tools I use day to day involve SQL, dbt, Redshift, and QuickSight. My time is split between 70% data transformation and modeling work, 20% Data Visualizations and figuring out the embedding portion, the last 10% is prod support for ad-hoc requests or when our current reporting platform goes down."
+    "text": "Job 👔\nMy job takes up most of my time. I work as an Analytics Engineer at Nasdaq on the ETF listings product team where our main goal is to get issuers like Vanguard, Fidelity, Blackrock to list their ETFs on our exchange. If you would like to see the impact of my work checkout our team’s 2022 year in review that our marketing team put together. Most of the metrics on this site were developed by me.\nMy current project is focused on building an embedded analytics platform for our customers to provide a more enhance reporting experience. The tools I use day to day involve SQL, dbt, Redshift, and QuickSight. My time is split between 80% data transformation and modeling work, 10% Data Visualizations and figuring out the embedding portion, the last 10% is prod support for ad-hoc requests or when our current reporting platform goes down."
   },
   {
     "objectID": "now.html#fitness",
