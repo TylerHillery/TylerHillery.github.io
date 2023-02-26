@@ -1,20 +1,20 @@
 [
   {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/report/index.html",
+      "/projects/learning-log/index.html",
+      "/projects/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/blog/getting-started-in-os/index.html",
       "/blog/learning-log/index.html",
       "/blog/stock-market-data-pipeline/index.html",
-      "/notes/corise-advanced-sql/index.html",
       "/notes/csc-155-cpp-cs-1/index.html",
       "/notes/quarto-reference/index.html"
-    ]
-  },
-  {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/learning-log/index.html",
-      "/projects/stock-market-data-pipeline/index.html"
     ]
   }
 ]

@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.tylerhillery.com/index.html</loc>
-    <lastmod>2023-02-07T21:33:01.425Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/csc-155-cpp-cs-1/index.html</loc>
-    <lastmod>2023-02-07T21:33:03.005Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
-    <lastmod>2023-02-07T21:33:03.997Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/corise-advanced-sql/index.html</loc>
-    <lastmod>2023-02-07T21:33:04.757Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-02-07T21:33:05.581Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/projects/learning-log/index.html</loc>
-    <lastmod>2023-02-07T21:33:06.325Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/now.html</loc>
-    <lastmod>2023-02-07T21:33:07.165Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-02-07T21:33:08.077Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
-    <lastmod>2023-02-07T21:33:08.837Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
-    <lastmod>2023-02-07T21:33:09.841Z</lastmod>
+    <loc>https://www.tylerhillery.com/projects.html</loc>
+    <lastmod>2023-02-26T22:51:00.307Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/about.html</loc>
-    <lastmod>2023-02-07T21:33:10.465Z</lastmod>
+    <lastmod>2023-02-26T22:51:00.979Z</lastmod>
   </url>
   <url>
-    <loc>https://www.tylerhillery.com/projects.html</loc>
-    <lastmod>2023-02-07T21:33:10.789Z</lastmod>
+    <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
+    <lastmod>2023-02-26T22:51:02.287Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/csc-155-cpp-cs-1/index.html</loc>
+    <lastmod>2023-02-26T22:51:02.979Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/index.html</loc>
+    <lastmod>2023-02-26T22:51:03.403Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2023-02-26T22:51:04.427Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects/learning-log/index.html</loc>
+    <lastmod>2023-02-26T22:51:05.115Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects/report/index.html</loc>
+    <lastmod>2023-02-26T22:51:05.791Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/now.html</loc>
+    <lastmod>2023-02-26T22:51:06.567Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
+    <lastmod>2023-02-26T22:51:07.403Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2023-02-26T22:51:08.231Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
+    <lastmod>2023-02-26T22:51:08.927Z</lastmod>
   </url>
 </urlset>
