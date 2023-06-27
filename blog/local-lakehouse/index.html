@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tyler Hillery">
+<meta name="dcterms.date" content="2023-06-26">
+<meta name="description" content="Local (Data) Lakehouse is a personal sandbox environment to quickly spin up various tools for me to explore new ideas and learn.">
+
+<title>Tyler Hillery - Building a Local (Data) Lakehouse - Part 1: The Blueprint</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/social-share.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/all.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Tyler Hillery</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/TylerHillery" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/_TylerHillery" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://data-folks.masto.host/@TylerHillery" rel="" target=""><i class="bi bi-mastodon" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-data-lakehouse" id="toc-the-data-lakehouse" class="nav-link active" data-scroll-target="#the-data-lakehouse"><strong>The Data Lakehouse</strong></a>
+  <ul class="collapse">
+  <li><a href="#data-lake" id="toc-data-lake" class="nav-link" data-scroll-target="#data-lake"><strong>Data Lake</strong></a></li>
+  <li><a href="#data-warehouse" id="toc-data-warehouse" class="nav-link" data-scroll-target="#data-warehouse"><strong>Data Warehouse</strong></a></li>
+  <li><a href="#data-table-format" id="toc-data-table-format" class="nav-link" data-scroll-target="#data-table-format"><strong>Data Table Format</strong></a></li>
+  </ul></li>
+  <li><a href="#my-local-data-lakehouse" id="toc-my-local-data-lakehouse" class="nav-link" data-scroll-target="#my-local-data-lakehouse"><strong>My Local (Data) Lakehouse</strong></a>
+  <ul class="collapse">
+  <li><a href="#the-foundation" id="toc-the-foundation" class="nav-link" data-scroll-target="#the-foundation"><strong>The Foundation</strong></a></li>
+  <li><a href="#polyglot-engine-dbt-project" id="toc-polyglot-engine-dbt-project" class="nav-link" data-scroll-target="#polyglot-engine-dbt-project"><strong>Polyglot Engine dbt Project</strong></a></li>
+  <li><a href="#custom-open-source-connectors" id="toc-custom-open-source-connectors" class="nav-link" data-scroll-target="#custom-open-source-connectors"><strong>Custom Open Source Connectors</strong></a></li>
+  <li><a href="#real-time-data-pipelines" id="toc-real-time-data-pipelines" class="nav-link" data-scroll-target="#real-time-data-pipelines"><strong>Real Time Data Pipelines</strong></a></li>
+  <li><a href="#semantic-layer" id="toc-semantic-layer" class="nav-link" data-scroll-target="#semantic-layer"><strong>Semantic Layer</strong></a></li>
+  <li><a href="#bi-layer" id="toc-bi-layer" class="nav-link" data-scroll-target="#bi-layer"><strong>BI Layer</strong></a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/blog/local-lakehouse/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Building a Local (Data) Lakehouse - Part 1: The Blueprint</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Data Lakehouse</div>
+    <div class="quarto-category">Iceberg</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Local (Data) Lakehouse is a personal sandbox environment to quickly spin up various tools for me to explore new ideas and learn.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tyler Hillery </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 26, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="the-data-lakehouse" class="level2">
+<h2 class="anchored" data-anchor-id="the-data-lakehouse"><strong>The Data Lakehouse</strong></h2>
+<p>The term <em>Data Lakehouse</em> came from combining the words <em>Data Lake</em> and <em>Data Warehouse</em>. Lets first describe how I view these two terms.</p>
+<section id="data-lake" class="level3">
+<h3 class="anchored" data-anchor-id="data-lake"><strong>Data Lake</strong></h3>
+<p>The Data Lake is a term used to describe storing all your data into object storage like S3. This can be anything from structured data (parquet, CSVs etc.) to semi-structured data (JSON, XML) to unstructured data (images, audio etc,). To me that is it, that’s a data lake.</p>
+</section>
+<section id="data-warehouse" class="level3">
+<h3 class="anchored" data-anchor-id="data-warehouse"><strong>Data Warehouse</strong></h3>
+<p>The Data Warehouse is a database that is suppose to act as the coveted <em>single source of truth</em> of all data within a company. While you can use trusty old Postgres as Craig Kerstiens demonstrates here:</p>
+<p></p><div id="tweet-71058"></div><script>tweet={"url":"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120","author_name":"Craig Kerstiens","author_url":"https:\/\/twitter.com\/craigkerstiens","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EHaving a lot of conversations with folks lately &quot;can Postgres be used for metrics\/analytics?&quot; Short answer is yes. Some deeper blog posts coming, but we dogfood our own stuff \u003Ca href=\"https:\/\/twitter.com\/crunchydata?ref_src=twsrc%5Etfw\"\u003E@crunchydata\u003C\/a\u003E and just checked... we&#39;re handling 50m events daily currently for Crunchy Bridge.\u003C\/p\u003E&mdash; Craig Kerstiens (@craigkerstiens) \u003Ca href=\"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120?ref_src=twsrc%5Etfw\"\u003EApril 26, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-71058").innerHTML = tweet["html"];</script><p></p>
+<p>The more common players you are going to see fulfill the data warehouse role is Snowflake, BigQuery &amp; Redshift. That’s because the workloads you run on data warehouses tend to be different in nature than the workloads you run on your application database. The term for this type of workload is commonly referred to as OLAP (Online Analytical Processing) which typically involves running aggregate queries across the entire dataset where as OLTP (Online Transactional Processing) is usually more concerned with single point queries where you are reading or updating one single row. This is a drastic simplification but it gets the point across.</p>
+<p>The reason the above mention names tend to be suited for OLAP is largely because they are distributed systems designed so that they can horizontally scale resources. The storage and compute are separated as well so they scale independently of each other so you don’t necessarily need to increase storage if you just want more compute resources. The distributed nature of the compute resources allows for massively parallel processing (MPP) so the database can split the work across several different nodes within the cluster.</p>
+<section id="snowflake-architecture" class="level5" style="font-size: 50%;text-align:center">
+<h5 class="anchored" data-anchor-id="snowflake-architecture"><strong>Snowflake Architecture</strong></h5>
+<p><img src="../../assets/images/snowflake-arch.png" class="img-fluid"> <a href="https://docs.snowflake.com/en/user-guide/intro-key-concepts"><em>https://docs.snowflake.com/en/user-guide/intro-key-concepts</em></a></p>
+</section>
+<p>With this all being said I should mention a database called DuckDB. DuckDB is an in-process SQL OLAP database management system and it runs completely embedded within the host process without the need of separate server software. Data can be stored in persistent with a single-file database. DuckDB is often referred to as the “SQLite for analytics”.</p>
+<p>I wanted to bring up DuckDB because it completely goes against the trend from typically databases warehouses that require a distributing computing architecture. DuckDB works best around data that is less than ~200GB and has some pretty impressive benchmark results that you can look at <a href="https://duckdblabs.github.io/db-benchmark/">here</a> and <a href="https://www.fivetran.com/blog/how-fast-is-duckdb-really">here</a>. If you want to know why it’s so fast I highly recommend checking out this presentation given by Mark Rassveldt CTO of DuckDB Labs.</p>
+<div class="quarto-video ratio ratio-4x3"><iframe data-external="1" src="https://www.youtube.com/embed/bZOvAKGkzpQ" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>The other design choice that makes these databases suited for OLAP workloads is the columnar data store. This allows for better compression because typically one column is going to be of the same data type. Another benefit of the columnar data store is usually you can scan less data because when you select a subset of columns from a table so it doesn’t need to read the other columns.</p>
+<p><img src="../../assets/images/row-colum-store.png" class="img-fluid"></p>
+</section>
+<section id="data-table-format" class="level3">
+<h3 class="anchored" data-anchor-id="data-table-format"><strong>Data Table Format</strong></h3>
+<p>Now you might be wondering how do we combine a Data Lake and a Data Warehouse? First, lets talk about the downsides of a data lake and data warehouse to see the problem the lakehouse is trying to solve. The main disadvantage you have with a data lake is you don’t have ACID guarantees. ACID stands for atomicity, consistency, isolation, and durability.</p>
+<ul>
+<li><strong>Atomicity</strong> - means that all transactions either succeed or fail completely.</li>
+<li><strong>Consistency</strong> - guarantees relate to how a given state of the data is observed by simultaneous operations.</li>
+<li><strong>Isolation</strong> - refers to how simultaneous operations potentially conflict with one another.</li>
+<li><strong>Durability</strong> - means that committed changes are permanent.</li>
+</ul>
+<p>ACID guarantees provide data reliability and integrity. Now this is something data warehouses provide. The downside of data warehouses is that your data is stored in a managed proprietary storage format that is only queryable by the engines provided by the data warehouse provider.</p>
+<p>So what if we could make it so that your data lake could have ACID guarantees and a common protocol that other data processing engines could implement to interact with these tables? Enter the table format. The most common ones are <a href="https://iceberg.apache.org/">Apache Iceberg</a>, <a href="https://delta.io/">Delta</a>, <a href="https://hudi.apache.org/">Apache Hudi</a>. I am going to focus on Iceberg as I believe that this will be the winner of all the table formats.</p>
+<p>One thing I didn’t quite understand at first was what is a table format? How is this different than parquet? How does this help provide ACID guarantees? These are some common questions to have when you first learn about table formats.</p>
+<p>I highly recommend reading <a href="https://www.dremio.com/resources/guides/apache-iceberg-an-architectural-look-under-the-covers/">Apache Iceberg: An Architectural Look Under the Covers</a> to understand what a table format is and the details of Iceberg. A table format is commonly explained as <em>a way to organize a dataset’s files to present them as a single “table”</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>To understand how Iceberg does this we can look at the three components that makeup Iceberg:</p>
+<ol type="1">
+<li><strong>Catalog</strong>
+<ul>
+<li>A store that houses the current metadata pointer for Iceberg tables</li>
+<li>Must support atomic operations for updating the current metadata point (e.g.&nbsp;Hadoop File System (HDFS), Hive Meta Store, Nessie, REST)</li>
+</ul></li>
+<li><strong>Metadata Layer</strong>
+<ul>
+<li><strong>Metadata File</strong>: Stores metadata about a table which includes information such as table’s schema, partition info, snapshots.</li>
+<li><strong>Manifest List</strong>: A list of manifest files. The manifest list has information about each manifest file that makes up that snapshot, such as the location of the manifest file, what snapshot it was added as part of, and information about the partitions it belongs to</li>
+<li><strong>Manifest File</strong>: Track data files as well as additional details and statistics about each file. Each manifest file keeps track of a subset of the data files for parallelism and reuse efficiency at scale. They contain a lot of useful information that is used to improve efficiency and performance while reading the data from these data files, such as details about partition membership, record count, and lower and upper bounds of columns. Iceberg is file-format agnostic, so the manifest files also specify the file format of the data file, such as Parquet, ORC, or Avro.</li>
+</ul></li>
+<li><strong>Data</strong>
+<ul>
+<li>The actual data stored in file formats such as Parquet, ORC or Avro. Usually this data is stored in object storage such as S3.</li>
+</ul></li>
+</ol>
+<section id="architectural-diagram-of-the-structure-of-an-iceberg-table" class="level5" style="font-size: 50%;text-align:center">
+<h5 class="anchored" data-anchor-id="architectural-diagram-of-the-structure-of-an-iceberg-table"><strong>Architectural diagram of the structure of an Iceberg table</strong></h5>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="../../assets/images/iceberg-metadata.png" class="img-fluid figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<p><a href="https://www.dremio.com/wp-content/uploads/2023/03/iceberg-metadata.png"><em>https://www.dremio.com/wp-content/uploads/2023/03/iceberg-metadata.png</em></a></p>
+</section>
+<p>The benefits of Iceberg are the following<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<ul>
+<li>Transactional consistency between multiple applications where files can be added, removed or modified atomically, with full read isolation and multiple concurrent writes</li>
+<li>Full schema evolution to track changes to a table over time</li>
+<li>Time travel to query historical data and verify changes between updates</li>
+<li>Partition layout and evolution enabling updates to partition schemes as queries and data volumes change without relying on hidden partitions or physical directories</li>
+<li>Rollback to prior versions to quickly correct issues and return tables to a known good state</li>
+<li>Advanced planning and filtering capabilities for high performance on large data volumes</li>
+</ul>
+</section>
+</section>
+<section id="my-local-data-lakehouse" class="level2">
+<h2 class="anchored" data-anchor-id="my-local-data-lakehouse"><strong>My Local (Data) Lakehouse</strong></h2>
+<p>Now that we have a better understanding of what a Data Lakehouse is and the benefits it provides, lets get into designing my local lakehouse!</p>
+<p><img src="../../assets/images/local-lakehouse.png" class="img-fluid"></p>
+<p>Now I know there is a lot going on with this diagram. That’s simply because there are a lot of technologies and ideas I would like to try out. I also want to compare and contrast tools that are in the same category to see which one I like better. Lets start out with some of my main goals with this project.</p>
+<section id="the-foundation" class="level3">
+<h3 class="anchored" data-anchor-id="the-foundation"><strong>The Foundation</strong></h3>
+<p>The core part of my local lakehouse is going to be two main components:</p>
+<section id="data-storage-layer" class="level4">
+<h4 class="anchored" data-anchor-id="data-storage-layer"><strong>Data Storage Layer</strong></h4>
+<p>I plan on using <a href="https://min.io/">MinIO</a> as an open source, S3 compatible object storage. I will be using the <a href="https://github.com/tabular-io/iceberg-rest-image">Iceberg Rest Image</a> for the Iceberg catalog implementation. I might write my own implementation in the future.</p>
+</section>
+<section id="orchestrator" class="level4">
+<h4 class="anchored" data-anchor-id="orchestrator"><strong>Orchestrator</strong></h4>
+<p>The orchestrator to me is the most important component in any data stack. It is one of the only components that spans across the entire stack and helps integrate everything together into one cohesive system. <a href="https://airflow.apache.org/">Airflow</a> is by far the most popular orchestrator and I have always wanted to try it. I personally believe <a href="https://dagster.io/">Dagster</a> will be the category winner in this space. So my plan is to setup Airflow and then imitate a migration to Dagster using the <a href="https://docs.dagster.io/integrations/airflow">dagster-airflow</a> package.</p>
+</section>
+</section>
+<section id="polyglot-engine-dbt-project" class="level3">
+<h3 class="anchored" data-anchor-id="polyglot-engine-dbt-project"><strong>Polyglot Engine dbt Project</strong></h3>
+<p>Implement a <a href="https://www.getdbt.com/">dbt</a> project that supports multiple query engines in one project. The goal is to be able to define the <code>target.name</code> and <code>target.profile_name</code> at the model level. This allows the ability to change query engines based on type of environment (the <code>target.profile_name</code>) dev, qc, prod without having to modifying any of the models.</p>
+<p>Example use case setup to save on costs is to have DuckDB (single node compute engine) for dev and then in prod using <a href="https://trino.io/">Trino</a> (distributed compute engine). Another potential use case is within one environment like dev, I may want one model to be executed by a certain engine because it has better support for python models (<a href="https://spark.apache.org/">Spark</a>) while the other engine is better for SQL (Trino). At the end of the day what I want to demonstrate is the flexibility of Iceberg.</p>
+</section>
+<section id="custom-open-source-connectors" class="level3">
+<h3 class="anchored" data-anchor-id="custom-open-source-connectors"><strong>Custom Open Source Connectors</strong></h3>
+<p>My goal here is that I want to build two brand new open source connectors. One using <a href="https://airbyte.com/">Airbyte</a> and another using <a href="https://meltano.com/">Meltano</a>. I’d like to then setup two batch pipelines with the new connectors and load it into MinIO in the Iceberg table format. If the connectors don’t support this that is what I will build.</p>
+</section>
+<section id="real-time-data-pipelines" class="level3">
+<h3 class="anchored" data-anchor-id="real-time-data-pipelines"><strong>Real Time Data Pipelines</strong></h3>
+<section id="real-time-data-pipeline-1" class="level4">
+<h4 class="anchored" data-anchor-id="real-time-data-pipeline-1"><strong>Real Time Data Pipeline #1</strong></h4>
+<p>I want to build a real time data pipeline that ingests data from the <a href="https://docs.cloud.coinbase.com/prime/docs/websocket-feed">Coinbase websocket</a>, uses <a href="https://buz.dev">Buz</a> to validate the schema of the data from Coinbase before it sends it to <a href="https://redpanda.com/">Redpanda</a> a streaming data platform. After that I will do some data stream processing with <a href="https://bytewax.io/">Bytewax</a> reading from one Redpanda topic and writing to another one. Then I will load the data into MinIO. Lastly, I want to try to create a <a href="https://pro.coinbase.com/">Coinbase Pro</a> clone as shown in the image below. I am undecided how I want to implement the frontend but I am thinking about using a JavaScript framework and data viz library like <a href="https://www.chartjs.org/">Charts.js</a>.</p>
+<p><img src="../../assets/images/coinbase-pro.png" class="img-fluid"></p>
+</section>
+<section id="real-time-data-pipeline-2" class="level4">
+<h4 class="anchored" data-anchor-id="real-time-data-pipeline-2"><strong>Real Time Data Pipeline #2</strong></h4>
+<p>In the second real time data pipeline I want to set up <a href="https://snowplow.io/">snowplow</a> to create, track and collect events such as impressions, clicks, video playback (or even something other custom). Snowplow with send the data to Buz to validate the schema of the data before sending it to <a href="https://kafka.apache.org/">Kafka</a>. After it lands in a Kafka topic I will use a streaming database called <a href="https://materialize.com/">Materialize</a> to do some stream processing before writing it back to another Kafka topic and loading it into MinIO.</p>
+</section>
+<section id="real-time-data-pipeline-3" class="level4">
+<h4 class="anchored" data-anchor-id="real-time-data-pipeline-3"><strong>Real Time Data Pipeline #3</strong></h4>
+<p>The last real time data pipeline implement Change Data Capture (CDC) using <a href="https://debezium.io/">Debezium</a> to ingest changes that occur to a Postgres database. These events then will get sent to a Kafka topic and then <a href="https://flink.apache.org/">Flink</a> will ingest that topic and write the data into MinIO.</p>
+</section>
+</section>
+<section id="semantic-layer" class="level3">
+<h3 class="anchored" data-anchor-id="semantic-layer"><strong>Semantic Layer</strong></h3>
+<p>I think semantic layers will start to become more popular and I want to try out one of the most popular ones <a href="https://cube.dev/">cube</a>.</p>
+</section>
+<section id="bi-layer" class="level3">
+<h3 class="anchored" data-anchor-id="bi-layer"><strong>BI Layer</strong></h3>
+<p>These are several BI tools that interest me and I would like to build at least one dashboard in each.</p>
+<ul>
+<li><a href="https://www.rilldata.com/">Rill</a></li>
+<li><a href="https://evidence.dev/">Evidence</a></li>
+<li><a href="https://www.metabase.com/">Metabase</a></li>
+<li><a href="https://streamlit.io/">Streamlit</a></li>
+</ul>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This is going to be a great way for me to get hands on experience with some of the tools I don’t get to interact with on my daily job. Now that we have a blueprint created it’s time to start building the local lakehouse! In my next post I will be writing about my experience on setting up MinIO and the Iceberg Rest Catalog with some sample data and running our first queries.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://www.dremio.com/resources/guides/apache-iceberg-an-architectural-look-under-the-covers/">Apache Iceberg: An Architectural Look Under the Covers</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.dremio.com/open-source/apache-iceberg/">The Apache Iceberg Open Table Format</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="quarto-dev/quarto-web" data-repo-id="MDEwOlJlcG9zaXRvcnkzNDc2MzMzNTg=" data-category="General" data-category-id="DIC_kwDOFLh2zs4CBQCO" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/blog/local-lakehouse/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/blog/local-lakehouse/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/blog/local-lakehouse/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/blog/local-lakehouse/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/blog/local-lakehouse/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+</body></html>
