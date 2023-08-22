@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tyler Hillery - Projects</title>
+<title>Tyler Hillery – blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,20 +65,48 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-blog .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-project','listing-website','listing-format','listing-execute','listing-resources','listing-language','listing-comments','listing-title','listing-author','listing-date','listing-categories','listing-image','listing-code','listing-path','listing-outputHref','listing-date-modified','listing-description','listing-filename','listing-file-modified','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-project","listing-website","listing-format","listing-execute","listing-resources","listing-language","listing-comments","listing-title","listing-author","listing-date","listing-categories","listing-image","listing-code","listing-path","listing-outputHref","listing-date-modified","listing-description","listing-filename","listing-file-modified","listing-reading-time"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-blog'] = new List('listing-blog', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-notes .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-notes'] = new List('listing-notes', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -116,11 +144,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./projects.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./projects.html" rel="" target="">
  <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html" rel="" target="">
+    <a class="nav-link active" href="./blog.html" rel="" target="" aria-current="page">
  <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
@@ -157,168 +185,354 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#blog" id="toc-blog" class="nav-link active" data-scroll-target="#blog">Blog</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/blog.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Data Apps">Data Apps <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Data Engineering">Data Engineering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Data Lakehouse">Data Lakehouse <span class="quarto-category-count">(1)</span></div></div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Projects</h1>
-</div>
+<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-
-
-
-
-<div class="quarto-listing quarto-listing-container-custom" id="listing-listing">
+<section id="blog" class="level2">
+<h2 class="anchored" data-anchor-id="blog">Blog</h2>
+<div id="listing-blog" class="quarto-listing quarto-listing-container-default">
 <div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-blog-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-blog'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+       <option value="" disabled="" selected="" hidden="">Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title" data-direction="asc">
+          Title
+        </option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
+         <option value="listing-author" data-direction="asc">
+          Author
+        </option>
+     </select>
+  </div>
     <div class="input-group input-group-sm quarto-listing-filter">
       <span class="input-group-text"><i class="bi bi-search"></i></span>
       <input type="text" class="search form-control" placeholder="Filter">
     </div>
 </div>
-<div class="list grid quarto-listing-cols-3">
-  <div class="g-col-1" data-index="0" data-categories="Data Lakehouse" data-listing-date-sort="1687824000000" data-listing-file-modified-sort="1692738858429" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-    <div class="quarto-grid-item card h-100 card-left">
-        <p class="card-img-top">
-          <img src="./assets/images/local-lakehouse.png" class="thumbnail-image card-img" height="150px" alt="">
-        </p>
-        <div class="card-body post-contents">
-          <h5 class="no-anchor card-title listing-title">Local (Data) Lakehouse</h5>
-          <div class="card-subtitle listing-subtitle"></div>
-            <div class="card-text listing-description delink"></div>
-            <div class="card-attribution card-text-small justify">
-              <div class="listing-author">Tyler Hillery</div>
-              <div class="listing-date">Jun 27, 2023</div>
-            </div>
-          <style>
-            .listing-categories .listing-category .listing-href {
-              color: inherit; /* blue colors for links too */
-              text-decoration: inherit; /* no underline */
-            }
-          </style>
-          <div class="listing-categories" style="padding-top: 1em;">
-              <div class="listing-category">
-                  <a class="listing-href" href="https://github.com/TylerHillery/local-lakehouse" target="_blank" rel="noopener">
-                      GitHub
-                  </a>
-              </div>
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class="g-col-1" data-index="1" data-categories="Data Apps" data-listing-date-sort="1677283200000" data-listing-file-modified-sort="1692738858429" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-    <div class="quarto-grid-item card h-100 card-left">
-        <p class="card-img-top">
-          <img src="./assets/images/RePort.jpg" class="thumbnail-image card-img" height="150px" alt="">
-        </p>
-        <div class="card-body post-contents">
-          <h5 class="no-anchor card-title listing-title">RePort</h5>
-          <div class="card-subtitle listing-subtitle"></div>
-            <div class="card-text listing-description delink"></div>
-            <div class="card-attribution card-text-small justify">
-              <div class="listing-author">Tyler Hillery</div>
-              <div class="listing-date">Feb 25, 2023</div>
-            </div>
-          <style>
-            .listing-categories .listing-category .listing-href {
-              color: inherit; /* blue colors for links too */
-              text-decoration: inherit; /* no underline */
-            }
-          </style>
-          <div class="listing-categories" style="padding-top: 1em;">
-              <div class="listing-category">
-                  <a class="listing-href" href="https://github.com/TylerHillery/RePort" target="_blank" rel="noopener">
-                      GitHub
-                  </a>
-              </div>
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class="g-col-1" data-index="2" data-categories="Data Apps" data-listing-date-sort="1653955200000" data-listing-file-modified-sort="1692738858429" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-    <div class="quarto-grid-item card h-100 card-left">
-        <p class="card-img-top">
-          <img src="./assets/images/learning-log.jpg" class="thumbnail-image card-img" height="150px" alt="">
-        </p>
-        <div class="card-body post-contents">
-          <h5 class="no-anchor card-title listing-title">Learning Log</h5>
-          <div class="card-subtitle listing-subtitle"></div>
-            <div class="card-text listing-description delink"></div>
-            <div class="card-attribution card-text-small justify">
-              <div class="listing-author">Tyler Hillery</div>
-              <div class="listing-date">May 31, 2022</div>
-            </div>
-          <style>
-            .listing-categories .listing-category .listing-href {
-              color: inherit; /* blue colors for links too */
-              text-decoration: inherit; /* no underline */
-            }
-          </style>
-          <div class="listing-categories" style="padding-top: 1em;">
-              <div class="listing-category">
-                  <a class="listing-href" href="https://github.com/TylerHillery/learning-log" target="_blank" rel="noopener">
-                      GitHub
-                  </a>
-              </div>
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class="g-col-1" data-index="3" data-categories="Data Engineering" data-listing-date-sort="1648598400000" data-listing-file-modified-sort="1692738858429" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-    <div class="quarto-grid-item card h-100 card-left">
-        <p class="card-img-top">
-          <img src="./assets/images/stock-market-data-pipeline.png" class="thumbnail-image card-img" height="150px" alt="">
-        </p>
-        <div class="card-body post-contents">
-          <h5 class="no-anchor card-title listing-title">Stock Market Data Pipeline</h5>
-          <div class="card-subtitle listing-subtitle"></div>
-            <div class="card-text listing-description delink"></div>
-            <div class="card-attribution card-text-small justify">
-              <div class="listing-author">Tyler Hillery</div>
-              <div class="listing-date">Mar 30, 2022</div>
-            </div>
-          <style>
-            .listing-categories .listing-category .listing-href {
-              color: inherit; /* blue colors for links too */
-              text-decoration: inherit; /* no underline */
-            }
-          </style>
-          <div class="listing-categories" style="padding-top: 1em;">
-              <div class="listing-category">
-                  <a class="listing-href" href="https://github.com/TylerHillery/Stock-Market-Data" target="_blank" rel="noopener">
-                      GitHub
-                  </a>
-              </div>
-          </div>
-        </div>
-    </div>
-  </div>
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="Data Lakehouse,Iceberg" data-listing-date-sort="1687737600000" data-listing-file-modified-sort="1692738858421" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
+<div class="thumbnail">
+<p><a href="./blog/local-lakehouse/index.html"> <img src="./assets/images/local-lakehouse.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./blog/local-lakehouse/index.html">
+<h3 class="no-anchor listing-title">
+Building a Local (Data) Lakehouse - Part 1: The Blueprint
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>Local (Data) Lakehouse is a personal sandbox environment to quickly spin up various tools for me to explore new ideas and learn.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./blog/local-lakehouse/index.html">
+<div class="listing-date">
+Jun 26, 2023
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Open Source,dbt,duckdb" data-listing-date-sort="1657584000000" data-listing-file-modified-sort="1692738858421" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
+<div class="thumbnail">
+<p><a href="./blog/getting-started-in-os/index.html"> <img src="./assets/images/Open-Source-Software.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./blog/getting-started-in-os/index.html">
+<h3 class="no-anchor listing-title">
+Why and How I Made My First Open Source Contribution
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>My experience on why and how I made my first open source contribution and why you should too.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./blog/getting-started-in-os/index.html">
+<div class="listing-date">
+Jul 12, 2022
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Projects,Streamlit,Data Apps,Self Taught" data-listing-date-sort="1653955200000" data-listing-file-modified-sort="1692738858421" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./blog/learning-log/index.html"> <img src="./assets/images/learning-log.jpg" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./blog/learning-log/index.html">
+<h3 class="no-anchor listing-title">
+Make a Public Commitment to Learn
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>Making your learning public can help you stick to your goals. Find ways to communicate to others what your learning about. That is why I built the learning log.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./blog/learning-log/index.html">
+<div class="listing-date">
+May 31, 2022
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="Projects,dbt,Airbyte,Preset,Google Cloud,Data Engineering,Python" data-listing-date-sort="1648598400000" data-listing-file-modified-sort="1692738858421" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
+<div class="thumbnail">
+<p><a href="./blog/stock-market-data-pipeline/index.html"> <img src="./assets/images/stock-market-data-pipeline.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./blog/stock-market-data-pipeline/index.html">
+<h3 class="no-anchor listing-title">
+Stock Market Data Pipeline
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>I wrote about my experience on setting up a data pipeline to help extract, ingest, store, transform and visualize stock market data using open source technologies such as Airbyte, Dagster, dbt &amp; Preset.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./blog/stock-market-data-pipeline/index.html">
+<div class="listing-date">
+Mar 30, 2022
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
-</div></main> <!-- /main -->
+</div>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<div id="listing-notes" class="quarto-listing quarto-listing-container-default">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-notes-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-notes'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+       <option value="" disabled="" selected="" hidden="">Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title" data-direction="asc">
+          Title
+        </option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
+         <option value="listing-author" data-direction="asc">
+          Author
+        </option>
+     </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="Computer Science" data-listing-date-sort="1685923200000" data-listing-file-modified-sort="1692738858425" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./notes/csc-204-comp-arch-org/index.html"> <img src="./notes/csc-204-comp-arch-org/csc204.jpg" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./notes/csc-204-comp-arch-org/index.html">
+<h3 class="no-anchor listing-title">
+Computer Organization and Architecture
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>These are my notes for <span>CSC 204 Computer Organization and Architecture</span> through Oakton Community College. The course uses the book <span>The Essentials of Computer Organization and Architecture</span>.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./notes/csc-204-comp-arch-org/index.html">
+<div class="listing-date">
+Jun 5, 2023
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Data Engineering" data-listing-date-sort="1685750400000" data-listing-file-modified-sort="1692738858425" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./notes/de-fundamentals/index.html"> <img src="./notes/de-fundamentals/de_fund.jpg" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./notes/de-fundamentals/index.html">
+<h3 class="no-anchor listing-title">
+Fundamentals of Data Engineering
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>My short review of the book <span>Fundamentals of Data Engineering</span> by Joe Reis &amp; Matt Housley.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./notes/de-fundamentals/index.html">
+<div class="listing-date">
+Jun 3, 2023
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Computer Science,Programming" data-listing-date-sort="1682294400000" data-listing-file-modified-sort="1692738858421" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./notes/code-hidden-language/index.html"> <img src="./notes/code-hidden-language/Code2Cover.jpg" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./notes/code-hidden-language/index.html">
+<h3 class="no-anchor listing-title">
+Code: The Hidden Language of Computer Hardware and Software
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>My short review of the book <span>Code The Hidden Language of Computer Hardware and Software</span> by Charles Petzold.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./notes/code-hidden-language/index.html">
+<div class="listing-date">
+Apr 24, 2023
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="Computer Science,C++,Programming" data-listing-date-sort="1673913600000" data-listing-file-modified-sort="1692738858421" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./notes/csc-155-cpp-cs-1/index.html"> <img src="./notes/csc-155-cpp-cs-1/csc_155.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./notes/csc-155-cpp-cs-1/index.html">
+<h3 class="no-anchor listing-title">
+Computer Science I in C++
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>These are my notes for <span>CSC 155 Computer Science 1 in C++</span> through Oakton Community College. The course uses the book <span>C++ Programming From Problem Analysis to Program Design</span>.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./notes/csc-155-cpp-cs-1/index.html">
+<div class="listing-date">
+Jan 17, 2023
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="Quarto" data-listing-date-sort="1671926400000" data-listing-file-modified-sort="1692738858429" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16">
+<div class="thumbnail">
+<p><a href="./notes/quarto-reference/index.html"> <img src="./assets/images/quarto-logo.jpg" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./notes/quarto-reference/index.html">
+<h3 class="no-anchor listing-title">
+Quarto Reference Notes
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>Cool things that you can do with Quarto that I want to be able to reference back to</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./notes/quarto-reference/index.html">
+<div class="listing-date">
+Dec 25, 2022
+</div>
+<div class="listing-author">
+Tyler Hillery
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -556,5 +770,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/projects.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
