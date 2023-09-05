@@ -5,7 +5,13 @@
       "/blog/local-lakehouse/index.html",
       "/blog/getting-started-in-os/index.html",
       "/blog/learning-log/index.html",
-      "/blog/stock-market-data-pipeline/index.html",
+      "/blog/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
+    "listing": "/notes.html",
+    "items": [
+      "/notes/data-pipelines-ref/index.html",
       "/notes/csc-204-comp-arch-org/index.html",
       "/notes/de-fundamentals/index.html",
       "/notes/code-hidden-language/index.html",
