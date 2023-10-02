@@ -1,0 +1,1784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Tyler Hillery</title>
+<link>https://www.tylerhillery.com/blog.html</link>
+<atom:link href="https://www.tylerhillery.com/blog.xml" rel="self" type="application/rss+xml"/>
+<description>Personal website where I share my thoughts, ideas and projects.</description>
+<image>
+<url>https://www.tylerhillery.com/assets/images/profile2.jpg</url>
+<title>Tyler Hillery</title>
+<link>https://www.tylerhillery.com/blog.html</link>
+</image>
+<generator>quarto-1.3.450</generator>
+<lastBuildDate>Sun, 01 Oct 2023 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Tyler Tries Real-Time Data</title>
+  <dc:creator>Tyler Hillery</dc:creator>
+  <link>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<hr>
+<section id="introducing-tyler-tries" class="level2">
+<h2 class="anchored" data-anchor-id="introducing-tyler-tries">Introducing “Tyler Tries”</h2>
+<p>This blog kicks off a new series I am calling “Tyler Tries” where I write about the topics I am learning about. We are going to kick off the series off with my experience building a real-time data pipeline to visualize Coinbase order book depth</p>
+</section>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<p>I built a real-time dashboard that visualizes Coinbase order book depth powered by <a href="https://redpanda.com/">Redpanda</a> + <a href="https://materialize.com/">Materialize</a> + <a href="https://www.getdbt.com/">dbt</a> + <a href="https://streamlit.io/">Streamlit</a> you can view the code <a href="https://github.com/TylerHillery/coinbase-order-book-pipeline">here</a>. The data comes from the free Coinbase WebSocket feed using the <a href="https://docs.cloud.coinbase.com/exchange/docs/websocket-channels#level2-batch-channel">level2_batch channel</a></p>
+<iframe src="https://drive.google.com/file/d/1yCz9NxpN5zCXPRSVosNWmkhWPnQeniP6/preview" width="100%" height="480" allow="autoplay">
+</iframe>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>I posted the above video on Twitter/X and several people requested a blog post about how it all works. It may come as a bit of a surprise but it wasn’t all too difficult. This is coming from someone without any prior experience dealing with real-time data and who has never used Redpanda or Materialize before. Funny enough, the part I struggled with most was pandas dataframe styling and creating an unstacked area chart (it turns out most python plotting libraries assume your area chart will be stacked).</p>
+<p>Historically, real-time data was hard to manage. We’ve come a long way since then. If you look at the various components of the <a href="https://medium.com/event-driven-utopia/unbundling-the-modern-streaming-stack-451f75eaf1d">modern streaming stack</a> the biggest thing slowing people down from building real-time data pipelines are the sources. Besides CDC feeds, very rarely there are <a href="https://medium.com/event-driven-utopia/event-driven-apis-understanding-the-principles-c3208308d4b2">event-driven APIs</a> that allow for the consumption of the source data in real time.</p>
+<p>This is why I got so excited when I came across this guide from bytewax: <a href="https://bytewax.io/guides/real-time-financial-exchange-order-book-application?utm_source=pocket_saves">Real-Time Financial Exchange Order Book</a>. It’s how I discovered the free Coinbase WebSocket feed which displays their level 2 order book data. Using this data I thought it would be fun to recreate a common visual to display exchange depth.</p>
+<div style="font-size: 50%; text-align:center">
+<section id="coinbase-pro" class="level5">
+<h5 class="anchored" data-anchor-id="coinbase-pro"><strong>Coinbase Pro</strong></h5>
+<p><img src="https://www.tylerhillery.com/assets/images/coinbasepro.png" class="img-fluid"></p>
+</section>
+<section id="robinhood" class="level5">
+<h5 class="anchored" data-anchor-id="robinhood"><strong>Robinhood</strong></h5>
+<p><img src="https://www.tylerhillery.com/assets/images/robinhood.png" class="img-fluid"></p>
+</section>
+<section id="kraken" class="level5">
+<h5 class="anchored" data-anchor-id="kraken"><strong>Kraken</strong></h5>
+<p><img src="https://www.tylerhillery.com/assets/images/kraken.png" class="img-fluid"></p>
+</section>
+</div>
+<p>These visuals illustrate the cumulative size, indicating the quantity of a security someone is willing to buy or sell at a specific price level. This information is valuable as it can address questions such as, “<em>At what price should I place my order to ensure it gets fully filled if I aim to buy or sell 100 quantities</em>”</p>
+<p>The pipeline will work as follows:</p>
+<ol type="1">
+<li>Create a <code>KafkaProducer</code> to send the data from the Coinbase WebSocket and add it to a Redpanda topic.</li>
+<li>Ingest the Redpanda topic into Materialize using dbt to manage the transformations.</li>
+<li>Connect Streamlit to Materialize with <code>psycopg2</code> to visualize the data.</li>
+</ol>
+</section>
+<section id="ingestion" class="level2">
+<h2 class="anchored" data-anchor-id="ingestion">Ingestion</h2>
+<p>The first step in this pipeline involves creating a <code>KafkaProducer</code> that will take the data from the Coinbase WebSocket and add it to a Redpanda topic.</p>
+<p>To start ingesting data from Coinbase we submit an initial request to the WebSocket channel like so:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"></span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> json</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> websocket <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> create_connection</span>
+<span id="cb1-4">ws <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> create_connection(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wss://ws-feed.exchange.coinbase.com"</span>)</span>
+<span id="cb1-5">ws.send(</span>
+<span id="cb1-6">  json.dumps({</span>
+<span id="cb1-7">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"type"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"subscribe"</span>,</span>
+<span id="cb1-8">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_ids"</span>: [</span>
+<span id="cb1-9">        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ETH-USD"</span>,</span>
+<span id="cb1-10">        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"BTC-USD"</span></span>
+<span id="cb1-11">    ],</span>
+<span id="cb1-12">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"channels"</span>: [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"level2_batch"</span>]</span>
+<span id="cb1-13">  })</span>
+<span id="cb1-14">)</span></code></pre></div>
+<p>If successful the first message back after running <code>print(ws.recv())</code> will look like:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb2-2">   <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"type"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"subscriptions"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-3">   <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"channels"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb2-4">      <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb2-5">         <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"name"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"level2_50"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-6">         <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"product_ids"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb2-7">            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"BTC-USD"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-8">            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ETH-USD"</span></span>
+<span id="cb2-9">         <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb2-10">      <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb2-11">   <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb2-12"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p>Following the <code>subscriptions</code> message, the next message received will be the <code>snapshot</code> which provides an overview of the level 2 order book.</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb3-1"><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb3-2">   <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb3-3">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"type"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snapshot"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb3-4">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"product_id"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"BTC-USD"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb3-5">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"bids"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb3-6">         <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"10101.10"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.45054140"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-7">      <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb3-8">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"asks"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb3-9">         <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"10102.55"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.57753524"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-10">      <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-11">   <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb3-12">   <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb3-13">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"type"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snapshot"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb3-14">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"product_id"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ETH-USD"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb3-15">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"bids"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb3-16">         <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"10101.10"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.45054140"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-17">      <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb3-18">      <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"asks"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb3-19">         <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"10102.55"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.57753524"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-20">      <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-21">   <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb3-22"><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span></code></pre></div>
+<p>The <code>bids</code> and <code>asks</code> provide a list of lists where the first element is the price and the second element is the quantity.</p>
+<p>After the snapshot messages, the last message is <code>l2update</code> which provides a message if the <code>size</code> has changed at a given price level for the product_id.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The size property is the updated size at the price level, not a delta. A size of “0” indicates the price level can be removed.</p>
+</div>
+</div>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb4-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb4-2">   <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"type"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"l2update"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb4-3">   <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"product_id"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"BTC-USD"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb4-4">   <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"time"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"2019-08-14T20:42:27.265Z"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb4-5">   <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"changes"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb4-6">      <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"buy"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"10101.80000000"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">,</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.162567"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb4-7">   <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb4-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p>To process these messages within the <code>KafkaProducer</code> I’ve created an infinite while loop that will keep running until the program is stopped.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">while</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>:</span>
+<span id="cb5-2">  message <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ws.recv()</span>
+<span id="cb5-3">  data <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> json.loads(message)</span>
+<span id="cb5-4">  <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"type"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snapshot"</span>:</span>
+<span id="cb5-5">      </span>
+<span id="cb5-6">      asks <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{</span>
+<span id="cb5-7">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_type"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snapshot"</span>,</span>
+<span id="cb5-8">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_key"</span>: data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"-sell-"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]),</span>
+<span id="cb5-9">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>: data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>],</span>
+<span id="cb5-10">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"side"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sell"</span>,</span>
+<span id="cb5-11">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"price"</span>: order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>],</span>
+<span id="cb5-12">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"size"</span>: order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>],</span>
+<span id="cb5-13">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_created_at_utc"</span>: format_datetime(data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"time"</span>])</span>
+<span id="cb5-14">              } <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> order <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"asks"</span>]</span>
+<span id="cb5-15">          ]</span>
+<span id="cb5-16">      </span>
+<span id="cb5-17">      bids <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{</span>
+<span id="cb5-18">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_type"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snapshot"</span>,</span>
+<span id="cb5-19">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_key"</span>: data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"-buy-"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]),</span>
+<span id="cb5-20">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>: data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>],</span>
+<span id="cb5-21">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"side"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"buy"</span>,</span>
+<span id="cb5-22">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"price"</span>: order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>],</span>
+<span id="cb5-23">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"size"</span>: order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>],</span>
+<span id="cb5-24">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_created_at_utc"</span>: format_datetime(data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"time"</span>])</span>
+<span id="cb5-25">              } <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> order <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bids"</span>]</span>
+<span id="cb5-26">          ]</span>
+<span id="cb5-27">      </span>
+<span id="cb5-28">      order_book <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> asks <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> bids</span>
+<span id="cb5-29"></span>
+<span id="cb5-30">      <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> order <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> order_book:</span>
+<span id="cb5-31">          prod.send(</span>
+<span id="cb5-32">              topic<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coinbase_level2_channel"</span>, </span>
+<span id="cb5-33">              key<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>order[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_key"</span>].encode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"utf-8"</span>),</span>
+<span id="cb5-34">              value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>json.dumps(order,default<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>json_serializer,ensure_ascii<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>).encode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"utf-8"</span>)</span>
+<span id="cb5-35">          )</span>
+<span id="cb5-36">          <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(order) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#log</span></span>
+<span id="cb5-37">      prod.flush()</span>
+<span id="cb5-38"></span>
+<span id="cb5-39">  <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">elif</span> data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"type"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"l2update"</span>:</span>
+<span id="cb5-40">      orders <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [{</span>
+<span id="cb5-41">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_type"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"l2update"</span>,</span>
+<span id="cb5-42">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_key"</span>: data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"-"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"-"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]),</span>
+<span id="cb5-43">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>: data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"product_id"</span>],</span>
+<span id="cb5-44">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"side"</span>: order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>],</span>
+<span id="cb5-45">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"price"</span>: order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>],</span>
+<span id="cb5-46">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"size"</span>: order[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>],</span>
+<span id="cb5-47">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_created_at_utc"</span>: format_datetime(data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"time"</span>])</span>
+<span id="cb5-48">              } <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> order <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"changes"</span>]</span>
+<span id="cb5-49">          ]</span>
+<span id="cb5-50">      <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> order <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> orders:</span>
+<span id="cb5-51">          prod.send(</span>
+<span id="cb5-52">                  topic<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coinbase_level2_channel"</span>, </span>
+<span id="cb5-53">                  key<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>order[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"message_key"</span>].encode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"utf-8"</span>),</span>
+<span id="cb5-54">                  value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>json.dumps(order,default<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>json_serializer,ensure_ascii<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>).encode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"utf-8"</span>)</span>
+<span id="cb5-55">              )</span>
+<span id="cb5-56">          <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(order) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#log</span></span>
+<span id="cb5-57">      prod.flush()</span>
+<span id="cb5-58">  <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span>:</span>
+<span id="cb5-59">      <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Unexpected value for 'type': </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'type'</span>]<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span></code></pre></div>
+</details>
+</div>
+</section>
+<section id="redpanda-console" class="level2">
+<h2 class="anchored" data-anchor-id="redpanda-console">Redpanda Console</h2>
+<p>The Redpanda Console provided a nice UI to peer into how the Redpanda instance is operating. If you haven’t used the Redpanda Console, it’s described as:</p>
+<blockquote class="blockquote">
+<p><strong>A Kafka web UI for developers</strong>.<br>
+Redpanda Console gives you a simple, interactive approach for gaining visibility into your topics, masking data, managing consumer groups, and exploring real-time data with time-travel debugging<sup>1</sup>.</p>
+</blockquote>
+<p><img src="https://www.tylerhillery.com/assets/images/redpanda_console.png" class="img-fluid"></p>
+<p>The console helped me identify a bug in my original code. The unique key I was making for each record was a combination of the product_id, side, &amp; price e.g.&nbsp;<code>BTC-USD-buy-10000</code>. The problem was for the <code>snapshot</code> messages I was using the terms <code>bid</code> and <code>ask</code> but for the <code>l2update</code> messages I was using <code>buy</code> and <code>sell</code>. This was important to fix because the data was being inserted into Materialize via the <a href="https://materialize.com/docs/sql/create-source/kafka/#handling-upserts">ENVELOPE UPSERT</a> based on this key.</p>
+</section>
+<section id="materialize-dbt" class="level2">
+<h2 class="anchored" data-anchor-id="materialize-dbt"><strong>Materialize</strong> &amp; dbt</h2>
+<p>The next step in our pipeline entails processing and storing the real-time data. Materialize is a streaming database that allows for just that. It has integrations with Kafka and since Redpanda is compatible with Kafka APIs, Materialize and Redpanda work together out of the box.</p>
+<p>A key thing to understand about Materialize is how it handles materialized views. Their MVs are incrementally maintained so as the underlying data changes the MV automatically updates. This is why when you use Materialize and dbt together you’ll typically set up dbt to only run in a CI/CD pipeline which is kicked off when changes occur to the dbt models. If you want to learn more about how this works I highly recommend checking out this video on <a href="https://youtu.be/yofTRM9WpwQ?si=9fdqDtII_GbH5dxG.">Materialize+dbt Streaming for the Modern Data Stack</a></p>
+<p>Most of the code for this project mimics what I found in the <a href="https://github.com/MaterializeInc/mz-hack-day-2022">Materialize + Redpanda + dbt Hack Day</a>.</p>
+<p>First we define our source:</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1">{{ config(<span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">materialized</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'source'</span>) }}</span>
+<span id="cb6-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">CREATE</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">SOURCE</span> {{ this }}</span>
+<span id="cb6-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">FROM</span> KAFKA BROKER <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'redpanda:9092'</span> TOPIC <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'coinbase_level2_channel'</span></span>
+<span id="cb6-4">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">KEY</span> FORMAT BYTES</span>
+<span id="cb6-5">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">VALUE</span> FORMAT BYTES</span>
+<span id="cb6-6">ENVELOPE UPSERT;</span></code></pre></div>
+<p>The <code>ENVELOPE UPSERT</code> treats all records as having a key and a value, and supports inserts, updates and deletes within Materialize<sup>2</sup>:</p>
+<ul>
+<li>If the key does not match a preexisting record, it inserts the record’s key and value.</li>
+<li>If the key matches a preexisting record and the value is non-null, Materialize updates the existing record with the new value.</li>
+<li>If the key matches a preexisting record and the value is null, Materialize deletes the record.</li>
+</ul>
+<p>Our staging model does some light transformations to get the data into a more usable form.</p>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>stg_coinbase_level2_channel</summary>
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1">{{ </span>
+<span id="cb7-2">    config(</span>
+<span id="cb7-3">        materialized<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'materializedview'</span></span>
+<span id="cb7-4">    ) </span>
+<span id="cb7-5">}}</span>
+<span id="cb7-6"></span>
+<span id="cb7-7"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">with</span> </span>
+<span id="cb7-8">source <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb7-9">    select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> {{ source(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'coinbase'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'level2_channel'</span>) }}</span>
+<span id="cb7-10">),</span>
+<span id="cb7-11"></span>
+<span id="cb7-12">converted <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb7-13">    select convert_from(data, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'utf8'</span>) <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> data <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> source</span>
+<span id="cb7-14">),</span>
+<span id="cb7-15"></span>
+<span id="cb7-16">casted AS (</span>
+<span id="cb7-17">    select cast(data <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> jsonb) <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> data <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> converted</span>
+<span id="cb7-18">),</span>
+<span id="cb7-19"></span>
+<span id="cb7-20">renamed <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb7-21">    select</span>
+<span id="cb7-22">        (data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;&gt;</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'message_type'</span>)::string                 <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> message_type,</span>
+<span id="cb7-23">        (data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;&gt;</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'message_key'</span>)::string                  <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> message_key,</span>
+<span id="cb7-24">        (data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;&gt;</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'product_id'</span>)::string                   <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> product_id,</span>
+<span id="cb7-25">        (data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;&gt;</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'side'</span>)::string                         <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> side,</span>
+<span id="cb7-26">        (data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;&gt;</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'price'</span>)::double                        <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> price,</span>
+<span id="cb7-27">        (data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;&gt;</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'size'</span>)::double                         <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> size,</span>
+<span id="cb7-28">        (data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;&gt;</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'message_created_at_utc'</span>)::timestamp    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> message_created_at_utc</span>
+<span id="cb7-29">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span></span>
+<span id="cb7-30">        casted</span>
+<span id="cb7-31">),</span>
+<span id="cb7-32"></span>
+<span id="cb7-33">final <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb7-34">    select</span>
+<span id="cb7-35">        message_type,</span>
+<span id="cb7-36">        message_key,</span>
+<span id="cb7-37">        product_id,</span>
+<span id="cb7-38">        side,</span>
+<span id="cb7-39">        price,</span>
+<span id="cb7-40">        size,</span>
+<span id="cb7-41">        price <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> size <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> notional_size,</span>
+<span id="cb7-42">        message_created_at_utc</span>
+<span id="cb7-43">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span></span>
+<span id="cb7-44">        renamed</span>
+<span id="cb7-45">    where</span>
+<span id="cb7-46">        size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span></span>
+<span id="cb7-47">)</span>
+<span id="cb7-48"></span>
+<span id="cb7-49">select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> final</span></code></pre></div>
+</details>
+</div>
+<p>Because Materialize does not handle <a href="https://materialize.com/docs/transform-data/patterns/window-functions/#:~:text=Window%20functions%20compute%20results%20based,consecutive%20rows%20in%20each%20partition.">window functions</a> very well they provided some alternative approaches in their docs. I referenced the <a href="https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on">Materialize Top K by group</a> that allowed me to return the top bid and ask record for each product id. The highest bid and lowest ask is referred to as the national best bid and off (NBBO).</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>int_coinbase_nbbo</summary>
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">{{ </span>
+<span id="cb8-2">    config(</span>
+<span id="cb8-3">        materialized<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'materializedview'</span></span>
+<span id="cb8-4">    ) </span>
+<span id="cb8-5">}}</span>
+<span id="cb8-6"></span>
+<span id="cb8-7"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">with</span></span>
+<span id="cb8-8">stg_coinbase_level2_channel <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb8-9">    select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> {{ ref(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'stg_coinbase_level2_channel'</span>) }}</span>
+<span id="cb8-10">),</span>
+<span id="cb8-11"></span>
+<span id="cb8-12">nbb <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb8-13">    select</span>
+<span id="cb8-14">        distinct on(product_id) product_id,</span>
+<span id="cb8-15">        side,</span>
+<span id="cb8-16">        price,</span>
+<span id="cb8-17">        size,</span>
+<span id="cb8-18">        notional_size,</span>
+<span id="cb8-19">        message_created_at_utc</span>
+<span id="cb8-20">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> </span>
+<span id="cb8-21">        stg_coinbase_level2_channel</span>
+<span id="cb8-22">    where</span>
+<span id="cb8-23">        side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'buy'</span></span>
+<span id="cb8-24">    order by</span>
+<span id="cb8-25">        product_id, price desc</span>
+<span id="cb8-26">),</span>
+<span id="cb8-27"></span>
+<span id="cb8-28">nbo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb8-29">    select</span>
+<span id="cb8-30">        distinct on(product_id) product_id,</span>
+<span id="cb8-31">        side,</span>
+<span id="cb8-32">        price,</span>
+<span id="cb8-33">        size,</span>
+<span id="cb8-34">        notional_size,</span>
+<span id="cb8-35">        message_created_at_utc</span>
+<span id="cb8-36">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> </span>
+<span id="cb8-37">        stg_coinbase_level2_channel</span>
+<span id="cb8-38">    where</span>
+<span id="cb8-39">        side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'sell'</span></span>
+<span id="cb8-40">    order by</span>
+<span id="cb8-41">        product_id, price asc</span>
+<span id="cb8-42">),</span>
+<span id="cb8-43"></span>
+<span id="cb8-44">unioned <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb8-45">    select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> nbb</span>
+<span id="cb8-46">    union <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span> </span>
+<span id="cb8-47">    select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> nbo</span>
+<span id="cb8-48">)</span>
+<span id="cb8-49"></span>
+<span id="cb8-50">select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> unioned</span></code></pre></div>
+</details>
+</div>
+<p>The last model I created was the fct_coinbase_nbbo which pivots the NBB and NBO so there is only one record per product_id. This allows for the calculation of the NBBO spread and NBBO midpoint. The spread is the difference between the NBB and NBO. The NBBO midpoint is usually used as the reference price for the current market value of a security.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>fct_coinbase_nbbo</summary>
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">{{ </span>
+<span id="cb9-2">    config(</span>
+<span id="cb9-3">        materialized<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'materializedview'</span></span>
+<span id="cb9-4">    ) </span>
+<span id="cb9-5">}}</span>
+<span id="cb9-6"></span>
+<span id="cb9-7"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">with</span></span>
+<span id="cb9-8">int_coinbase_nbbo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb9-9">    select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> {{ ref(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'int_coinbase_nbbo'</span>) }}</span>
+<span id="cb9-10">),</span>
+<span id="cb9-11"></span>
+<span id="cb9-12">nbbo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb9-13">    select</span>
+<span id="cb9-14">        product_id,</span>
+<span id="cb9-15">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'buy'</span> then price end)                      <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbb_price,</span>
+<span id="cb9-16">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'buy'</span> then size end)                       <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbb_size,</span>
+<span id="cb9-17">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'buy'</span> then notional_size end)              <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbb_notional_size,</span>
+<span id="cb9-18">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'buy'</span> then message_created_at_utc end)     <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbb_last_updated_at_utc,</span>
+<span id="cb9-19">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'sell'</span> then price end)                     <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbo_price,</span>
+<span id="cb9-20">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'sell'</span> then size end)                      <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbo_size,</span>
+<span id="cb9-21">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'sell'</span> then notional_size end)             <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbo_notional_size,</span>
+<span id="cb9-22">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(case when side <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'sell'</span> then message_created_at_utc end)    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbo_last_updated_at_utc</span>
+<span id="cb9-23">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span></span>
+<span id="cb9-24">        int_coinbase_nbbo</span>
+<span id="cb9-25">    group by</span>
+<span id="cb9-26">        product_id</span>
+<span id="cb9-27">),</span>
+<span id="cb9-28"></span>
+<span id="cb9-29">final <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> (</span>
+<span id="cb9-30">    select</span>
+<span id="cb9-31">        product_id,</span>
+<span id="cb9-32">        nbb_price,</span>
+<span id="cb9-33">        nbb_size,</span>
+<span id="cb9-34">        nbb_notional_size,</span>
+<span id="cb9-35">        nbb_last_updated_at_utc,</span>
+<span id="cb9-36">        nbo_price,</span>
+<span id="cb9-37">        nbo_size,</span>
+<span id="cb9-38">        nbo_notional_size,</span>
+<span id="cb9-39">        nbo_last_updated_at_utc,</span>
+<span id="cb9-40">        (nbb_price <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> nbo_price) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbbo_midpoint,</span>
+<span id="cb9-41">        nbo_price <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> nbb_price <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> nbbo_spread</span>
+<span id="cb9-42">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span></span>
+<span id="cb9-43">        nbbo</span>
+<span id="cb9-44">)</span>
+<span id="cb9-45"></span>
+<span id="cb9-46">select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> final</span></code></pre></div>
+</details>
+</div>
+<p><strong>TODO</strong>: Something I want to work on in the future is creating a model that provides the cumulative size. Normally a window function is what I would use to get the cumulative sum of something but window functions don’t work well with Materialize. My theory is that I can do a self-join on the product_id, side, and price where the price is &gt;= the current price (or &lt;= depending on the side) and then sum up the size.</p>
+</section>
+<section id="streamlit" class="level2">
+<h2 class="anchored" data-anchor-id="streamlit">Streamlit</h2>
+<p>Streamlit has been my go-to lately when I want to display a side project I’ve been working on. Because Materialize speaks the Postgres wire protocol I can leverage <code>psycopg2</code> to connect to Streamlit.</p>
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> psycopg2</span>
+<span id="cb10-2">dsn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"user=materialize password=password host=materialized port=6875 dbname=materialize"</span></span>
+<span id="cb10-3">conn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> psycopg2.<span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">connect</span>(dsn)</span>
+<span id="cb10-4">cur <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> conn.cursor()</span></code></pre></div>
+<p>Currently, I am using a polling technique based on the <code>refresh_interval</code> that is set by the <code>st.slider</code> and defaults to 1 second. I use a package called <code>streamlit_autorefresh</code> that handles refreshing the Streamlit app.</p>
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> streamlit <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> st</span>
+<span id="cb11-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> streamlit_autorefresh <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> st_autorefresh</span>
+<span id="cb11-3"></span>
+<span id="cb11-4"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">with</span> st.sidebar:</span>
+<span id="cb11-5">    refresh_interval <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> st.slider(</span>
+<span id="cb11-6">        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Auto-Refresh Interval (seconds)"</span>, </span>
+<span id="cb11-7">        <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, </span>
+<span id="cb11-8">        <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">15</span>, </span>
+<span id="cb11-9">        step<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb11-10">    )</span>
+<span id="cb11-11"></span>
+<span id="cb11-12">st_autorefresh(interval<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>refresh_interval<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>)</span></code></pre></div>
+<p><strong>TODO</strong>: I would like to switch this polling technique to a push model so the data is sent directly to Streamlit as it comes in. Shout-out to the Materialize team for whipping up a <a href="https://github.com/MaterializeInc/demos/pull/88">demo</a> for me on how to do this!</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Increasingly, individuals and organizations are discovering use cases for analytical data that have different standards than traditional OLAP data workflows, often venturing into what’s known as “Operational Analytics.” Coming from an ops background, I’ve seen firsthand how operational processes can get caught up in mundane data tasks. This is where data teams can step in, alleviating this burden, allowing focus to shift to higher-value problems.</p>
+<p>The evolution of tooling and technology surrounding real-time data has significantly eased the prior complexity. In the past, the cost and effort required to establish the necessary infrastructure were deterrents. However, times have changed. I firmly believe real-time isn’t just the future; it’s the present.</p>
+<section id="other-todos" class="level3">
+<h3 class="anchored" data-anchor-id="other-todos">Other TODOs</h3>
+<ul>
+<li>Utilize the Materialize <a href="https://materialize.com/docs/sql/subscribe/">SUBSCRIBE</a> along with materializing <code>dbt tests</code> as MVs to create alerts on:
+<ul>
+<li>NBBO spread gets too wide</li>
+<li>Price alerts</li>
+</ul></li>
+<li>If the change of the size for a specific price level goes down we can use it as a proxy for executed volume and display those records as a table.</li>
+</ul>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<ul>
+<li><a href="https://bytewax.io/guides/real-time-financial-exchange-order-book-application?utm_source=pocket_saves">Real-Time Financial Exchange Order Book</a></li>
+<li><a href="https://bytewax.io/blog/streaming-data-apps-with-bytewax-and-streamlit?utm_source=pocket_saves">Streaming Data Apps with Bytewax and Streamlit</a></li>
+<li><a href="https://www.realworldmcl.xyz/blog/real-time-pipelines-in-python">How to Build a Real-Time Feature Pipeline In Python</a></li>
+<li><a href="https://medium.com/@danthelion/temporal-analysis-of-wikipedia-changes-with-redpanda-materialize-dbt-e372186fb951">Temporal analysis of Wikipedia changes with Redpanda &amp; Materialize &amp; dbt</a></li>
+<li><a href="https://medium.com/@danthelion/breathing-life-into-streamlit-with-materialize-redpanda-1c29282cc72b">Breathing life into Streamlit with Materialize &amp; Redpanda</a></li>
+<li><a href="https://redpanda.com/blog/real-time-crypto-tracker-questdb-redpanda">How to build a real-time crypto tracker with Redpanda and QuestDB</a></li>
+<li><a href="https://bytewax.io/blog/online-machine-learning-in-practice-interactive-dashboards-to-detect-data-anomalies-in-real-time">Online Machine Learning in Practice: Interactive dashboards to detect data anomalies in real time</a></li>
+<li><a href="https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on">Materialize Top K by group</a></li>
+<li><a href="https://github.com/MaterializeInc/mz-hack-day-2022">Materialize + Redpanda + dbt Hack Day</a></li>
+<li><a href="https://pandas.pydata.org/docs/user_guide/style.html#Table-Styles">Pandas Table Viz</a></li>
+<li><a href="https://plotly.com/python/filled-area-plots/">Plotly Filled Area Plots</a></li>
+<li><a href="https://docs.streamlit.io/knowledge-base/tutorials/deploy/docker">Deploy Streamlit using Docker</a></li>
+</ul>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://redpanda.com/redpanda-console-kafka-ui">Redpanda Console</a>↩︎</p></li>
+<li id="fn2"><p><a href="https://materialize.com/docs/sql/create-source/#:~:text=The%20upsert%20envelope%20treats%20all,the%20record's%20key%20and%20value.">CREATE SOURCE | Materialize Docs</a>↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>Real-Time Data</category>
+  <category>Data Apps</category>
+  <category>Data Engineering</category>
+  <guid>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</guid>
+  <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+  <media:content url="https://www.tylerhillery.com/assets/images/streamlit_app_coinbase.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+<item>
+  <title>Building a Local (Data) Lakehouse - Part 1: The Blueprint</title>
+  <dc:creator>Tyler Hillery</dc:creator>
+  <link>https://www.tylerhillery.com/blog/local-lakehouse/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="the-data-lakehouse" class="level2">
+<h2 class="anchored" data-anchor-id="the-data-lakehouse"><strong>The Data Lakehouse</strong></h2>
+<p>The term <em>Data Lakehouse</em> came from combining the words <em>Data Lake</em> and <em>Data Warehouse</em>. Lets first describe how I view these two terms.</p>
+<section id="data-lake" class="level3">
+<h3 class="anchored" data-anchor-id="data-lake"><strong>Data Lake</strong></h3>
+<p>The Data Lake is a term used to describe storing all your data into object storage like S3. This can be anything from structured data (parquet, CSVs etc.) to semi-structured data (JSON, XML) to unstructured data (images, audio etc,). To me that is it, that’s a data lake.</p>
+</section>
+<section id="data-warehouse" class="level3">
+<h3 class="anchored" data-anchor-id="data-warehouse"><strong>Data Warehouse</strong></h3>
+<p>The Data Warehouse is a database that is suppose to act as the coveted <em>single source of truth</em> of all data within a company. While you can use trusty old Postgres as Craig Kerstiens demonstrates here:</p>
+<p></p><div id="tweet-17628"></div><script>tweet={"url":"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120","author_name":"Craig Kerstiens","author_url":"https:\/\/twitter.com\/craigkerstiens","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EHaving a lot of conversations with folks lately &quot;can Postgres be used for metrics\/analytics?&quot; Short answer is yes. Some deeper blog posts coming, but we dogfood our own stuff \u003Ca href=\"https:\/\/twitter.com\/crunchydata?ref_src=twsrc%5Etfw\"\u003E@crunchydata\u003C\/a\u003E and just checked... we&#39;re handling 50m events daily currently for Crunchy Bridge.\u003C\/p\u003E&mdash; Craig Kerstiens (@craigkerstiens) \u003Ca href=\"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120?ref_src=twsrc%5Etfw\"\u003EApril 26, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-17628").innerHTML = tweet["html"];</script><p></p>
+<p>The more common players you are going to see fulfill the data warehouse role is Snowflake, BigQuery &amp; Redshift. That’s because the workloads you run on data warehouses tend to be different in nature than the workloads you run on your application database. The term for this type of workload is commonly referred to as OLAP (Online Analytical Processing) which typically involves running aggregate queries across the entire dataset where as OLTP (Online Transactional Processing) is usually more concerned with single point queries where you are reading or updating one single row. This is a drastic simplification but it gets the point across.</p>
+<p>The reason the above mention names tend to be suited for OLAP is largely because they are distributed systems designed so that they can horizontally scale resources. The storage and compute are separated as well so they scale independently of each other so you don’t necessarily need to increase storage if you just want more compute resources. The distributed nature of the compute resources allows for massively parallel processing (MPP) so the database can split the work across several different nodes within the cluster.</p>
+<section id="snowflake-architecture" class="level5" style="font-size: 50%;text-align:center">
+<h5 class="anchored" data-anchor-id="snowflake-architecture"><strong>Snowflake Architecture</strong></h5>
+<p><img src="https://www.tylerhillery.com/assets/images/snowflake-arch.png" class="img-fluid"> <a href="https://docs.snowflake.com/en/user-guide/intro-key-concepts"><em>https://docs.snowflake.com/en/user-guide/intro-key-concepts</em></a></p>
+</section>
+<p>With this all being said I should mention a database called DuckDB. DuckDB is an in-process SQL OLAP database management system and it runs completely embedded within the host process without the need of separate server software. Data can be stored in persistent with a single-file database. DuckDB is often referred to as the “SQLite for analytics”.</p>
+<p>I wanted to bring up DuckDB because it completely goes against the trend from typically databases warehouses that require a distributing computing architecture. DuckDB works best around data that is less than ~200GB and has some pretty impressive benchmark results that you can look at <a href="https://duckdblabs.github.io/db-benchmark/">here</a> and <a href="https://www.fivetran.com/blog/how-fast-is-duckdb-really">here</a>. If you want to know why it’s so fast I highly recommend checking out this presentation given by Mark Rassveldt CTO of DuckDB Labs.</p>
+<div class="quarto-video ratio ratio-4x3"><iframe data-external="1" src="https://www.youtube.com/embed/bZOvAKGkzpQ" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>The other design choice that makes these databases suited for OLAP workloads is the columnar data store. This allows for better compression because typically one column is going to be of the same data type. Another benefit of the columnar data store is usually you can scan less data because when you select a subset of columns from a table so it doesn’t need to read the other columns.</p>
+<p><img src="https://www.tylerhillery.com/assets/images/row-colum-store.png" class="img-fluid"></p>
+</section>
+<section id="data-table-format" class="level3">
+<h3 class="anchored" data-anchor-id="data-table-format"><strong>Data Table Format</strong></h3>
+<p>Now you might be wondering how do we combine a Data Lake and a Data Warehouse? First, lets talk about the downsides of a data lake and data warehouse to see the problem the lakehouse is trying to solve. The main disadvantage you have with a data lake is you don’t have ACID guarantees. ACID stands for atomicity, consistency, isolation, and durability.</p>
+<ul>
+<li><strong>Atomicity</strong> - means that all transactions either succeed or fail completely.</li>
+<li><strong>Consistency</strong> - guarantees relate to how a given state of the data is observed by simultaneous operations.</li>
+<li><strong>Isolation</strong> - refers to how simultaneous operations potentially conflict with one another.</li>
+<li><strong>Durability</strong> - means that committed changes are permanent.</li>
+</ul>
+<p>ACID guarantees provide data reliability and integrity. Now this is something data warehouses provide. The downside of data warehouses is that your data is stored in a managed proprietary storage format that is only queryable by the engines provided by the data warehouse provider.</p>
+<p>So what if we could make it so that your data lake could have ACID guarantees and a common protocol that other data processing engines could implement to interact with these tables? Enter the table format. The most common ones are <a href="https://iceberg.apache.org/">Apache Iceberg</a>, <a href="https://delta.io/">Delta</a>, <a href="https://hudi.apache.org/">Apache Hudi</a>. I am going to focus on Iceberg as I believe that this will be the winner of all the table formats.</p>
+<p>One thing I didn’t quite understand at first was what is a table format? How is this different than parquet? How does this help provide ACID guarantees? These are some common questions to have when you first learn about table formats.</p>
+<p>I highly recommend reading <a href="https://www.dremio.com/resources/guides/apache-iceberg-an-architectural-look-under-the-covers/">Apache Iceberg: An Architectural Look Under the Covers</a> to understand what a table format is and the details of Iceberg. A table format is commonly explained as <em>a way to organize a dataset’s files to present them as a single “table”</em><sup>1</sup>.</p>
+<p>To understand how Iceberg does this we can look at the three components that makeup Iceberg:</p>
+<ol type="1">
+<li><strong>Catalog</strong>
+<ul>
+<li>A store that houses the current metadata pointer for Iceberg tables</li>
+<li>Must support atomic operations for updating the current metadata point (e.g.&nbsp;Hadoop File System (HDFS), Hive Meta Store, Nessie, REST)</li>
+</ul></li>
+<li><strong>Metadata Layer</strong>
+<ul>
+<li><strong>Metadata File</strong>: Stores metadata about a table which includes information such as table’s schema, partition info, snapshots.</li>
+<li><strong>Manifest List</strong>: A list of manifest files. The manifest list has information about each manifest file that makes up that snapshot, such as the location of the manifest file, what snapshot it was added as part of, and information about the partitions it belongs to</li>
+<li><strong>Manifest File</strong>: Track data files as well as additional details and statistics about each file. Each manifest file keeps track of a subset of the data files for parallelism and reuse efficiency at scale. They contain a lot of useful information that is used to improve efficiency and performance while reading the data from these data files, such as details about partition membership, record count, and lower and upper bounds of columns. Iceberg is file-format agnostic, so the manifest files also specify the file format of the data file, such as Parquet, ORC, or Avro.</li>
+</ul></li>
+<li><strong>Data</strong>
+<ul>
+<li>The actual data stored in file formats such as Parquet, ORC or Avro. Usually this data is stored in object storage such as S3.</li>
+</ul></li>
+</ol>
+<section id="architectural-diagram-of-the-structure-of-an-iceberg-table" class="level5" style="font-size: 50%;text-align:center">
+<h5 class="anchored" data-anchor-id="architectural-diagram-of-the-structure-of-an-iceberg-table"><strong>Architectural diagram of the structure of an Iceberg table</strong></h5>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="https://www.tylerhillery.com/assets/images/iceberg-metadata.png" class="img-fluid figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<p><a href="https://www.dremio.com/wp-content/uploads/2023/03/iceberg-metadata.png"><em>https://www.dremio.com/wp-content/uploads/2023/03/iceberg-metadata.png</em></a></p>
+</section>
+<p>The benefits of Iceberg are the following<sup>2</sup>:</p>
+<ul>
+<li>Transactional consistency between multiple applications where files can be added, removed or modified atomically, with full read isolation and multiple concurrent writes</li>
+<li>Full schema evolution to track changes to a table over time</li>
+<li>Time travel to query historical data and verify changes between updates</li>
+<li>Partition layout and evolution enabling updates to partition schemes as queries and data volumes change without relying on hidden partitions or physical directories</li>
+<li>Rollback to prior versions to quickly correct issues and return tables to a known good state</li>
+<li>Advanced planning and filtering capabilities for high performance on large data volumes</li>
+</ul>
+</section>
+</section>
+<section id="my-local-data-lakehouse" class="level2">
+<h2 class="anchored" data-anchor-id="my-local-data-lakehouse"><strong>My Local (Data) Lakehouse</strong></h2>
+<p>Now that we have a better understanding of what a Data Lakehouse is and the benefits it provides, lets get into designing my local lakehouse!</p>
+<p><img src="https://www.tylerhillery.com/assets/images/local-lakehouse.png" class="img-fluid"></p>
+<p>Now I know there is a lot going on with this diagram. That’s simply because there are a lot of technologies and ideas I would like to try out. I also want to compare and contrast tools that are in the same category to see which one I like better. Lets start out with some of my main goals with this project.</p>
+<section id="the-foundation" class="level3">
+<h3 class="anchored" data-anchor-id="the-foundation"><strong>The Foundation</strong></h3>
+<p>The core part of my local lakehouse is going to be two main components:</p>
+<section id="data-storage-layer" class="level4">
+<h4 class="anchored" data-anchor-id="data-storage-layer"><strong>Data Storage Layer</strong></h4>
+<p>I plan on using <a href="https://min.io/">MinIO</a> as an open source, S3 compatible object storage. I will be using the <a href="https://github.com/tabular-io/iceberg-rest-image">Iceberg Rest Image</a> for the Iceberg catalog implementation. I might write my own implementation in the future.</p>
+</section>
+<section id="orchestrator" class="level4">
+<h4 class="anchored" data-anchor-id="orchestrator"><strong>Orchestrator</strong></h4>
+<p>The orchestrator to me is the most important component in any data stack. It is one of the only components that spans across the entire stack and helps integrate everything together into one cohesive system. <a href="https://airflow.apache.org/">Airflow</a> is by far the most popular orchestrator and I have always wanted to try it. I personally believe <a href="https://dagster.io/">Dagster</a> will be the category winner in this space. So my plan is to setup Airflow and then imitate a migration to Dagster using the <a href="https://docs.dagster.io/integrations/airflow">dagster-airflow</a> package.</p>
+</section>
+</section>
+<section id="polyglot-engine-dbt-project" class="level3">
+<h3 class="anchored" data-anchor-id="polyglot-engine-dbt-project"><strong>Polyglot Engine dbt Project</strong></h3>
+<p>Implement a <a href="https://www.getdbt.com/">dbt</a> project that supports multiple query engines in one project. The goal is to be able to define the <code>target.name</code> and <code>target.profile_name</code> at the model level. This allows the ability to change query engines based on type of environment (the <code>target.profile_name</code>) dev, qc, prod without having to modifying any of the models.</p>
+<p>Example use case setup to save on costs is to have DuckDB (single node compute engine) for dev and then in prod using <a href="https://trino.io/">Trino</a> (distributed compute engine). Another potential use case is within one environment like dev, I may want one model to be executed by a certain engine because it has better support for python models (<a href="https://spark.apache.org/">Spark</a>) while the other engine is better for SQL (Trino). At the end of the day what I want to demonstrate is the flexibility of Iceberg.</p>
+</section>
+<section id="custom-open-source-connectors" class="level3">
+<h3 class="anchored" data-anchor-id="custom-open-source-connectors"><strong>Custom Open Source Connectors</strong></h3>
+<p>My goal here is that I want to build two brand new open source connectors. One using <a href="https://airbyte.com/">Airbyte</a> and another using <a href="https://meltano.com/">Meltano</a>. I’d like to then setup two batch pipelines with the new connectors and load it into MinIO in the Iceberg table format. If the connectors don’t support this that is what I will build.</p>
+</section>
+<section id="real-time-data-pipelines" class="level3">
+<h3 class="anchored" data-anchor-id="real-time-data-pipelines"><strong>Real Time Data Pipelines</strong></h3>
+<section id="real-time-data-pipeline-1" class="level4">
+<h4 class="anchored" data-anchor-id="real-time-data-pipeline-1"><strong>Real Time Data Pipeline #1</strong></h4>
+<p>I want to build a real time data pipeline that ingests data from the <a href="https://docs.cloud.coinbase.com/prime/docs/websocket-feed">Coinbase websocket</a>, uses <a href="https://buz.dev">Buz</a> to validate the schema of the data from Coinbase before it sends it to <a href="https://redpanda.com/">Redpanda</a> a streaming data platform. After that I will do some data stream processing with <a href="https://bytewax.io/">Bytewax</a> reading from one Redpanda topic and writing to another one. Then I will load the data into MinIO. Lastly, I want to try to create a <a href="https://pro.coinbase.com/">Coinbase Pro</a> clone as shown in the image below. I am undecided how I want to implement the frontend but I am thinking about using a JavaScript framework and data viz library like <a href="https://www.chartjs.org/">Charts.js</a>.</p>
+<p><img src="https://www.tylerhillery.com/assets/images/coinbase-pro.png" class="img-fluid"></p>
+</section>
+<section id="real-time-data-pipeline-2" class="level4">
+<h4 class="anchored" data-anchor-id="real-time-data-pipeline-2"><strong>Real Time Data Pipeline #2</strong></h4>
+<p>In the second real time data pipeline I want to set up <a href="https://snowplow.io/">snowplow</a> to create, track and collect events such as impressions, clicks, video playback (or even something other custom). Snowplow with send the data to Buz to validate the schema of the data before sending it to <a href="https://kafka.apache.org/">Kafka</a>. After it lands in a Kafka topic I will use a streaming database called <a href="https://materialize.com/">Materialize</a> to do some stream processing before writing it back to another Kafka topic and loading it into MinIO.</p>
+</section>
+<section id="real-time-data-pipeline-3" class="level4">
+<h4 class="anchored" data-anchor-id="real-time-data-pipeline-3"><strong>Real Time Data Pipeline #3</strong></h4>
+<p>The last real time data pipeline implement Change Data Capture (CDC) using <a href="https://debezium.io/">Debezium</a> to ingest changes that occur to a Postgres database. These events then will get sent to a Kafka topic and then <a href="https://flink.apache.org/">Flink</a> will ingest that topic and write the data into MinIO.</p>
+</section>
+</section>
+<section id="semantic-layer" class="level3">
+<h3 class="anchored" data-anchor-id="semantic-layer"><strong>Semantic Layer</strong></h3>
+<p>I think semantic layers will start to become more popular and I want to try out one of the most popular ones <a href="https://cube.dev/">cube</a>.</p>
+</section>
+<section id="bi-layer" class="level3">
+<h3 class="anchored" data-anchor-id="bi-layer"><strong>BI Layer</strong></h3>
+<p>These are several BI tools that interest me and I would like to build at least one dashboard in each.</p>
+<ul>
+<li><a href="https://www.rilldata.com/">Rill</a></li>
+<li><a href="https://evidence.dev/">Evidence</a></li>
+<li><a href="https://www.metabase.com/">Metabase</a></li>
+<li><a href="https://streamlit.io/">Streamlit</a></li>
+</ul>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This is going to be a great way for me to get hands on experience with some of the tools I don’t get to interact with on my daily job. Now that we have a blueprint created it’s time to start building the local lakehouse! In my next post I will be writing about my experience on setting up MinIO and the Iceberg Rest Catalog with some sample data and running our first queries.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://www.dremio.com/resources/guides/apache-iceberg-an-architectural-look-under-the-covers/">Apache Iceberg: An Architectural Look Under the Covers</a>↩︎</p></li>
+<li id="fn2"><p><a href="https://www.dremio.com/open-source/apache-iceberg/">The Apache Iceberg Open Table Format</a>↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>Data Lakehouse</category>
+  <category>Iceberg</category>
+  <guid>https://www.tylerhillery.com/blog/local-lakehouse/index.html</guid>
+  <pubDate>Mon, 26 Jun 2023 00:00:00 GMT</pubDate>
+  <media:content url="https://www.tylerhillery.com/assets/images/local-lakehouse.png" medium="image" type="image/png" height="80" width="144"/>
+</item>
+<item>
+  <title>Why and How I Made My First Open Source Contribution</title>
+  <dc:creator>Tyler Hillery</dc:creator>
+  <link>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="start-with-why" class="level2">
+<h2 class="anchored" data-anchor-id="start-with-why"><strong>Start With Why</strong></h2>
+<p>Why would I want to dedicate my free time to help out an open source project? Well there was many reasons as to why I wanted to do this:</p>
+<ul>
+<li>To give back</li>
+<li>Learn how to work on large active code base</li>
+<li>Be apart of a something bigger than me - a community.</li>
+</ul>
+<p>I wasn’t just contributing to any open source project, this was <a href="https://github.com/dbt-labs/dbt-core">dbt</a>. Dbt is more than a tool that helps with transformation in your data warehouse, is it a community. A community built on empowering others to do more with data. It’s even built into their company’s <a href="https://www.getdbt.com/dbt-labs/values/">values:</a></p>
+<blockquote class="blockquote">
+<p><strong>We contribute to the knowledge loop</strong>.<br>
+The highest goal of any human is to produce new knowledge that can subsequently be built upon by others. This is the process upon which every good thing in human society has been built. We participate in this most fundamental of human endeavors by thinking in public and defaulting to open source.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>We believe in moving up the stack.</strong>.<br>
+We believe that all team members should seek to replace themselves on an ongoing basis by building processes, technology, and documentation that obviate their existing work. We have an abundance mindset: there is always more, and more valuable, work to do. Moving up the stack presents growth opportunities for both the individual and the team.</p>
+</blockquote>
+<p>I first discovered dbt in 2021 because I kept hearing about the <em>“Modern Data Stack”</em> and had to know what the hype was about. This lead me to come across a video by Tristan Handy, who I soon discovered was the ceo &amp; co-founder of dbt, titled <a href="https://youtu.be/1Zj8gTLdf5s">The Modern Data Stack: Past, Present, Future</a>. This video was a turning point in my career &amp; life. It led me down a rabbit hole of reading through the <a href="https://roundup.getdbt.com/">Analytics Engineering Roundup</a>, <a href="https://www.getdbt.com/analytics-engineering/">The Analytics Engineering Guide</a>, <a href="https://www.getdbt.com/blog/">dbt blog</a> and discovering <a href="https://www.getdbt.com/blog/we-the-purple-people/">I am a purple person</a>.</p>
+<p>The best way I could describe what I was feeling after discovering this community was <em>understood</em>. Not even a few months later I even applied to dbt labs &amp; this is how I responded to a couple of their application questions (shortened).</p>
+<blockquote class="blockquote">
+<p><strong>Why is dbt Labs and this role appealing to you?</strong><br>
+In a world of specialization, I have felt like a square peg being fit into a round hole. I was stuck at the intersection between the business &amp; technical domain. Discovering the practice of analytics engineering, pioneered by dbt Labs, has been empowering because it has defined a role that best fits my strengths. Leveraging my business &amp; technical skills to help disseminate organizational knowledge &amp; empower analysts. Working for dbt Labs appeals to me because I really believe in your mission, values &amp; product and it would be something I can really get behind…</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>What are you looking for in your next role?</strong><br>
+In my next role I am looking for an opportunity for professional growth &amp; to work for a company whose mission I firmly believe in. Dbt labs has cultivated this movement of empowering analysts just like me: That is something I want to help contribute to. With dbt labs being on the forefront of new data technology &amp; principals (analytics engineering), I can’t think of a better place that would help me grow professionally.</p>
+</blockquote>
+<p>Now I didn’t get the role, which is understandable I only had couple months of dbt experience mainly from the <a href="https://courses.getdbt.com/courses/fundamentals">dbt fundamentals course</a> but the dbt Kool-Aid was so strong it made me overly confident in my abilities at the time. This didn’t mean I couldn’t be apart of the dbt community. Shortly after discovering dbt I found like minded individuals hang out at <a href="https://www.getdbt.com/community/join-the-community/">dbt-slack</a>, <a href="https://locallyoptimistic.com/">Locally Optimistic</a> and <a href="https://twitter.com/i/lists/1479532984269168645?s=20">Data Twitter</a>. I decided to enrich myself in this world without knowing the profound impact it would have on my career.</p>
+<p>One of the most memorable experiences I had was attending <a href="https://www.getdbt.com/coalesce-2021/">Coalesce 2021: The Analytics Engineering Conference</a>. I wanted to find ways to be more active in the virtual conference and found out someone came up with a clever <a href="https://coalesce.bingo/">Coalesce Bingo</a> game as a fun way to make the virtual conference more engaging. The creator was looking for some help on ideas for more squares and I wanted to contribute but there was a problem… I didn’t really understand <a href="https://git-scm.com/">git</a>.</p>
+<p>My version of git was copying a file and moving it into a folder called “Backups”. Luckily, the creator of the bingo game was kind enough to answer a few of my questions on how to open a pull request to have my idea for a square added. This interaction was very <em>enlightening</em> to me. You’re telling me there are thousands of people out in there in the world collaborating on projects together without knowing each other? I mean, I have heard of open source software and projects before but to think I could just go ahead and start contributing to these projects myself was a profounding thing to me. It made me realize behind all these open source projects are just people like me.</p>
+<p>I knew if I wanted to start contributing to larger open source projects it would be best to get the hang of git. Coincidentally, there was a workshop going on at Coalesce 2021, <a href="https://www.getdbt.com/coalesce-2021/git-for-the-rest-of-us/">Git for the rest of us</a>.</p>
+<p><img src="https://www.tylerhillery.com/assets/images/slack_chat_git.jpg" alt="slack-chat-git" width="800/"></p>
+<p>Of course I had to drop a git related pun..</p>
+<p><img src="https://www.tylerhillery.com/assets/images/slack_chat_git_2.jpg" alt="slack-chat-git-2"></p>
+<p>My main takeaway from this conference was I wanted to not only be apart of this community but I want to contribute to it. It was then and there I made it a personal goal to start contributing to dbt.</p>
+</section>
+<section id="the-how" class="level2">
+<h2 class="anchored" data-anchor-id="the-how"><strong>The How</strong></h2>
+<p>There are many ways to get involved with open source projects. One of the best ways to find something to work on is to find issues on GitHub tagged with “good first issue” and dbt team defines this tag in their <a href="https://docs.getdbt.com/docs/contributing/oss-expectations">OSS expectations</a> as:</p>
+<blockquote class="blockquote">
+<p>This issue does not require deep knowledge of the codebase to implement. This issue is appropriate for a first-time contributor.</p>
+</blockquote>
+<p>After looking into some issues I discovered this issue 👉🏻 <a href="https://github.com/dbt-labs/docs.getdbt.com/issues/1489">Add more adapters to the available adapters page</a>. One of those adapters happened to be <a href="https://github.com/jwills/dbt-duckdb/issues/6">DuckDB</a> which happens to be another open source project I am very interested in. This was perfect opportunity to get my feet wet in contributing to open source. It was extremely helpful the dbt team had <a href="https://docs.getdbt.com/docs/contributing/documenting-a-new-adapter">excellent documentation</a> on how to do this.</p>
+<p>I went ahead and followed the instructions outlined in the documentation and open up my <a href="https://github.com/dbt-labs/docs.getdbt.com/pull/1610">first ever PR</a> which was approved shortly after. I even gave a shout-out on the <code>#case-when</code> dbt-slack channel to thank all the people who helped along the way.</p>
+<p><img src="https://www.tylerhillery.com/assets/images/slack_case_when.jpg" alt="slack-case-when" width="800"></p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion"><strong>Conclusion</strong></h2>
+<p>If you are someone who is interested or thought about getting contributing to open source, go for it! Look for projects which resonate you, that <em>you</em> believe in. This will drive you, motivate you to overcome areas you’re unfamiliar with. Join the communities who support these projects and don’t be afraid to reach out for help. Remember everyone was once where you were. Behind all open source projects and software are people just like you.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Open Source</category>
+  <category>dbt</category>
+  <category>duckdb</category>
+  <guid>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</guid>
+  <pubDate>Tue, 12 Jul 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://www.tylerhillery.com/assets/images/Open-Source-Software.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+<item>
+  <title>Make a Public Commitment to Learn</title>
+  <dc:creator>Tyler Hillery</dc:creator>
+  <link>https://www.tylerhillery.com/blog/learning-log/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>I have heard one of the biggest drops of cognitive ability happens after graduating college. It is crucial that if someone wants to continue to learn and improve their knowledge they need to set up deliberate time to learn even after schooling. A lot of people think that once schooling is over that the learning stops and the working starts. This could not be further from the truth. One of my favorite quotes about this is by Mark Twain</p>
+<blockquote class="blockquote">
+<p><strong><em>“Don’t let schooling get in the way of your education” - Mark Twain</em></strong></p>
+</blockquote>
+<p>I think so many of us, including me at one point, felt this way. That school was actually getting in the way my learning because of how structured it was. After schooling that structure is gone which can be daunting at first. It can be easy to get overwhelmed by the amount of resources that are available online. Don’t overthink think this, just start!</p>
+<section id="make-a-public-commitment-to-learn" class="level3">
+<h3 class="anchored" data-anchor-id="make-a-public-commitment-to-learn"><strong>Make a public commitment to learn 📢</strong></h3>
+<p>One way to stick to learning something is to announce it to the public. Being held accountable by others is a great way to stick your goals. This tactic is popular in challenges like <a href="https://www.100daysofcode.com/">#100DaysOfCode</a> where you suppose to code for 1 hour a day for 100 days and tweet about your progress. You are also suppose to commit your coding work to GitHub so you can see your activity on your GitHub’s contribution graph <a href="https://skyline.github.com/TylerHillery">(Which is now available in 3D, VR and IRL 🤯)</a>. This was my main inspiration for creating the <a href="https://share.streamlit.io/tylerhillery/learning-log/main">Learning Log</a>.</p>
+</section>
+<section id="learning-log" class="level3">
+<h3 class="anchored" data-anchor-id="learning-log"><strong>Learning Log 📝</strong></h3>
+<p>The learning log is a python app that was developed using the open source library <a href="https://streamlit.io/">Streamlit</a>. Streamlit makes it easy to turn python scripts into shareable web apps. The learning log helps keep track of your learning sessions. The heat map was designed very similarly to GitHub’s contribution graph. I added some additional metrics like total time logged learning and learning day streak. Streamlit makes it easy to share this app to the public so others can see what you are learning about. I encourage you to fork my repo and start logging your learning!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://share.streamlit.io/tylerhillery/learning-log/main"><img src="https://www.tylerhillery.com/blog/learning-log/https:/static.streamlit.io/badges/streamlit_badge_black_white.svg" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+
+
+</section>
+
+ ]]></description>
+  <category>Projects</category>
+  <category>Streamlit</category>
+  <category>Data Apps</category>
+  <category>Self Taught</category>
+  <guid>https://www.tylerhillery.com/blog/learning-log/index.html</guid>
+  <pubDate>Tue, 31 May 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://www.tylerhillery.com/assets/images/learning-log.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Stock Market Data Pipeline</title>
+  <dc:creator>Tyler Hillery</dc:creator>
+  <link>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="project-overview" class="level4">
+<h4 class="anchored" data-anchor-id="project-overview"><strong>Project Overview</strong></h4>
+<p>Purpose of this project was to get more experience building an end to end data pipeline. I also used it as an opportunity to learn about different tooling in the modern data stack. For the scope of this project I wanted to limit the amount of stocks to only those in the S&amp;P 500 index and I am only refreshing the data once a day after market close to get the most recent closing price.</p>
+<section id="data-pipeline-diagram" class="level5">
+<h5 class="anchored" data-anchor-id="data-pipeline-diagram"><strong>Data Pipeline Diagram</strong></h5>
+<p><a href="https://github.com/TylerHillery/Stock-Market-Data" target="_blank"> <img src="https://www.tylerhillery.com/assets/images/stock-market-data-pipeline.png" alt="data-pipeline" width="750" height="450"> </a></p>
+</section>
+</section>
+<section id="source-extraction-storage" class="level4">
+<h4 class="anchored" data-anchor-id="source-extraction-storage"><strong>1. Source, Extraction &amp; Storage</strong></h4>
+<p><strong>Wikipedia</strong></p>
+<p>Wikipedia was used so I can retrieve an active list of the companies in the S&amp;P 500 index. I used a python package called <a href="https://beautiful-soup-4.readthedocs.io/en/latest/">Beautiful Soup</a> to scrape a table from this <a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies">wiki page</a>. This table also provided me additional information about each company such as GICS Sector and Sub-Industry. After the wiki table is converted into a pandas data frame I export the data frame as a CSV file to a bucket on Google Cloud Storage. My original plan was to keep the file on a local folder but I ran into issues with the Airbyte connection later on that made it difficult to ingest a local file into BigQuery. Once the file was in cloud storage the Airbyte connection process was seamless.</p>
+<p><em>Side Note: While researching about exporting data frames to csv on google could storage I came across a method to load a data frame directly to a BigQuery table which seemed interesting. I didn’t choose this way because I wanted to learn about Airbyte but I would be interested in trying this method in the future.</em><sup>1</sup></p>
+<p>One road block that I ran into was some ticker symbols were not in the same format as how Yahoo Finance had them (e.g.&nbsp;BRK.B). This is why I had to replace the periods with a hyphen.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">@op</span></span>
+<span id="cb1-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> download_active_snp500_stocks():</span>
+<span id="cb1-3">    wikiurl <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"</span></span>
+<span id="cb1-4">    response<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>requests.get(wikiurl)</span>
+<span id="cb1-5"></span>
+<span id="cb1-6">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#Parse data from html into a beautifulsoup object</span></span>
+<span id="cb1-7">    soup <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> BeautifulSoup(response.text, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'html.parser'</span>)</span>
+<span id="cb1-8">    snp500tbl <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> soup.find(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'table'</span>,{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'class'</span>:<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wikitable"</span>},{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'id'</span>:<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'constituents'</span>})</span>
+<span id="cb1-9"></span>
+<span id="cb1-10">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#Convert wiki table into python data frame</span></span>
+<span id="cb1-11">    snp500df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_html((<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(snp500tbl)))</span>
+<span id="cb1-12">    snp500df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.DataFrame(snp500df[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>])</span>
+<span id="cb1-13"></span>
+<span id="cb1-14">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#replace . in symbols with - to match yfinance format</span></span>
+<span id="cb1-15">    snp500list <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> snp500df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Symbol'</span>].tolist()</span>
+<span id="cb1-16">    snp500list <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [ticker.replace(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'.'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'-'</span>) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'.'</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> ticker <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span> ticker <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> ticker <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> snp500list ]</span>
+<span id="cb1-17"></span>
+<span id="cb1-18">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#export data frame as csv to google could storage</span></span>
+<span id="cb1-19">    bucket.blob(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'data_sync/SnP500Companies.csv'</span>).upload_from_string(snp500df.to_csv(index<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>,sep<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">';'</span>,header<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'text/csv'</span>)</span>
+<span id="cb1-20"></span>
+<span id="cb1-21">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#return list of tickers </span></span>
+<span id="cb1-22">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> snp500list</span></code></pre></div>
+<p><strong>Yahoo Finance</strong></p>
+<p>Yahoo Finance was used to retrieve stock price data for each company in the list. I used <a href="https://github.com/ranaroussi/yfinance">yfinance</a> to retrieve YTD price information &amp; <a href="https://pandas-datareader.readthedocs.io/en/latest/readers/yahoo.html">pandas_datareader</a> to get current quote information which provided me with additional data about the company like market cap. Originally I tried to use yfiance’s <code>.info</code> method to get market cap but was running into errors when using the method on a large list of stocks. Pandas Datareader was much faster and I may end up even refactoring the code to also retrieve the YTD price information with this package as well.</p>
+<p>The two Dagster op’s download_price_data and download quote data do essentially the same thing the only difference is I am doing <code>yf.download</code> opposed to <code>pdr.get_quote_yahoo</code> to get different data. Originally I had both of these loops in the same op but with Dagster I can run them concurrently and since it takes awhile for the download_price_data to finish I can have other jobs start running upstream that depend on the quote data before download_price_data even finishes. After each op finishes it exports the data frame as a CSV to a bucket on Google Cloud Storage.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">@op</span></span>
+<span id="cb2-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> download_quote_data(snp500list):</span>
+<span id="cb2-3">    quoteDataList <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>() </span>
+<span id="cb2-4">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> ticker <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> snp500list:        </span>
+<span id="cb2-5">        <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#Getting current yahoo quote data from pandas data reader</span></span>
+<span id="cb2-6">        quoteData <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pdr.get_quote_yahoo(ticker)</span>
+<span id="cb2-7">        quoteData[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'AsOfDataTime'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime.now()</span>
+<span id="cb2-8">        quoteDataList.append(quoteData)</span>
+<span id="cb2-9"></span>
+<span id="cb2-10">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># combine all dataframes into a single dataframe</span></span>
+<span id="cb2-11">    quoteDataDf <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.concat(quoteDataList)</span>
+<span id="cb2-12"></span>
+<span id="cb2-13">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#adding name data frame index</span></span>
+<span id="cb2-14">    quoteDataDf <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> quoteDataDf.rename_axis(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'ticker'</span>) </span>
+<span id="cb2-15"></span>
+<span id="cb2-16">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#Export dataframes as csv to google cloud storage      </span></span>
+<span id="cb2-17">    bucket.blob(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'data_sync/QuoteData.csv'</span>).upload_from_string(quoteDataDf.to_csv(index<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>,sep<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">';'</span>,header<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'text/csv'</span>)</span></code></pre></div>
+<section id="load" class="level5">
+<h5 class="anchored" data-anchor-id="load"><strong>2. Load</strong></h5>
+<p>Loading the CSV files into BigQuery was a breeze… after countless hours trying to figure out how to configure Airbyte to load a local CSV file. I gave up on that method and instead I decided to store the CSV files store on Google Cloud Storage &amp; once I made that change the set up process was very straight forward. I was really impressed the ease of creating a connection. I have experience with SSIS which is a legacy ETL tool &amp; the Airbyte experience was refreshing. With the movement to ELT oppose to ETL, I believe it has made it easier for these new tools to specialize on developing these connections. SSIS was tasked to do too much, jack of trades &amp; master of none. I have several times Visual Studio will crash &amp; the package wont load or the package runs indefinitely.</p>
+<p>The integration with Dagster was also very helpful. I was able to define my Airbyte resource and configure my connections so when the CSV files were upload it immediately triggered Airbyte to run and load the data into BigQuery. <img src="https://www.tylerhillery.com/assets/images/dagster_UI.jpg" alt="Dashboard" width="800" height="450"></p>
+</section>
+<section id="transform" class="level5">
+<h5 class="anchored" data-anchor-id="transform"><strong>3. Transform</strong></h5>
+<p>After the data is loaded into some raw tables on BigQuery it’s time to start transforming the data. Many people may wonder what does “transforming data” all entail because that was one of the first questions I had when learning about ETL/ELT. Transforming data could be anything from changing data types, fixing date formats, in my case I had to adjust the ticker symbols to replace all periods with a hyphen so I can join on the field later on.</p>
+<p>After we do some of these light transformations we can start modeling our data &amp; adding some business logic to it. This is where we start creating fact &amp; dimension tables.</p>
+<blockquote class="blockquote">
+<p><strong>Fact tables</strong> <em>are tables whose records are immutable “facts”, such as service logs and measurement information. Records are progressively appended into the table in a streaming fashion or in large chunks. The records stay there until they’re removed because of cost or because they’ve lost their value. Records are otherwise never updated<sup>2</sup>.</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Dimension tables</strong>: <em>Hold reference data, such as lookup tables from an entity identifier to its properties Hold snapshot-like data in tables whose entire contents change in a single transaction<sup>3</sup>.</em></p>
+</blockquote>
+<p>I created a dim_companies table which is suppose to represent additional information about the company that doesn’t frequently change (name, region, exchange, HQ location, GICS sector &amp; industry). I also created a dim_GICS table which was very specific to the visualization I created for this project. I needed a way to have the GICS Sub-industry on the x axis so I had to convert them into numeric values. I was able to use the <code>DENSE_RANK</code> function to help with this. I have been trying to learn more about SQL window functions as well so this was a create way to practice.</p>
+<p>The last table I created was the fct_price_data which has the all the YTD price data for each company and then I also joined on some additional data about the company from the dim_companies table. The one thing I am very proud of in this table is the use of a CTE and another windows function called <code>LAG</code>. I was able to calculate the 1 day performance of each stock for every record by partitioning the data by ticker and ordering it by date. The <code>LAG</code> function then allows me to look at the prior record so I can grab the previous market close price and use it to calculate the one day performance.</p>
+<p>Since I also had the market cap of each company I was able to also calculate the attribution of each stock by taking the weighted return. Once again I had to use a windows function so I can take the market cap of each individual company divided by the total market cap of the S&amp;P 500 index. Summing all the weighted returns of each stock was able to give me the 1 day performance for the S&amp;P 500 index.</p>
+</section>
+<section id="visualize" class="level5">
+<h5 class="anchored" data-anchor-id="visualize"><strong>4. Visualize</strong></h5>
+<p><img src="https://www.tylerhillery.com/assets/images/preset-dashboard.jpg" alt="Dashboard" width="800" height="400"></p>
+<p>For the visualization I took inspiration from <a href="https://finviz.com/bubbles.ashx">finviz</a> bubble chart which I believe does a great job of displaying how the market performed that day. The dashboard can lead to a lot of further questions about why specific sectors underperformed or outperformed. It also clearly shows any outliers which may leave you wondering what the story is behind that stock.</p>
+</section>
+<section id="conclusion" class="level5">
+<h5 class="anchored" data-anchor-id="conclusion"><strong>5. Conclusion</strong></h5>
+<p>There are many things I would still like to add to this project.</p>
+<ul>
+<li>Ability to pick custom date ranges oppose to just 1 day performance</li>
+<li>Have data refreshed more frequently</li>
+<li>Account for days where market is closed</li>
+<li>More stocks</li>
+<li>Add additional graphs like a tree heat map</li>
+</ul>
+<p>Overall, I am very happy with the outcome with this project. I was able to learn a lot about the modern data stack and it also really helped me improve upon my technical skills.</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://cloud.google.com/bigquery/docs/samples/bigquery-load-table-dataframe">https://cloud.google.com/bigquery/docs/samples/bigquery-load-table-dataframe</a>↩︎</p></li>
+<li id="fn2"><p><a href="https://docs.microsoft.com/en-us/azure/data-explorer/kusto/concepts/fact-and-dimension-tables">https://docs.microsoft.com/en-us/azure/data-explorer/kusto/concepts/fact-and-dimension-tables</a>↩︎</p></li>
+<li id="fn3"><p><a href="https://docs.microsoft.com/en-us/azure/data-explorer/kusto/concepts/fact-and-dimension-tables">https://docs.microsoft.com/en-us/azure/data-explorer/kusto/concepts/fact-and-dimension-tables</a>↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>Projects</category>
+  <category>dbt</category>
+  <category>Airbyte</category>
+  <category>Preset</category>
+  <category>Google Cloud</category>
+  <category>Data Engineering</category>
+  <category>Python</category>
+  <guid>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</guid>
+  <pubDate>Wed, 30 Mar 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://www.tylerhillery.com/assets/images/stock-market-data-pipeline.png" medium="image" type="image/png" height="99" width="144"/>
+</item>
+</channel>
+</rss>

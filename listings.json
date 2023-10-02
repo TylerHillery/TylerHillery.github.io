@@ -1,14 +1,5 @@
 [
   {
-    "listing": "/blog.html",
-    "items": [
-      "/blog/local-lakehouse/index.html",
-      "/blog/getting-started-in-os/index.html",
-      "/blog/learning-log/index.html",
-      "/blog/stock-market-data-pipeline/index.html"
-    ]
-  },
-  {
     "listing": "/notes.html",
     "items": [
       "/notes/data-pipelines-ref/index.html",
@@ -22,10 +13,21 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/projects/coinbase-pipeline/index.html",
       "/projects/local-lakehouse/index.html",
       "/projects/report/index.html",
       "/projects/learning-log/index.html",
       "/projects/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/tyler-tries-real-time-data/index.html",
+      "/blog/local-lakehouse/index.html",
+      "/blog/getting-started-in-os/index.html",
+      "/blog/learning-log/index.html",
+      "/blog/stock-market-data-pipeline/index.html"
     ]
   }
 ]

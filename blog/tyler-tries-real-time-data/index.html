@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tyler Hillery">
+<meta name="dcterms.date" content="2023-10-01">
+<meta name="description" content="My experience building a real-time data pipeline to visualize Coinbase order book depth, highlighting the seamless integration of Redpanda, Materialize, dbt, and Streamlit.">
+
+<title>Tyler Hillery - Tyler Tries Real-Time Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/social-share.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/all.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Tyler Hillery</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notes.html" rel="" target="">
+ <span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/TylerHillery" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/_TylerHillery" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introducing-tyler-tries" id="toc-introducing-tyler-tries" class="nav-link active" data-scroll-target="#introducing-tyler-tries">Introducing “Tyler Tries”</a></li>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link" data-scroll-target="#tldr">TL;DR</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#ingestion" id="toc-ingestion" class="nav-link" data-scroll-target="#ingestion">Ingestion</a></li>
+  <li><a href="#redpanda-console" id="toc-redpanda-console" class="nav-link" data-scroll-target="#redpanda-console">Redpanda Console</a></li>
+  <li><a href="#materialize-dbt" id="toc-materialize-dbt" class="nav-link" data-scroll-target="#materialize-dbt"><strong>Materialize</strong> &amp; dbt</a></li>
+  <li><a href="#streamlit" id="toc-streamlit" class="nav-link" data-scroll-target="#streamlit">Streamlit</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
+  <ul class="collapse">
+  <li><a href="#other-todos" id="toc-other-todos" class="nav-link" data-scroll-target="#other-todos">Other TODOs</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/blog/tyler-tries-real-time-data/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tyler Tries Real-Time Data</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Real-Time Data</div>
+    <div class="quarto-category">Data Apps</div>
+    <div class="quarto-category">Data Engineering</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    My experience building a real-time data pipeline to visualize Coinbase order book depth, highlighting the seamless integration of Redpanda, Materialize, dbt, and Streamlit.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tyler Hillery </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 1, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<hr>
+<section id="introducing-tyler-tries" class="level2">
+<h2 class="anchored" data-anchor-id="introducing-tyler-tries">Introducing “Tyler Tries”</h2>
+<p>This blog kicks off a new series I am calling “Tyler Tries” where I write about the topics I am learning about. We are going to kick off the series off with my experience building a real-time data pipeline to visualize Coinbase order book depth</p>
+</section>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<p>I built a real-time dashboard that visualizes Coinbase order book depth powered by <a href="https://redpanda.com/">Redpanda</a> + <a href="https://materialize.com/">Materialize</a> + <a href="https://www.getdbt.com/">dbt</a> + <a href="https://streamlit.io/">Streamlit</a> you can view the code <a href="https://github.com/TylerHillery/coinbase-order-book-pipeline">here</a>. The data comes from the free Coinbase WebSocket feed using the <a href="https://docs.cloud.coinbase.com/exchange/docs/websocket-channels#level2-batch-channel">level2_batch channel</a></p>
+<iframe src="https://drive.google.com/file/d/1yCz9NxpN5zCXPRSVosNWmkhWPnQeniP6/preview" width="100%" height="480" allow="autoplay">
+</iframe>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>I posted the above video on Twitter/X and several people requested a blog post about how it all works. It may come as a bit of a surprise but it wasn’t all too difficult. This is coming from someone without any prior experience dealing with real-time data and who has never used Redpanda or Materialize before. Funny enough, the part I struggled with most was pandas dataframe styling and creating an unstacked area chart (it turns out most python plotting libraries assume your area chart will be stacked).</p>
+<p>Historically, real-time data was hard to manage. We’ve come a long way since then. If you look at the various components of the <a href="https://medium.com/event-driven-utopia/unbundling-the-modern-streaming-stack-451f75eaf1d">modern streaming stack</a> the biggest thing slowing people down from building real-time data pipelines are the sources. Besides CDC feeds, very rarely there are <a href="https://medium.com/event-driven-utopia/event-driven-apis-understanding-the-principles-c3208308d4b2">event-driven APIs</a> that allow for the consumption of the source data in real time.</p>
+<p>This is why I got so excited when I came across this guide from bytewax: <a href="https://bytewax.io/guides/real-time-financial-exchange-order-book-application?utm_source=pocket_saves">Real-Time Financial Exchange Order Book</a>. It’s how I discovered the free Coinbase WebSocket feed which displays their level 2 order book data. Using this data I thought it would be fun to recreate a common visual to display exchange depth.</p>
+<div style="font-size: 50%; text-align:center">
+<section id="coinbase-pro" class="level5">
+<h5 class="anchored" data-anchor-id="coinbase-pro"><strong>Coinbase Pro</strong></h5>
+<p><img src="../../assets/images/coinbasepro.png" class="img-fluid"></p>
+</section>
+<section id="robinhood" class="level5">
+<h5 class="anchored" data-anchor-id="robinhood"><strong>Robinhood</strong></h5>
+<p><img src="../../assets/images/robinhood.png" class="img-fluid"></p>
+</section>
+<section id="kraken" class="level5">
+<h5 class="anchored" data-anchor-id="kraken"><strong>Kraken</strong></h5>
+<p><img src="../../assets/images/kraken.png" class="img-fluid"></p>
+</section>
+</div>
+<p>These visuals illustrate the cumulative size, indicating the quantity of a security someone is willing to buy or sell at a specific price level. This information is valuable as it can address questions such as, “<em>At what price should I place my order to ensure it gets fully filled if I aim to buy or sell 100 quantities</em>”</p>
+<p>The pipeline will work as follows:</p>
+<ol type="1">
+<li>Create a <code>KafkaProducer</code> to send the data from the Coinbase WebSocket and add it to a Redpanda topic.</li>
+<li>Ingest the Redpanda topic into Materialize using dbt to manage the transformations.</li>
+<li>Connect Streamlit to Materialize with <code>psycopg2</code> to visualize the data.</li>
+</ol>
+</section>
+<section id="ingestion" class="level2">
+<h2 class="anchored" data-anchor-id="ingestion">Ingestion</h2>
+<p>The first step in this pipeline involves creating a <code>KafkaProducer</code> that will take the data from the Coinbase WebSocket and add it to a Redpanda topic.</p>
+<p>To start ingesting data from Coinbase we submit an initial request to the WebSocket channel like so:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> websocket <span class="im">import</span> create_connection</span>
+<span id="cb1-4"><a href="#cb1-4"></a>ws <span class="op">=</span> create_connection(<span class="st">"wss://ws-feed.exchange.coinbase.com"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>ws.send(</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  json.dumps({</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="st">"type"</span>: <span class="st">"subscribe"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="st">"product_ids"</span>: [</span>
+<span id="cb1-9"><a href="#cb1-9"></a>        <span class="st">"ETH-USD"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>        <span class="st">"BTC-USD"</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    ],</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="st">"channels"</span>: [<span class="st">"level2_batch"</span>]</span>
+<span id="cb1-13"><a href="#cb1-13"></a>  })</span>
+<span id="cb1-14"><a href="#cb1-14"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If successful the first message back after running <code>print(ws.recv())</code> will look like:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>   <span class="dt">"type"</span><span class="fu">:</span><span class="st">"subscriptions"</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>   <span class="dt">"channels"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>      <span class="fu">{</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>         <span class="dt">"name"</span><span class="fu">:</span><span class="st">"level2_50"</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>         <span class="dt">"product_ids"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>            <span class="st">"BTC-USD"</span><span class="ot">,</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>            <span class="st">"ETH-USD"</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>         <span class="ot">]</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>      <span class="fu">}</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>   <span class="ot">]</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Following the <code>subscriptions</code> message, the next message received will be the <code>snapshot</code> which provides an overview of the level 2 order book.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1"></a><span class="ot">[</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>   <span class="fu">{</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>      <span class="dt">"type"</span><span class="fu">:</span><span class="st">"snapshot"</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>      <span class="dt">"product_id"</span><span class="fu">:</span><span class="st">"BTC-USD"</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>      <span class="dt">"bids"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>         <span class="ot">[</span><span class="st">"10101.10"</span><span class="ot">,</span> <span class="st">"0.45054140"</span><span class="ot">]</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>      <span class="dt">"asks"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>         <span class="ot">[</span><span class="st">"10102.55"</span><span class="ot">,</span><span class="st">"0.57753524"</span><span class="ot">]</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>      <span class="ot">]</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>   <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>   <span class="fu">{</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>      <span class="dt">"type"</span><span class="fu">:</span><span class="st">"snapshot"</span><span class="fu">,</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>      <span class="dt">"product_id"</span><span class="fu">:</span><span class="st">"ETH-USD"</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>      <span class="dt">"bids"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>         <span class="ot">[</span><span class="st">"10101.10"</span><span class="ot">,</span> <span class="st">"0.45054140"</span><span class="ot">]</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>      <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>      <span class="dt">"asks"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>         <span class="ot">[</span><span class="st">"10102.55"</span><span class="ot">,</span><span class="st">"0.57753524"</span><span class="ot">]</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>      <span class="ot">]</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>   <span class="fu">}</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="ot">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>bids</code> and <code>asks</code> provide a list of lists where the first element is the price and the second element is the quantity.</p>
+<p>After the snapshot messages, the last message is <code>l2update</code> which provides a message if the <code>size</code> has changed at a given price level for the product_id.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The size property is the updated size at the price level, not a delta. A size of “0” indicates the price level can be removed.</p>
+</div>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>   <span class="dt">"type"</span><span class="fu">:</span><span class="st">"l2update"</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>   <span class="dt">"product_id"</span><span class="fu">:</span><span class="st">"BTC-USD"</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>   <span class="dt">"time"</span><span class="fu">:</span><span class="st">"2019-08-14T20:42:27.265Z"</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>   <span class="dt">"changes"</span><span class="fu">:</span><span class="ot">[</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>      <span class="ot">[</span><span class="st">"buy"</span><span class="ot">,</span><span class="st">"10101.80000000"</span><span class="ot">,</span><span class="st">"0.162567"</span><span class="ot">]</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>   <span class="ot">]</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To process these messages within the <code>KafkaProducer</code> I’ve created an infinite while loop that will keep running until the program is stopped.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  message <span class="op">=</span> ws.recv()</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  data <span class="op">=</span> json.loads(message)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="cf">if</span> data[<span class="st">"type"</span>] <span class="op">==</span> <span class="st">"snapshot"</span>:</span>
+<span id="cb5-5"><a href="#cb5-5"></a>      </span>
+<span id="cb5-6"><a href="#cb5-6"></a>      asks <span class="op">=</span> [{</span>
+<span id="cb5-7"><a href="#cb5-7"></a>              <span class="st">"message_type"</span>: <span class="st">"snapshot"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>              <span class="st">"message_key"</span>: data[<span class="st">"product_id"</span>] <span class="op">+</span> <span class="st">"-sell-"</span> <span class="op">+</span> <span class="bu">str</span>(order[<span class="dv">0</span>]),</span>
+<span id="cb5-9"><a href="#cb5-9"></a>              <span class="st">"product_id"</span>: data[<span class="st">"product_id"</span>],</span>
+<span id="cb5-10"><a href="#cb5-10"></a>              <span class="st">"side"</span>: <span class="st">"sell"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>              <span class="st">"price"</span>: order[<span class="dv">0</span>],</span>
+<span id="cb5-12"><a href="#cb5-12"></a>              <span class="st">"size"</span>: order[<span class="dv">1</span>],</span>
+<span id="cb5-13"><a href="#cb5-13"></a>              <span class="st">"message_created_at_utc"</span>: format_datetime(data[<span class="st">"time"</span>])</span>
+<span id="cb5-14"><a href="#cb5-14"></a>              } <span class="cf">for</span> order <span class="kw">in</span> data[<span class="st">"asks"</span>]</span>
+<span id="cb5-15"><a href="#cb5-15"></a>          ]</span>
+<span id="cb5-16"><a href="#cb5-16"></a>      </span>
+<span id="cb5-17"><a href="#cb5-17"></a>      bids <span class="op">=</span> [{</span>
+<span id="cb5-18"><a href="#cb5-18"></a>              <span class="st">"message_type"</span>: <span class="st">"snapshot"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19"></a>              <span class="st">"message_key"</span>: data[<span class="st">"product_id"</span>] <span class="op">+</span> <span class="st">"-buy-"</span> <span class="op">+</span> <span class="bu">str</span>(order[<span class="dv">0</span>]),</span>
+<span id="cb5-20"><a href="#cb5-20"></a>              <span class="st">"product_id"</span>: data[<span class="st">"product_id"</span>],</span>
+<span id="cb5-21"><a href="#cb5-21"></a>              <span class="st">"side"</span>: <span class="st">"buy"</span>,</span>
+<span id="cb5-22"><a href="#cb5-22"></a>              <span class="st">"price"</span>: order[<span class="dv">0</span>],</span>
+<span id="cb5-23"><a href="#cb5-23"></a>              <span class="st">"size"</span>: order[<span class="dv">1</span>],</span>
+<span id="cb5-24"><a href="#cb5-24"></a>              <span class="st">"message_created_at_utc"</span>: format_datetime(data[<span class="st">"time"</span>])</span>
+<span id="cb5-25"><a href="#cb5-25"></a>              } <span class="cf">for</span> order <span class="kw">in</span> data[<span class="st">"bids"</span>]</span>
+<span id="cb5-26"><a href="#cb5-26"></a>          ]</span>
+<span id="cb5-27"><a href="#cb5-27"></a>      </span>
+<span id="cb5-28"><a href="#cb5-28"></a>      order_book <span class="op">=</span> asks <span class="op">+</span> bids</span>
+<span id="cb5-29"><a href="#cb5-29"></a></span>
+<span id="cb5-30"><a href="#cb5-30"></a>      <span class="cf">for</span> order <span class="kw">in</span> order_book:</span>
+<span id="cb5-31"><a href="#cb5-31"></a>          prod.send(</span>
+<span id="cb5-32"><a href="#cb5-32"></a>              topic<span class="op">=</span><span class="st">"coinbase_level2_channel"</span>, </span>
+<span id="cb5-33"><a href="#cb5-33"></a>              key<span class="op">=</span>order[<span class="st">"message_key"</span>].encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb5-34"><a href="#cb5-34"></a>              value<span class="op">=</span>json.dumps(order,default<span class="op">=</span>json_serializer,ensure_ascii<span class="op">=</span><span class="va">False</span>).encode(<span class="st">"utf-8"</span>)</span>
+<span id="cb5-35"><a href="#cb5-35"></a>          )</span>
+<span id="cb5-36"><a href="#cb5-36"></a>          <span class="bu">print</span>(order) <span class="co">#log</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a>      prod.flush()</span>
+<span id="cb5-38"><a href="#cb5-38"></a></span>
+<span id="cb5-39"><a href="#cb5-39"></a>  <span class="cf">elif</span> data[<span class="st">"type"</span>] <span class="op">==</span> <span class="st">"l2update"</span>:</span>
+<span id="cb5-40"><a href="#cb5-40"></a>      orders <span class="op">=</span> [{</span>
+<span id="cb5-41"><a href="#cb5-41"></a>              <span class="st">"message_type"</span>: <span class="st">"l2update"</span>,</span>
+<span id="cb5-42"><a href="#cb5-42"></a>              <span class="st">"message_key"</span>: data[<span class="st">"product_id"</span>] <span class="op">+</span> <span class="st">"-"</span> <span class="op">+</span> order[<span class="dv">0</span>] <span class="op">+</span> <span class="st">"-"</span> <span class="op">+</span> <span class="bu">str</span>(order[<span class="dv">1</span>]),</span>
+<span id="cb5-43"><a href="#cb5-43"></a>              <span class="st">"product_id"</span>: data[<span class="st">"product_id"</span>],</span>
+<span id="cb5-44"><a href="#cb5-44"></a>              <span class="st">"side"</span>: order[<span class="dv">0</span>],</span>
+<span id="cb5-45"><a href="#cb5-45"></a>              <span class="st">"price"</span>: order[<span class="dv">1</span>],</span>
+<span id="cb5-46"><a href="#cb5-46"></a>              <span class="st">"size"</span>: order[<span class="dv">2</span>],</span>
+<span id="cb5-47"><a href="#cb5-47"></a>              <span class="st">"message_created_at_utc"</span>: format_datetime(data[<span class="st">"time"</span>])</span>
+<span id="cb5-48"><a href="#cb5-48"></a>              } <span class="cf">for</span> order <span class="kw">in</span> data[<span class="st">"changes"</span>]</span>
+<span id="cb5-49"><a href="#cb5-49"></a>          ]</span>
+<span id="cb5-50"><a href="#cb5-50"></a>      <span class="cf">for</span> order <span class="kw">in</span> orders:</span>
+<span id="cb5-51"><a href="#cb5-51"></a>          prod.send(</span>
+<span id="cb5-52"><a href="#cb5-52"></a>                  topic<span class="op">=</span><span class="st">"coinbase_level2_channel"</span>, </span>
+<span id="cb5-53"><a href="#cb5-53"></a>                  key<span class="op">=</span>order[<span class="st">"message_key"</span>].encode(<span class="st">"utf-8"</span>),</span>
+<span id="cb5-54"><a href="#cb5-54"></a>                  value<span class="op">=</span>json.dumps(order,default<span class="op">=</span>json_serializer,ensure_ascii<span class="op">=</span><span class="va">False</span>).encode(<span class="st">"utf-8"</span>)</span>
+<span id="cb5-55"><a href="#cb5-55"></a>              )</span>
+<span id="cb5-56"><a href="#cb5-56"></a>          <span class="bu">print</span>(order) <span class="co">#log</span></span>
+<span id="cb5-57"><a href="#cb5-57"></a>      prod.flush()</span>
+<span id="cb5-58"><a href="#cb5-58"></a>  <span class="cf">else</span>:</span>
+<span id="cb5-59"><a href="#cb5-59"></a>      <span class="bu">print</span>(<span class="ss">f"Unexpected value for 'type': </span><span class="sc">{</span>data[<span class="st">'type'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="redpanda-console" class="level2">
+<h2 class="anchored" data-anchor-id="redpanda-console">Redpanda Console</h2>
+<p>The Redpanda Console provided a nice UI to peer into how the Redpanda instance is operating. If you haven’t used the Redpanda Console, it’s described as:</p>
+<blockquote class="blockquote">
+<p><strong>A Kafka web UI for developers</strong>.<br>
+Redpanda Console gives you a simple, interactive approach for gaining visibility into your topics, masking data, managing consumer groups, and exploring real-time data with time-travel debugging<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+</blockquote>
+<p><img src="../../assets/images/redpanda_console.png" class="img-fluid"></p>
+<p>The console helped me identify a bug in my original code. The unique key I was making for each record was a combination of the product_id, side, &amp; price e.g.&nbsp;<code>BTC-USD-buy-10000</code>. The problem was for the <code>snapshot</code> messages I was using the terms <code>bid</code> and <code>ask</code> but for the <code>l2update</code> messages I was using <code>buy</code> and <code>sell</code>. This was important to fix because the data was being inserted into Materialize via the <a href="https://materialize.com/docs/sql/create-source/kafka/#handling-upserts">ENVELOPE UPSERT</a> based on this key.</p>
+</section>
+<section id="materialize-dbt" class="level2">
+<h2 class="anchored" data-anchor-id="materialize-dbt"><strong>Materialize</strong> &amp; dbt</h2>
+<p>The next step in our pipeline entails processing and storing the real-time data. Materialize is a streaming database that allows for just that. It has integrations with Kafka and since Redpanda is compatible with Kafka APIs, Materialize and Redpanda work together out of the box.</p>
+<p>A key thing to understand about Materialize is how it handles materialized views. Their MVs are incrementally maintained so as the underlying data changes the MV automatically updates. This is why when you use Materialize and dbt together you’ll typically set up dbt to only run in a CI/CD pipeline which is kicked off when changes occur to the dbt models. If you want to learn more about how this works I highly recommend checking out this video on <a href="https://youtu.be/yofTRM9WpwQ?si=9fdqDtII_GbH5dxG.">Materialize+dbt Streaming for the Modern Data Stack</a></p>
+<p>Most of the code for this project mimics what I found in the <a href="https://github.com/MaterializeInc/mz-hack-day-2022">Materialize + Redpanda + dbt Hack Day</a>.</p>
+<p>First we define our source:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1"></a>{{ config(<span class="kw">materialized</span><span class="op">=</span><span class="st">'source'</span>) }}</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">CREATE</span> <span class="kw">SOURCE</span> {{ this }}</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">FROM</span> KAFKA BROKER <span class="st">'redpanda:9092'</span> TOPIC <span class="st">'coinbase_level2_channel'</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="kw">KEY</span> FORMAT BYTES</span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">VALUE</span> FORMAT BYTES</span>
+<span id="cb6-6"><a href="#cb6-6"></a>ENVELOPE UPSERT;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>ENVELOPE UPSERT</code> treats all records as having a key and a value, and supports inserts, updates and deletes within Materialize<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<ul>
+<li>If the key does not match a preexisting record, it inserts the record’s key and value.</li>
+<li>If the key matches a preexisting record and the value is non-null, Materialize updates the existing record with the new value.</li>
+<li>If the key matches a preexisting record and the value is null, Materialize deletes the record.</li>
+</ul>
+<p>Our staging model does some light transformations to get the data into a more usable form.</p>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>stg_coinbase_level2_channel</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>{{ </span>
+<span id="cb7-2"><a href="#cb7-2"></a>    config(</span>
+<span id="cb7-3"><a href="#cb7-3"></a>        materialized<span class="op">=</span><span class="st">'materializedview'</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    ) </span>
+<span id="cb7-5"><a href="#cb7-5"></a>}}</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="cf">with</span> </span>
+<span id="cb7-8"><a href="#cb7-8"></a>source <span class="im">as</span> (</span>
+<span id="cb7-9"><a href="#cb7-9"></a>    select <span class="op">*</span> <span class="im">from</span> {{ source(<span class="st">'coinbase'</span>, <span class="st">'level2_channel'</span>) }}</span>
+<span id="cb7-10"><a href="#cb7-10"></a>),</span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a>converted <span class="im">as</span> (</span>
+<span id="cb7-13"><a href="#cb7-13"></a>    select convert_from(data, <span class="st">'utf8'</span>) <span class="im">as</span> data <span class="im">from</span> source</span>
+<span id="cb7-14"><a href="#cb7-14"></a>),</span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a>casted AS (</span>
+<span id="cb7-17"><a href="#cb7-17"></a>    select cast(data <span class="im">as</span> jsonb) <span class="im">as</span> data <span class="im">from</span> converted</span>
+<span id="cb7-18"><a href="#cb7-18"></a>),</span>
+<span id="cb7-19"><a href="#cb7-19"></a></span>
+<span id="cb7-20"><a href="#cb7-20"></a>renamed <span class="im">as</span> (</span>
+<span id="cb7-21"><a href="#cb7-21"></a>    select</span>
+<span id="cb7-22"><a href="#cb7-22"></a>        (data<span class="op">-&gt;&gt;</span><span class="st">'message_type'</span>)::string                 <span class="im">as</span> message_type,</span>
+<span id="cb7-23"><a href="#cb7-23"></a>        (data<span class="op">-&gt;&gt;</span><span class="st">'message_key'</span>)::string                  <span class="im">as</span> message_key,</span>
+<span id="cb7-24"><a href="#cb7-24"></a>        (data<span class="op">-&gt;&gt;</span><span class="st">'product_id'</span>)::string                   <span class="im">as</span> product_id,</span>
+<span id="cb7-25"><a href="#cb7-25"></a>        (data<span class="op">-&gt;&gt;</span><span class="st">'side'</span>)::string                         <span class="im">as</span> side,</span>
+<span id="cb7-26"><a href="#cb7-26"></a>        (data<span class="op">-&gt;&gt;</span><span class="st">'price'</span>)::double                        <span class="im">as</span> price,</span>
+<span id="cb7-27"><a href="#cb7-27"></a>        (data<span class="op">-&gt;&gt;</span><span class="st">'size'</span>)::double                         <span class="im">as</span> size,</span>
+<span id="cb7-28"><a href="#cb7-28"></a>        (data<span class="op">-&gt;&gt;</span><span class="st">'message_created_at_utc'</span>)::timestamp    <span class="im">as</span> message_created_at_utc</span>
+<span id="cb7-29"><a href="#cb7-29"></a>    <span class="im">from</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a>        casted</span>
+<span id="cb7-31"><a href="#cb7-31"></a>),</span>
+<span id="cb7-32"><a href="#cb7-32"></a></span>
+<span id="cb7-33"><a href="#cb7-33"></a>final <span class="im">as</span> (</span>
+<span id="cb7-34"><a href="#cb7-34"></a>    select</span>
+<span id="cb7-35"><a href="#cb7-35"></a>        message_type,</span>
+<span id="cb7-36"><a href="#cb7-36"></a>        message_key,</span>
+<span id="cb7-37"><a href="#cb7-37"></a>        product_id,</span>
+<span id="cb7-38"><a href="#cb7-38"></a>        side,</span>
+<span id="cb7-39"><a href="#cb7-39"></a>        price,</span>
+<span id="cb7-40"><a href="#cb7-40"></a>        size,</span>
+<span id="cb7-41"><a href="#cb7-41"></a>        price <span class="op">*</span> size <span class="im">as</span> notional_size,</span>
+<span id="cb7-42"><a href="#cb7-42"></a>        message_created_at_utc</span>
+<span id="cb7-43"><a href="#cb7-43"></a>    <span class="im">from</span></span>
+<span id="cb7-44"><a href="#cb7-44"></a>        renamed</span>
+<span id="cb7-45"><a href="#cb7-45"></a>    where</span>
+<span id="cb7-46"><a href="#cb7-46"></a>        size <span class="op">!=</span> <span class="dv">0</span></span>
+<span id="cb7-47"><a href="#cb7-47"></a>)</span>
+<span id="cb7-48"><a href="#cb7-48"></a></span>
+<span id="cb7-49"><a href="#cb7-49"></a>select <span class="op">*</span> <span class="im">from</span> final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Because Materialize does not handle <a href="https://materialize.com/docs/transform-data/patterns/window-functions/#:~:text=Window%20functions%20compute%20results%20based,consecutive%20rows%20in%20each%20partition.">window functions</a> very well they provided some alternative approaches in their docs. I referenced the <a href="https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on">Materialize Top K by group</a> that allowed me to return the top bid and ask record for each product id. The highest bid and lowest ask is referred to as the national best bid and off (NBBO).</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>int_coinbase_nbbo</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>{{ </span>
+<span id="cb8-2"><a href="#cb8-2"></a>    config(</span>
+<span id="cb8-3"><a href="#cb8-3"></a>        materialized<span class="op">=</span><span class="st">'materializedview'</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>    ) </span>
+<span id="cb8-5"><a href="#cb8-5"></a>}}</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="cf">with</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>stg_coinbase_level2_channel <span class="im">as</span> (</span>
+<span id="cb8-9"><a href="#cb8-9"></a>    select <span class="op">*</span> <span class="im">from</span> {{ ref(<span class="st">'stg_coinbase_level2_channel'</span>) }}</span>
+<span id="cb8-10"><a href="#cb8-10"></a>),</span>
+<span id="cb8-11"><a href="#cb8-11"></a></span>
+<span id="cb8-12"><a href="#cb8-12"></a>nbb <span class="im">as</span> (</span>
+<span id="cb8-13"><a href="#cb8-13"></a>    select</span>
+<span id="cb8-14"><a href="#cb8-14"></a>        distinct on(product_id) product_id,</span>
+<span id="cb8-15"><a href="#cb8-15"></a>        side,</span>
+<span id="cb8-16"><a href="#cb8-16"></a>        price,</span>
+<span id="cb8-17"><a href="#cb8-17"></a>        size,</span>
+<span id="cb8-18"><a href="#cb8-18"></a>        notional_size,</span>
+<span id="cb8-19"><a href="#cb8-19"></a>        message_created_at_utc</span>
+<span id="cb8-20"><a href="#cb8-20"></a>    <span class="im">from</span> </span>
+<span id="cb8-21"><a href="#cb8-21"></a>        stg_coinbase_level2_channel</span>
+<span id="cb8-22"><a href="#cb8-22"></a>    where</span>
+<span id="cb8-23"><a href="#cb8-23"></a>        side <span class="op">=</span> <span class="st">'buy'</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a>    order by</span>
+<span id="cb8-25"><a href="#cb8-25"></a>        product_id, price desc</span>
+<span id="cb8-26"><a href="#cb8-26"></a>),</span>
+<span id="cb8-27"><a href="#cb8-27"></a></span>
+<span id="cb8-28"><a href="#cb8-28"></a>nbo <span class="im">as</span> (</span>
+<span id="cb8-29"><a href="#cb8-29"></a>    select</span>
+<span id="cb8-30"><a href="#cb8-30"></a>        distinct on(product_id) product_id,</span>
+<span id="cb8-31"><a href="#cb8-31"></a>        side,</span>
+<span id="cb8-32"><a href="#cb8-32"></a>        price,</span>
+<span id="cb8-33"><a href="#cb8-33"></a>        size,</span>
+<span id="cb8-34"><a href="#cb8-34"></a>        notional_size,</span>
+<span id="cb8-35"><a href="#cb8-35"></a>        message_created_at_utc</span>
+<span id="cb8-36"><a href="#cb8-36"></a>    <span class="im">from</span> </span>
+<span id="cb8-37"><a href="#cb8-37"></a>        stg_coinbase_level2_channel</span>
+<span id="cb8-38"><a href="#cb8-38"></a>    where</span>
+<span id="cb8-39"><a href="#cb8-39"></a>        side <span class="op">=</span> <span class="st">'sell'</span></span>
+<span id="cb8-40"><a href="#cb8-40"></a>    order by</span>
+<span id="cb8-41"><a href="#cb8-41"></a>        product_id, price asc</span>
+<span id="cb8-42"><a href="#cb8-42"></a>),</span>
+<span id="cb8-43"><a href="#cb8-43"></a></span>
+<span id="cb8-44"><a href="#cb8-44"></a>unioned <span class="im">as</span> (</span>
+<span id="cb8-45"><a href="#cb8-45"></a>    select <span class="op">*</span> <span class="im">from</span> nbb</span>
+<span id="cb8-46"><a href="#cb8-46"></a>    union <span class="bu">all</span> </span>
+<span id="cb8-47"><a href="#cb8-47"></a>    select <span class="op">*</span> <span class="im">from</span> nbo</span>
+<span id="cb8-48"><a href="#cb8-48"></a>)</span>
+<span id="cb8-49"><a href="#cb8-49"></a></span>
+<span id="cb8-50"><a href="#cb8-50"></a>select <span class="op">*</span> <span class="im">from</span> unioned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The last model I created was the fct_coinbase_nbbo which pivots the NBB and NBO so there is only one record per product_id. This allows for the calculation of the NBBO spread and NBBO midpoint. The spread is the difference between the NBB and NBO. The NBBO midpoint is usually used as the reference price for the current market value of a security.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>fct_coinbase_nbbo</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>{{ </span>
+<span id="cb9-2"><a href="#cb9-2"></a>    config(</span>
+<span id="cb9-3"><a href="#cb9-3"></a>        materialized<span class="op">=</span><span class="st">'materializedview'</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>    ) </span>
+<span id="cb9-5"><a href="#cb9-5"></a>}}</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="cf">with</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>int_coinbase_nbbo <span class="im">as</span> (</span>
+<span id="cb9-9"><a href="#cb9-9"></a>    select <span class="op">*</span> <span class="im">from</span> {{ ref(<span class="st">'int_coinbase_nbbo'</span>) }}</span>
+<span id="cb9-10"><a href="#cb9-10"></a>),</span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a>nbbo <span class="im">as</span> (</span>
+<span id="cb9-13"><a href="#cb9-13"></a>    select</span>
+<span id="cb9-14"><a href="#cb9-14"></a>        product_id,</span>
+<span id="cb9-15"><a href="#cb9-15"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'buy'</span> then price end)                      <span class="im">as</span> nbb_price,</span>
+<span id="cb9-16"><a href="#cb9-16"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'buy'</span> then size end)                       <span class="im">as</span> nbb_size,</span>
+<span id="cb9-17"><a href="#cb9-17"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'buy'</span> then notional_size end)              <span class="im">as</span> nbb_notional_size,</span>
+<span id="cb9-18"><a href="#cb9-18"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'buy'</span> then message_created_at_utc end)     <span class="im">as</span> nbb_last_updated_at_utc,</span>
+<span id="cb9-19"><a href="#cb9-19"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'sell'</span> then price end)                     <span class="im">as</span> nbo_price,</span>
+<span id="cb9-20"><a href="#cb9-20"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'sell'</span> then size end)                      <span class="im">as</span> nbo_size,</span>
+<span id="cb9-21"><a href="#cb9-21"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'sell'</span> then notional_size end)             <span class="im">as</span> nbo_notional_size,</span>
+<span id="cb9-22"><a href="#cb9-22"></a>        <span class="bu">max</span>(case when side <span class="op">=</span> <span class="st">'sell'</span> then message_created_at_utc end)    <span class="im">as</span> nbo_last_updated_at_utc</span>
+<span id="cb9-23"><a href="#cb9-23"></a>    <span class="im">from</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a>        int_coinbase_nbbo</span>
+<span id="cb9-25"><a href="#cb9-25"></a>    group by</span>
+<span id="cb9-26"><a href="#cb9-26"></a>        product_id</span>
+<span id="cb9-27"><a href="#cb9-27"></a>),</span>
+<span id="cb9-28"><a href="#cb9-28"></a></span>
+<span id="cb9-29"><a href="#cb9-29"></a>final <span class="im">as</span> (</span>
+<span id="cb9-30"><a href="#cb9-30"></a>    select</span>
+<span id="cb9-31"><a href="#cb9-31"></a>        product_id,</span>
+<span id="cb9-32"><a href="#cb9-32"></a>        nbb_price,</span>
+<span id="cb9-33"><a href="#cb9-33"></a>        nbb_size,</span>
+<span id="cb9-34"><a href="#cb9-34"></a>        nbb_notional_size,</span>
+<span id="cb9-35"><a href="#cb9-35"></a>        nbb_last_updated_at_utc,</span>
+<span id="cb9-36"><a href="#cb9-36"></a>        nbo_price,</span>
+<span id="cb9-37"><a href="#cb9-37"></a>        nbo_size,</span>
+<span id="cb9-38"><a href="#cb9-38"></a>        nbo_notional_size,</span>
+<span id="cb9-39"><a href="#cb9-39"></a>        nbo_last_updated_at_utc,</span>
+<span id="cb9-40"><a href="#cb9-40"></a>        (nbb_price <span class="op">+</span> nbo_price) <span class="op">/</span> <span class="dv">2</span> <span class="im">as</span> nbbo_midpoint,</span>
+<span id="cb9-41"><a href="#cb9-41"></a>        nbo_price <span class="op">-</span> nbb_price <span class="im">as</span> nbbo_spread</span>
+<span id="cb9-42"><a href="#cb9-42"></a>    <span class="im">from</span></span>
+<span id="cb9-43"><a href="#cb9-43"></a>        nbbo</span>
+<span id="cb9-44"><a href="#cb9-44"></a>)</span>
+<span id="cb9-45"><a href="#cb9-45"></a></span>
+<span id="cb9-46"><a href="#cb9-46"></a>select <span class="op">*</span> <span class="im">from</span> final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>TODO</strong>: Something I want to work on in the future is creating a model that provides the cumulative size. Normally a window function is what I would use to get the cumulative sum of something but window functions don’t work well with Materialize. My theory is that I can do a self-join on the product_id, side, and price where the price is &gt;= the current price (or &lt;= depending on the side) and then sum up the size.</p>
+</section>
+<section id="streamlit" class="level2">
+<h2 class="anchored" data-anchor-id="streamlit">Streamlit</h2>
+<p>Streamlit has been my go-to lately when I want to display a side project I’ve been working on. Because Materialize speaks the Postgres wire protocol I can leverage <code>psycopg2</code> to connect to Streamlit.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> psycopg2</span>
+<span id="cb10-2"><a href="#cb10-2"></a>dsn <span class="op">=</span> <span class="st">"user=materialize password=password host=materialized port=6875 dbname=materialize"</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>conn <span class="op">=</span> psycopg2.<span class="ex">connect</span>(dsn)</span>
+<span id="cb10-4"><a href="#cb10-4"></a>cur <span class="op">=</span> conn.cursor()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Currently, I am using a polling technique based on the <code>refresh_interval</code> that is set by the <code>st.slider</code> and defaults to 1 second. I use a package called <code>streamlit_autorefresh</code> that handles refreshing the Streamlit app.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="im">from</span> streamlit_autorefresh <span class="im">import</span> st_autorefresh</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="cf">with</span> st.sidebar:</span>
+<span id="cb11-5"><a href="#cb11-5"></a>    refresh_interval <span class="op">=</span> st.slider(</span>
+<span id="cb11-6"><a href="#cb11-6"></a>        <span class="st">"Auto-Refresh Interval (seconds)"</span>, </span>
+<span id="cb11-7"><a href="#cb11-7"></a>        <span class="dv">1</span>, </span>
+<span id="cb11-8"><a href="#cb11-8"></a>        <span class="dv">15</span>, </span>
+<span id="cb11-9"><a href="#cb11-9"></a>        step<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>    )</span>
+<span id="cb11-11"><a href="#cb11-11"></a></span>
+<span id="cb11-12"><a href="#cb11-12"></a>st_autorefresh(interval<span class="op">=</span>refresh_interval<span class="op">*</span><span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>TODO</strong>: I would like to switch this polling technique to a push model so the data is sent directly to Streamlit as it comes in. Shout-out to the Materialize team for whipping up a <a href="https://github.com/MaterializeInc/demos/pull/88">demo</a> for me on how to do this!</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Increasingly, individuals and organizations are discovering use cases for analytical data that have different standards than traditional OLAP data workflows, often venturing into what’s known as “Operational Analytics.” Coming from an ops background, I’ve seen firsthand how operational processes can get caught up in mundane data tasks. This is where data teams can step in, alleviating this burden, allowing focus to shift to higher-value problems.</p>
+<p>The evolution of tooling and technology surrounding real-time data has significantly eased the prior complexity. In the past, the cost and effort required to establish the necessary infrastructure were deterrents. However, times have changed. I firmly believe real-time isn’t just the future; it’s the present.</p>
+<section id="other-todos" class="level3">
+<h3 class="anchored" data-anchor-id="other-todos">Other TODOs</h3>
+<ul>
+<li>Utilize the Materialize <a href="https://materialize.com/docs/sql/subscribe/">SUBSCRIBE</a> along with materializing <code>dbt tests</code> as MVs to create alerts on:
+<ul>
+<li>NBBO spread gets too wide</li>
+<li>Price alerts</li>
+</ul></li>
+<li>If the change of the size for a specific price level goes down we can use it as a proxy for executed volume and display those records as a table.</li>
+</ul>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<ul>
+<li><a href="https://bytewax.io/guides/real-time-financial-exchange-order-book-application?utm_source=pocket_saves">Real-Time Financial Exchange Order Book</a></li>
+<li><a href="https://bytewax.io/blog/streaming-data-apps-with-bytewax-and-streamlit?utm_source=pocket_saves">Streaming Data Apps with Bytewax and Streamlit</a></li>
+<li><a href="https://www.realworldmcl.xyz/blog/real-time-pipelines-in-python">How to Build a Real-Time Feature Pipeline In Python</a></li>
+<li><a href="https://medium.com/@danthelion/temporal-analysis-of-wikipedia-changes-with-redpanda-materialize-dbt-e372186fb951">Temporal analysis of Wikipedia changes with Redpanda &amp; Materialize &amp; dbt</a></li>
+<li><a href="https://medium.com/@danthelion/breathing-life-into-streamlit-with-materialize-redpanda-1c29282cc72b">Breathing life into Streamlit with Materialize &amp; Redpanda</a></li>
+<li><a href="https://redpanda.com/blog/real-time-crypto-tracker-questdb-redpanda">How to build a real-time crypto tracker with Redpanda and QuestDB</a></li>
+<li><a href="https://bytewax.io/blog/online-machine-learning-in-practice-interactive-dashboards-to-detect-data-anomalies-in-real-time">Online Machine Learning in Practice: Interactive dashboards to detect data anomalies in real time</a></li>
+<li><a href="https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on">Materialize Top K by group</a></li>
+<li><a href="https://github.com/MaterializeInc/mz-hack-day-2022">Materialize + Redpanda + dbt Hack Day</a></li>
+<li><a href="https://pandas.pydata.org/docs/user_guide/style.html#Table-Styles">Pandas Table Viz</a></li>
+<li><a href="https://plotly.com/python/filled-area-plots/">Plotly Filled Area Plots</a></li>
+<li><a href="https://docs.streamlit.io/knowledge-base/tutorials/deploy/docker">Deploy Streamlit using Docker</a></li>
+</ul>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://redpanda.com/redpanda-console-kafka-ui">Redpanda Console</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://materialize.com/docs/sql/create-source/#:~:text=The%20upsert%20envelope%20treats%20all,the%20record's%20key%20and%20value.">CREATE SOURCE | Materialize Docs</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="quarto-dev/quarto-web" data-repo-id="MDEwOlJlcG9zaXRvcnkzNDc2MzMzNTg=" data-category="General" data-category-id="DIC_kwDOFLh2zs4CBQCO" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/blog/tyler-tries-real-time-data/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/blog/tyler-tries-real-time-data/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/blog/tyler-tries-real-time-data/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/blog/tyler-tries-real-time-data/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/blog/tyler-tries-real-time-data/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
