@@ -234,18 +234,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="introducing-tyler-tries" class="level2">
 <h2 class="anchored" data-anchor-id="introducing-tyler-tries">Introducing “Tyler Tries”</h2>
-<p>This blog kicks off a new series I am calling “Tyler Tries” where I write about the topics I am learning about. We are going to kick off the series off with my experience building a real-time data pipeline to visualize Coinbase order book depth</p>
+<p>This blog kicks off a new series I am calling “Tyler Tries” where I write about the topics I am learning about. We are going to start the series off with my experience building a real-time data pipeline to visualize Coinbase order book depth.</p>
 </section>
 <section id="tldr" class="level2">
 <h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
-<p>I built a real-time dashboard that visualizes Coinbase order book depth powered by <a href="https://redpanda.com/">Redpanda</a> + <a href="https://materialize.com/">Materialize</a> + <a href="https://www.getdbt.com/">dbt</a> + <a href="https://streamlit.io/">Streamlit</a> you can view the code <a href="https://github.com/TylerHillery/coinbase-order-book-pipeline">here</a>. The data comes from the free Coinbase WebSocket feed using the <a href="https://docs.cloud.coinbase.com/exchange/docs/websocket-channels#level2-batch-channel">level2_batch channel</a></p>
+<p>I built a real-time dashboard that visualizes Coinbase order book depth powered by <a href="https://redpanda.com/">Redpanda</a> + <a href="https://materialize.com/">Materialize</a> + <a href="https://www.getdbt.com/">dbt</a> + <a href="https://streamlit.io/">Streamlit</a> you can view the code <a href="https://github.com/TylerHillery/coinbase-order-book-pipeline">here</a>. The data comes from the free Coinbase WebSocket feed using the <a href="https://docs.cloud.coinbase.com/exchange/docs/websocket-channels#level2-batch-channel">level2_batch channel</a>.</p>
 <iframe src="https://drive.google.com/file/d/1yCz9NxpN5zCXPRSVosNWmkhWPnQeniP6/preview" width="100%" height="480" allow="autoplay">
 </iframe>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>I posted the above video on Twitter/X and several people requested a blog post about how it all works. It may come as a bit of a surprise but it wasn’t all too difficult. This is coming from someone without any prior experience dealing with real-time data and who has never used Redpanda or Materialize before. Funny enough, the part I struggled with most was pandas dataframe styling and creating an unstacked area chart (it turns out most python plotting libraries assume your area chart will be stacked).</p>
-<p>Historically, real-time data was hard to manage. We’ve come a long way since then. If you look at the various components of the <a href="https://medium.com/event-driven-utopia/unbundling-the-modern-streaming-stack-451f75eaf1d">modern streaming stack</a> the biggest thing slowing people down from building real-time data pipelines are the sources. Besides CDC feeds, very rarely there are <a href="https://medium.com/event-driven-utopia/event-driven-apis-understanding-the-principles-c3208308d4b2">event-driven APIs</a> that allow for the consumption of the source data in real time.</p>
+<p>Historically, real-time data was hard to manage. We’ve come a long way since then. If you look at the various components of the <a href="https://medium.com/event-driven-utopia/unbundling-the-modern-streaming-stack-451f75eaf1d">modern streaming stack</a> the biggest thing slowing people down from building real-time data pipelines are the sources. Besides CDC feeds, very rarely are there <a href="https://medium.com/event-driven-utopia/event-driven-apis-understanding-the-principles-c3208308d4b2">event-driven APIs</a> that allow for the consumption of the source data in real time.</p>
 <p>This is why I got so excited when I came across this guide from bytewax: <a href="https://bytewax.io/guides/real-time-financial-exchange-order-book-application?utm_source=pocket_saves">Real-Time Financial Exchange Order Book</a>. It’s how I discovered the free Coinbase WebSocket feed which displays their level 2 order book data. Using this data I thought it would be fun to recreate a common visual to display exchange depth.</p>
 <div style="font-size: 50%; text-align:center">
 <section id="coinbase-pro" class="level5">
@@ -425,7 +425,7 @@ Redpanda Console gives you a simple, interactive approach for gaining visibility
 <section id="materialize-dbt" class="level2">
 <h2 class="anchored" data-anchor-id="materialize-dbt"><strong>Materialize</strong> &amp; dbt</h2>
 <p>The next step in our pipeline entails processing and storing the real-time data. Materialize is a streaming database that allows for just that. It has integrations with Kafka and since Redpanda is compatible with Kafka APIs, Materialize and Redpanda work together out of the box.</p>
-<p>A key thing to understand about Materialize is how it handles materialized views. Their MVs are incrementally maintained so as the underlying data changes the MV automatically updates. This is why when you use Materialize and dbt together you’ll typically set up dbt to only run in a CI/CD pipeline which is kicked off when changes occur to the dbt models. If you want to learn more about how this works I highly recommend checking out this video on <a href="https://youtu.be/yofTRM9WpwQ?si=9fdqDtII_GbH5dxG.">Materialize+dbt Streaming for the Modern Data Stack</a></p>
+<p>A key thing to understand about Materialize is how it handles materialized views. Their MVs are incrementally maintained so as the underlying data changes the MV automatically updates. This is why when you use Materialize and dbt together you’ll typically set up dbt to only run in a CI/CD pipeline which is kicked off when changes occur to the dbt models. If you want to learn more about how this works I highly recommend checking out this video on <a href="https://youtu.be/yofTRM9WpwQ?si=9fdqDtII_GbH5dxG.">Materialize+dbt Streaming for the Modern Data Stack</a>.</p>
 <p>Most of the code for this project mimics what I found in the <a href="https://github.com/MaterializeInc/mz-hack-day-2022">Materialize + Redpanda + dbt Hack Day</a>.</p>
 <p>First we define our source:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1"></a>{{ config(<span class="kw">materialized</span><span class="op">=</span><span class="st">'source'</span>) }}</span>
@@ -440,7 +440,7 @@ Redpanda Console gives you a simple, interactive approach for gaining visibility
 <li>If the key matches a preexisting record and the value is non-null, Materialize updates the existing record with the new value.</li>
 <li>If the key matches a preexisting record and the value is null, Materialize deletes the record.</li>
 </ul>
-<p>Our staging model does some light transformations to get the data into a more usable form.</p>
+<p>The staging model does some light transformations to get the data into a more usable form.</p>
 <div class="cell" data-execution_count="2">
 <details>
 <summary>stg_coinbase_level2_channel</summary>
@@ -495,7 +495,7 @@ Redpanda Console gives you a simple, interactive approach for gaining visibility
 <span id="cb7-49"><a href="#cb7-49"></a>select <span class="op">*</span> <span class="im">from</span> final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Because Materialize does not handle <a href="https://materialize.com/docs/transform-data/patterns/window-functions/#:~:text=Window%20functions%20compute%20results%20based,consecutive%20rows%20in%20each%20partition.">window functions</a> very well they provided some alternative approaches in their docs. I referenced the <a href="https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on">Materialize Top K by group</a> that allowed me to return the top bid and ask record for each product id. The highest bid and lowest ask is referred to as the national best bid and off (NBBO).</p>
+<p>Because Materialize does not handle <a href="https://materialize.com/docs/transform-data/patterns/window-functions/#:~:text=Window%20functions%20compute%20results%20based,consecutive%20rows%20in%20each%20partition.">window functions</a> very well they provided some alternative approaches in their docs. I referenced the <a href="https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on">Materialize Top K by group</a> that allowed me to return the top bid and ask record for each product id. The highest bid and lowest ask is referred to as the national best bid and offer (NBBO).</p>
 <div class="cell" data-execution_count="3">
 <details>
 <summary>int_coinbase_nbbo</summary>
