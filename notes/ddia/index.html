@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tyler Hillery">
+<meta name="dcterms.date" content="2023-10-14">
+<meta name="description" content="My notes on Designing Data-Intensive Applications by Martin Kleppmann.">
+
+<title>Tyler Hillery - Designing Data-Intensive Applications</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/social-share.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/all.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Tyler Hillery</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notes.html" rel="" target="">
+ <span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/TylerHillery" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/_TylerHillery" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.goodreads.com/user/show/150025597-tyler-hillery" rel="" target=""><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reading-session-01" id="toc-reading-session-01" class="nav-link active" data-scroll-target="#reading-session-01">Reading Session 01</a></li>
+  <li><a href="#reading-session-02" id="toc-reading-session-02" class="nav-link" data-scroll-target="#reading-session-02">Reading Session 02</a>
+  <ul class="collapse">
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#reading-session-summary" id="toc-reading-session-summary" class="nav-link" data-scroll-target="#reading-session-summary">Reading session summary</a></li>
+  </ul></li>
+  <li><a href="#reading-session-03" id="toc-reading-session-03" class="nav-link" data-scroll-target="#reading-session-03">Reading Session 03</a>
+  <ul class="collapse">
+  <li><a href="#notes-1" id="toc-notes-1" class="nav-link" data-scroll-target="#notes-1">Notes</a></li>
+  <li><a href="#reading-session-summary-1" id="toc-reading-session-summary-1" class="nav-link" data-scroll-target="#reading-session-summary-1">Reading Session Summary</a></li>
+  </ul></li>
+  <li><a href="#reading-session-04" id="toc-reading-session-04" class="nav-link" data-scroll-target="#reading-session-04">Reading Session 04</a>
+  <ul class="collapse">
+  <li><a href="#reading-session-summary-2" id="toc-reading-session-summary-2" class="nav-link" data-scroll-target="#reading-session-summary-2">Reading Session Summary</a></li>
+  </ul></li>
+  <li><a href="#reading-session-05" id="toc-reading-session-05" class="nav-link" data-scroll-target="#reading-session-05">Reading Session 05</a>
+  <ul class="collapse">
+  <li><a href="#notes-2" id="toc-notes-2" class="nav-link" data-scroll-target="#notes-2">Notes</a></li>
+  <li><a href="#reading-session-summary-3" id="toc-reading-session-summary-3" class="nav-link" data-scroll-target="#reading-session-summary-3">Reading Session Summary</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/ddia/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Designing Data-Intensive Applications</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Technical Books</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    My notes on <a href="https://a.co/d/7r8FaLD">Designing Data-Intensive Applications</a> by Martin Kleppmann.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tyler Hillery </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<hr>
+<p>I am going to try something new while reading this book. After every reading session I have I will journal my raw thoughts and ideas I have, unfiltered and unedited. This books comes highly regarded and I want to be able to capture my experience during my first reading.</p>
+<section id="reading-session-01" class="level1">
+<h1>Reading Session 01</h1>
+<ul>
+<li><strong>date</strong>: Tue 10/10/2023</li>
+<li><strong>time</strong>: 7:05PM-7:15PM (10 min)</li>
+<li><strong>chapter</strong>: Preface<br>
+</li>
+<li><strong>pages</strong>: 5-18 (15 pages)</li>
+</ul>
+<p>The preface sets the stage for the book describing the scope, who should read the book, and the outline of the book. Based on the preface alone I have feeling I am going to really enjoy it. The preface emphasizes the focus of the book to be on the principals of designing data intensive applications. We first learn also what does a data intensive application is:</p>
+<blockquote class="blockquote">
+<p>We call an application <strong><em>data-intensive</em></strong> if the data is its primary challenge—the quantity of data, the complexity of data, or the speed at which it is changing—as opposed to <strong><em>compute-intensive</em></strong>, where CPU cycles are the bottleneck.</p>
+</blockquote>
+<p>I personally identified with “<em>the people who have natural curiosity for the way things work</em>” as my reasoning for reading this book. My reasoning goes along with this point as well:</p>
+<blockquote class="blockquote">
+<p>You will, however, develop a good intuition for what your systems are doing under the hood so that you can reason about their behavior, make good design decisions, and track down any problems that may arise.</p>
+</blockquote>
+<p>For me it’s nice to be able to have the high level mental model of how some of these systems works so I can mentally connect the dots even though I may not be working on these underlying systems directly. Although one day I would like to 😉</p>
+<p>I am looking forward to reading the rest of the book!</p>
+<hr>
+</section>
+<section id="reading-session-02" class="level1">
+<h1>Reading Session 02</h1>
+<ul>
+<li><strong>date</strong>: Wed 10/11/2023</li>
+<li><strong>time</strong>: 4:00AM-4:45AM (45 min)</li>
+<li><strong>chapter</strong>: Ch 01 - Reliability</li>
+<li><strong>pages</strong>: 18-31 (13 pages)</li>
+</ul>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<p>I like the concept of <em>data systems</em> even today we are still seeing the lines get blurred further and further between messaging systems and databases. For example Redpanda recently announced that they plan on adding iceberg support for the tiered storage. This would me any query engine that can read the Iceberg table format should be able to query the data. Does this make Redpanda a database? I think so.</p>
+<p>Many of us may be data system designers without even realizing it. Figure 1.1. does a great job showing how one application could be interacting with an in memory cache database, a primary db, a full-text index and a message queue all at once. all glued together through the application code with the implementation details hidden from clients. I think this book is more wildly applicable than people realize.</p>
+<p>Three key terms:</p>
+<blockquote class="blockquote">
+<p><strong><em>Reliability</em></strong>: The system should continue to work correctly (performing the correct function at the desired level of performance) even in the face of adversity (hardware or software faults, and even human error).</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong><em>Reliability</em></strong>: As the system grows (in data volume, traffic volume, or complexity), there should be reasonable ways of dealing with that growth</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong><em>Maintainability</em></strong>: Over time, many different people will work on the system (engineering and operations, both maintaining current behavior and adapting the system to new use cases), and they should all be able to work on it productively.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The things that can go wrong are called <em>faults</em>, and systems that anticipate faults can cope with them are called <strong>fault-tolerant</strong> or <strong>resilient</strong>.</p>
+</blockquote>
+<div class="callout callout-style-default callout-important callout-titled" title="TODO">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Look into the <strong>Netflix Chaos Monkey</strong> (something about purposely introducing faults to test the system)</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="TODO">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Look up <strong>RAID</strong> configuration, I remember learning about this in my computer org. and arch. class</p>
+</div>
+</div>
+</div>
+<p>Interesting to hear how handling reliability is now less focuses on making the hardware more redundant and instead having the software handle it. This was largely due to the cause of cloud platforms like AWS which have a focus more on flexibility and elastic over single-machine reliability.</p>
+<p>When the author was giving example of software faults and how they can lie dormant for a long time until they are triggered by an unusual set of circumstances. It reminded me of a bug I encountered yesterday for our dim_calendar table which had a column called is_holiday. My assumption when using this table was than when is_holiday was <code>true</code> that would also mean the stock markets would be close. Well in the case of 10/09/2023, Columbus day is a federal holiday but the markets are still open. Lucky enough I had some dbt tests that notified me there was something wrong with some downstream dependencies of this table. I was able to quickly search through the DAG and noticed that the is_holiday column was based on a python UDF that used <code>from [pandas.tseries.holiday](http://pandas.tseries.holiday) import USFederalHolidayCalendar</code> . I was able to modify the function to only use holidays observed by the stock market and open PR to fix this.</p>
+</section>
+<section id="reading-session-summary" class="level2">
+<h2 class="anchored" data-anchor-id="reading-session-summary">Reading session summary</h2>
+<p>My first thought is this book is going to take forever if I continue taking these detailed notes and journaling about thoughts as I read. I expect other sessions to be less detailed but I am going to try to stick with it. It was nice to learn more about what reliability means and how to handle it. I believe this is an area of mine and that I need to work on. Most of the work I do is more reactive (testing) to faults that can cause me to go into a panic trying to debug what is wrong. It would be better if I could be more proactive. It reminds me of a pattern used in data engineering called Write-Audit-Publish (WAP) wow, this acronym is forever ruined by Cardi B. In essence WAP involves:</p>
+<ol type="1">
+<li>Write the data to a staging area (a non-production env so the data is isolated)</li>
+<li>Audit the data to validate the data and solve any quality issues (NULL values, duplicates etc.)</li>
+<li>publish data to production</li>
+</ol>
+<p>Table formats like Iceberg even have special functionality to help implement this pattern like the older version <code>WAP.id</code> or the newer method with branching <code>WAP.branch</code> . More about this can be found here <a href="https://www.dremio.com/blog/streamlining-data-quality-in-apache-iceberg-with-write-audit-publish-branching/#:~:text=Write%2DAudit%2DPublish%20(WAP)%20is%20a%20data%20quality,data%20to%20the%20production%20tables">Streamlining Data Quality in Apache Iceberg with write-audit-publish &amp; branching</a></p>
+<p>This pattern reminds me of version control. Where step one is like creating your own local branch, step two is the CI/CD process that runs testing your changes. Once passed step three happens where changes are deployed to production.</p>
+<hr>
+</section>
+</section>
+<section id="reading-session-03" class="level1">
+<h1>Reading Session 03</h1>
+<ul>
+<li><strong>date</strong>: Thu 10/12/2023</li>
+<li><strong>time</strong>: 6:45PM-7:00PM (15 min)</li>
+<li><strong>chapter</strong>: Ch 01 - Scalability</li>
+<li><strong>pages</strong>: 31-39 (8 pages)</li>
+</ul>
+<section id="notes-1" class="level2">
+<h2 class="anchored" data-anchor-id="notes-1">Notes</h2>
+<p>I like the author phrase how it’s not just good enough to say this systems scales, we have to ask “<em>what are our options for coping with growth</em>”</p>
+<p>Load can be described with load parameters - requests per second to a web server - ratio of reads to writes to a db - number if simultaneously active users in a chat room - hit rate on a cache</p>
+<p>Interesting to hear that Twitter’s scaling challenge is due to fan-out where each user follows many people and each user is followed by many people.</p>
+<p>Love the inside joke on just setting up my twttr.</p>
+<blockquote class="blockquote">
+<p><strong><em>Throughput</em></strong>: The number of records we can process per second, or the total time it takes to run a job on a dataset of a certain size.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong><em>Response time</em></strong>: What the client sees: besides the actual time to process the request (the service time), it includes network delays and queueing delays.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong><em>Latency</em></strong>: Duration that a request is waiting to be handled</p>
+</blockquote>
+<p>Response time can vary greatly to it’s best to measure as a distribution of values.</p>
+<p>Another good tidbit, mean is not good measure for “<em>typical</em>” response time, because it doesn’t tell you how many users actually experience delay. It’s better to use percentiles and use the <em>median</em> aka the <em>50th percentile</em>.</p>
+</section>
+<section id="reading-session-summary-1" class="level2">
+<h2 class="anchored" data-anchor-id="reading-session-summary-1">Reading Session Summary</h2>
+<p>I’ll be honest I didn’t want to read today but I currently have my longest reading streak in the kindle app (6 days) and I didn’t want to break it. My original plan was to read just one page but it’s surprising once you start something you don’t want to stop. Author poses some many great questions to ask when comes to scalability of systems and really starts to question key terms I have heard of better could never define or put into words if you asked me, like what is <em>load</em> or <em>load parameters</em>.</p>
+<hr>
+</section>
+</section>
+<section id="reading-session-04" class="level1">
+<h1>Reading Session 04</h1>
+<ul>
+<li><strong>date</strong>: Fri 10/13/2023</li>
+<li><strong>time</strong>: 4:05AM-4:20AM (15 min)<br>
+</li>
+<li><strong>chapter</strong>: Ch 01 - Scalability</li>
+<li><strong>pages</strong>: 39-46 (7 pages)</li>
+</ul>
+<section id="reading-session-summary-2" class="level2">
+<h2 class="anchored" data-anchor-id="reading-session-summary-2">Reading Session Summary</h2>
+<p>Couple things that I came to mind as I finished up the scalability portion. I like how the author started with first describing load and metrics for measure for performance before jumping straight into “<em>how to maintain good performance even when load parameters increase by some amount?</em>” I believe this is a thoughtful exercise to do before trying to optimize for scalability because it forces you to think about what it is you are actually trying to optimizer for. This deep thinking will help avoid any pitfalls of optimizing for the wrong thing, the author even calls out “<em>An architecture that scales well for particular application is built around assumptions of which operations will be common and which will be are — the load parameters</em>”</p>
+<p>I am familiar will some of the common techniques mentioned in this chapter with ways dealing scalability such as vertical and horizontal scaling and shared-nothing architecture. The author makes the correct call that distributed data systems have become the default choice. In fact I think as of today people choose distributed systems far tool quickly as the default the choice when tackling data problems. I recently came across a post on r/dataengineering where an engineer was helping out a local floral shop and they set them up with BigQuery, Mage, dbt etc. It wasn’t clear to me the size of data they were dealing, and with but the technology choices they recommended just seemed absurd. Just thinking about my local floral and setting them up with this tech, who the heck is going to maintain it? Also the problem didn’t really call for all these tools, they simply needed a more automated way of cross referencing data from SQL server and manually downloaded sales information. This sounds like something a spreadsheet could do. The pendulum has shifted too far as making these distributed systems the default choice. In recent times with the rise of tools like DuckDB, I believe people are going to second guess themselves before instinctively setting up a spark cluster to do some simple ELT/ELT work.</p>
+<hr>
+</section>
+</section>
+<section id="reading-session-05" class="level1">
+<h1>Reading Session 05</h1>
+<ul>
+<li><strong>date</strong>: Fri 10/13/2023</li>
+<li><strong>time</strong>: 4:05AM-4:20AM (15 min)</li>
+<li><strong>chapter</strong>: Ch 01 - Maintainability &amp; Ch 02 - Data Models</li>
+<li><strong>pages</strong>: 39-46 (7 pages)</li>
+</ul>
+<section id="notes-2" class="level2">
+<h2 class="anchored" data-anchor-id="notes-2">Notes</h2>
+<p>3 design principals of <strong>Maintainability</strong></p>
+<blockquote class="blockquote">
+<p><strong><em>Simplicity</em></strong>: Make it easy for new engineers to understand the system, by removing as much complexity as possible from the system.</p>
+</blockquote>
+<ul>
+<li>This can be tough finding the right level of abstraction, author actually goes into detail about abstraction and relates it to high-level programming languages with how they abstract away having to write machine code. There is some foreshadowing by the author implying we will learn some techniques into how to find the right layer of abstraction.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong><em>Operability</em></strong>: Make it easy for operations team to keep the system running smoothly</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong><em>Simplicity</em></strong>: Make it easy for engineers to make changes to the system in the future, adapting for unanticipated use cases as requirements change.</p>
+</blockquote>
+<p>Don’t create <em>big balls of mud</em>.</p>
+</section>
+<section id="reading-session-summary-3" class="level2">
+<h2 class="anchored" data-anchor-id="reading-session-summary-3">Reading Session Summary</h2>
+<p>Finishing up chapter 1 I learned what it means to create maintainable software. I have personally been there, working on some code and thinking to myself “<em>who wrote this awful code?</em>” Only to check the commit history to see it was me… Refactoring code honestly feels like a majority of the work I have done in my career, it always feels like no matter what company I worked for or what role I was in I was taking old code and making it better or migrating it to another platform. These personal experiences just reiterate the point of how crucial it is to create maintainable systems and I liked how the author broke down maintainable into 3 design principals. Overall, Chapter 1 did a great job on laying the foundation and principles that go into thinking about data-intensive applications</p>
+<p>When I read the title of Chapter 2. Data Models and Query Languages I got excited. This is a particular interest of mine. The author makes a bold claim about data models</p>
+<blockquote class="blockquote">
+<p>Data Models are perhaps the most important part of developing software because they have such a profound effect: not only on how the software is written, but also on how we <em>think about the problem</em> that we solving</p>
+</blockquote>
+<p>I have long had this belief that all software can be distilled down to taking data in, manipulating it and producing data as a result. I am something of a self proclaimed <strong>data extremist</strong>. This is why I am so fascinated by databases and data systems as a whole. Now I come from a analytics background and what a lot people think I am describing here is a data pipeline but I also think this pattern is just as applicable to all domains in tech; front-end engineering, back-end engineering, data engineering, systems engineering. Everyone at the end of the no matter what they are building are taking data in, and doing something with the data and producing some sort of output which is also data. Front-end engineer gets JSON data from an API, transforms it into HTML (which is textual data) and renders it on the client. It’s the data models and the ways we represent &amp; interact with the data that separate these engineers into these domains.</p>
+<p>I like the way the author phrases how applications are really built by layering one data model on top of another which really get be thought of as an abstraction layer IMO. I think it’s important at whatever layer you are operating at to try learning the skills and tools commonly used one layer up and below as it will make you that much more knowledgeable about operating at the layer you normally work in. This is part of the reason that of why I am learning about lower level systems and how databases actually work. As an analytics engineering my main reasonability is to best figure out how to best model our data to enable down stream uses cases like machine learning &amp; reporting, commonly implemented by using SQL. Understanding how databases work will give me better insight into writing more optimize and performant queries even if I never actually have to build a database.</p>
+<p>It was interesting to hear that databases back in the day made application developers think about the internal representation of the data in the database. Could imagine actually having to worry about how the data is being physically stored on disked opposed to just writing <code>create table</code> and <code>insert values</code>? Wow what a time to be alive.</p>
+<p>Also I never knew of the terms: <strong><em>business data processing</em></strong>, <strong><em>network model</em></strong> and <strong><em>hierarchical model</em></strong>. Just goes to show how the <strong><em>relational model</em></strong> has stood the test of time &amp; appears to have made some of these other models obsolete.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="quarto-dev/quarto-web" data-repo-id="MDEwOlJlcG9zaXRvcnkzNDc2MzMzNTg=" data-category="General" data-category-id="DIC_kwDOFLh2zs4CBQCO" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/ddia/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/ddia/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/ddia/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/ddia/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/ddia/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
