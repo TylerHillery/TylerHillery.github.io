@@ -413,6 +413,27 @@
     "text": "Reading Session Summary\nI need to study my data structures and algorithms because I would be lying if I completely understood everything in this chapter so far. I think at a high level I get the differences between LSM-trees and B-tree but nothing deeper than that.\nOnce the chapter starting talking about OLAP and Data Warehousing which is my 🍞 and 🧈."
   },
   {
+    "objectID": "notes/ddia/index.html#summary",
+    "href": "notes/ddia/index.html#summary",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nFinished up chapter 03 and started ch 04. I am looking towards learning about REST and RPC communication protocols as I frequently come across these terms but don’t have much knowledge about them."
+  },
+  {
+    "objectID": "notes/ddia/index.html#notes-5",
+    "href": "notes/ddia/index.html#notes-5",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Notes",
+    "text": "Notes\nencoding and serialization are the same thing."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-1",
+    "href": "notes/ddia/index.html#summary-1",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nI never heard of some of these language specific formats like pickle for python for encoding in-memory byte sequences into byte sequences. Briefly touched on other formats like XML,CSV & JSON with JSON being the most popular. I wonder if later in this chapter we will get to learn about gRPC."
+  },
+  {
     "objectID": "notes/de-fundamentals/index.html",
     "href": "notes/de-fundamentals/index.html",
     "title": "Fundamentals of Data Engineering",
