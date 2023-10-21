@@ -1,5 +1,15 @@
 [
   {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/tyler-tries-real-time-data/index.html",
+      "/blog/local-lakehouse/index.html",
+      "/blog/getting-started-in-os/index.html",
+      "/blog/learning-log/index.html",
+      "/blog/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
     "listing": "/notes.html",
     "items": [
       "/notes/ddia/index.html",
@@ -20,16 +30,6 @@
       "/projects/report/index.html",
       "/projects/learning-log/index.html",
       "/projects/stock-market-data-pipeline/index.html"
-    ]
-  },
-  {
-    "listing": "/blog.html",
-    "items": [
-      "/blog/tyler-tries-real-time-data/index.html",
-      "/blog/local-lakehouse/index.html",
-      "/blog/getting-started-in-os/index.html",
-      "/blog/learning-log/index.html",
-      "/blog/stock-market-data-pipeline/index.html"
     ]
   }
 ]
