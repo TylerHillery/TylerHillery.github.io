@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-10-14">
+<meta name="dcterms.date" content="2023-10-23">
 <meta name="description" content="My notes on Designing Data-Intensive Applications by Martin Kleppmann.">
 
 <title>Tyler Hillery - Designing Data-Intensive Applications</title>
@@ -193,6 +193,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#notes-6" id="toc-notes-6" class="nav-link" data-scroll-target="#notes-6">Notes</a></li>
   <li><a href="#summary-4" id="toc-summary-4" class="nav-link" data-scroll-target="#summary-4">Summary</a></li>
   </ul></li>
+  <li><a href="#reading-session-13" id="toc-reading-session-13" class="nav-link" data-scroll-target="#reading-session-13">Reading Session 13</a>
+  <ul class="collapse">
+  <li><a href="#notes-7" id="toc-notes-7" class="nav-link" data-scroll-target="#notes-7">Notes</a></li>
+  <li><a href="#summary-5" id="toc-summary-5" class="nav-link" data-scroll-target="#summary-5">Summary</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/ddia/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -230,7 +235,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 14, 2023</p>
+      <p class="date">October 23, 2023</p>
     </div>
   </div>
   
@@ -605,6 +610,51 @@ TODO
 <section id="summary-4" class="level2">
 <h2 class="anchored" data-anchor-id="summary-4">Summary</h2>
 <p>This part of the book reminds of this project called <a href="https://recap.build/">Recap</a> which provides the ability to transpile schema definitions in various formats. Before reading this chapter I wasn’t aware of all the different schema formats so I am now seeing how someone could benefit from this tool.</p>
+<hr>
+</section>
+</section>
+<section id="reading-session-13" class="level1">
+<h1>Reading Session 13</h1>
+<ul>
+<li><strong>date</strong>: Sun 10/22/2023</li>
+<li><strong>time</strong>: 1:32PM-1:50PM (18 min)</li>
+<li><strong>chapter</strong>: Ch 04 Encoding and Evolution</li>
+<li><strong>pages</strong>: 209-234 (25 pages)</li>
+</ul>
+<section id="notes-7" class="level2">
+<h2 class="anchored" data-anchor-id="notes-7">Notes</h2>
+<blockquote class="blockquote">
+<p><strong><em>REST</em></strong> is not a protocol, but rather a design philosophy that builds upon the principles of HTTP… An API designed according to the principles of REST is called <em>RESTful</em>.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong><em>SOAP</em></strong> is an XML-based protocol for making network API requests…aims to be independent from HTTP and avoids using most HTTP features.</p>
+</blockquote>
+<p>The main methods discussed were:</p>
+<ul>
+<li><p><strong>Databases</strong>: writing encodes the data and reading decodes it</p></li>
+<li><p><strong>RPC and REST APIs</strong>: client encodes a request, server decodes it and encodes a response and client decodes the response.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="TODO">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>When is it best to use gRPC vs REST APIs? My understanding was gRPC is used when you want to invoke a function from another service as if it were like a function in your own service. I recall though a customer of ours was requesting for data to delivered via gRPC opposed to a RESTful API. To me that wouldn’t make sense.</p>
+</div>
+</div>
+</div></li>
+<li><p><strong>Asynchronous Messaging Passing</strong>: Nodes communicate by sending each other messages that are encoded by the send and decoded by the recipient.</p></li>
+</ul>
+</section>
+<section id="summary-5" class="level2">
+<h2 class="anchored" data-anchor-id="summary-5">Summary</h2>
+<p>Finished chapter 04 covering many different ways of how data flows through services. So far this book feels like lego blocks with each chapter putting together the foundational pieces common distributed systems are built upon. I really enjoy this approach because it’s too common nowadays to except the norm for what it is without truly understanding the many layers of abstraction we are building upon.</p>
 
 
 </section>
