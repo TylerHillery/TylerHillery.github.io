@@ -280,6 +280,20 @@
     "text": "Summary\nWow I had no idea about all the complexities one has to deal when you move from a single node systems to a distributed systems."
   },
   {
+    "objectID": "notes/ddia/index.html#summary-8",
+    "href": "notes/ddia/index.html#summary-8",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\n3 methods for replicating changes between nodes\n\nsingle-leader\nmulti-leader\nleaderless"
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-9",
+    "href": "notes/ddia/index.html#summary-9",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nWhen you start using replication methods that involve writes to multiple nodes it introduces conflicts. The best way to deal with conflicts is to avoid them 🙂"
+  },
+  {
     "objectID": "notes/97-de-things/index.html",
     "href": "notes/97-de-things/index.html",
     "title": "97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts",
