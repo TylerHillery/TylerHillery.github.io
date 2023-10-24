@@ -266,6 +266,20 @@
     "text": "Summary\nFinished chapter 04 covering many different ways of how data flows through services. So far this book feels like lego blocks with each chapter putting together the foundational pieces common distributed systems are built upon. I really enjoy this approach because it’s too common nowadays to except the norm for what it is without truly understanding the many layers of abstraction we are building upon."
   },
   {
+    "objectID": "notes/ddia/index.html#summary-6",
+    "href": "notes/ddia/index.html#summary-6",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nStarting to learn about distributed systems and how data can be replicated across nodes."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-7",
+    "href": "notes/ddia/index.html#summary-7",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nWow I had no idea about all the complexities one has to deal when you move from a single node systems to a distributed systems."
+  },
+  {
     "objectID": "notes/97-de-things/index.html",
     "href": "notes/97-de-things/index.html",
     "title": "97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts",
