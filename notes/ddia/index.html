@@ -208,7 +208,11 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#reading-session-16" id="toc-reading-session-16" class="nav-link" data-scroll-target="#reading-session-16">Reading Session 16</a>
   <ul class="collapse">
+  <li><a href="#notes-8" id="toc-notes-8" class="nav-link" data-scroll-target="#notes-8">Notes</a></li>
   <li><a href="#summary-8" id="toc-summary-8" class="nav-link" data-scroll-target="#summary-8">Summary</a></li>
+  </ul></li>
+  <li><a href="#reading-session-17" id="toc-reading-session-17" class="nav-link" data-scroll-target="#reading-session-17">Reading Session 17</a>
+  <ul class="collapse">
   <li><a href="#summary-9" id="toc-summary-9" class="nav-link" data-scroll-target="#summary-9">Summary</a></li>
   </ul></li>
   </ul>
@@ -707,8 +711,8 @@ TODO
 <li><strong>chapter</strong>: Ch 05 Replication</li>
 <li><strong>pages</strong>: 267-291 (24 pages)</li>
 </ul>
-<section id="summary-8" class="level2">
-<h2 class="anchored" data-anchor-id="summary-8">Summary</h2>
+<section id="notes-8" class="level2">
+<h2 class="anchored" data-anchor-id="notes-8">Notes</h2>
 <p>3 methods for replicating changes between nodes</p>
 <ul>
 <li><strong><em>single-leader</em></strong></li>
@@ -716,9 +720,22 @@ TODO
 <li><strong><em>leaderless</em></strong></li>
 </ul>
 </section>
+<section id="summary-8" class="level2">
+<h2 class="anchored" data-anchor-id="summary-8">Summary</h2>
+<p>When you start using replication methods that involve writes to multiple nodes it introduces <strong><em>conflicts</em></strong>. The best way to deal with <em>conflicts</em> is to avoid them 🙂 ___</p>
+</section>
+</section>
+<section id="reading-session-17" class="level1">
+<h1>Reading Session 17</h1>
+<ul>
+<li><strong>date</strong>: Wed 10/25/2023</li>
+<li><strong>time</strong>: 7:11PM-7:14PM (3 min)</li>
+<li><strong>chapter</strong>: Ch 05 Replication</li>
+<li><strong>pages</strong>: 291-294 (3 pages)</li>
+</ul>
 <section id="summary-9" class="level2">
 <h2 class="anchored" data-anchor-id="summary-9">Summary</h2>
-<p>When you start using replication methods that involve writes to multiple nodes it introduces <strong><em>conflicts</em></strong>. The best way to deal with <em>conflicts</em> is to avoid them 🙂</p>
+<p>Handle conflicts can be hard because writes are <em>concurrent</em> so their is no natural order them. An arbitrary order needs to be applied to determine the last write when using the <em>last write wins</em> approach for conflict resolution.</p>
 
 
 </section>
