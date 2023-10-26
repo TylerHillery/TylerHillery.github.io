@@ -242,14 +242,28 @@
     "href": "notes/ddia/index.html#summary-8",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nWhen you start using replication methods that involve writes to multiple nodes it introduces conflicts. The best way to deal with conflicts is to avoid them 🙂 ___"
+    "text": "Summary\nWhen you start using replication methods that involve writes to multiple nodes it introduces conflicts. The best way to deal with conflicts is to avoid them 🙂"
   },
   {
     "objectID": "notes/ddia/index.html#summary-9",
     "href": "notes/ddia/index.html#summary-9",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nHandle conflicts can be hard because writes are concurrent so their is no natural order them. An arbitrary order needs to be applied to determine the last write when using the last write wins approach for conflict resolution."
+    "text": "Summary\nHandling conflicts can be hard because writes are concurrent so their is no natural order them. An arbitrary order needs to be applied to determine the last write when using the last write wins approach for conflict resolution."
+  },
+  {
+    "objectID": "notes/ddia/index.html#notes-9",
+    "href": "notes/ddia/index.html#notes-9",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Notes",
+    "text": "Notes\n\nFor defining concurrency, exact time doesn’t matter: we simply call two operations concurrent if they are both unaware of each other, regardless of the physical time at which they occurred."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-10",
+    "href": "notes/ddia/index.html#summary-10",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nI’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of thing concepts but it will definitely require me to build something that implements these concepts for the information to truly settle in."
   },
   {
     "objectID": "notes/atomic-habits/index.html#summary",

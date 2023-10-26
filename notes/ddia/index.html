@@ -215,6 +215,11 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#summary-9" id="toc-summary-9" class="nav-link" data-scroll-target="#summary-9">Summary</a></li>
   </ul></li>
+  <li><a href="#reading-session-18" id="toc-reading-session-18" class="nav-link" data-scroll-target="#reading-session-18">Reading Session 18</a>
+  <ul class="collapse">
+  <li><a href="#notes-9" id="toc-notes-9" class="nav-link" data-scroll-target="#notes-9">Notes</a></li>
+  <li><a href="#summary-10" id="toc-summary-10" class="nav-link" data-scroll-target="#summary-10">Summary</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/ddia/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -722,7 +727,8 @@ TODO
 </section>
 <section id="summary-8" class="level2">
 <h2 class="anchored" data-anchor-id="summary-8">Summary</h2>
-<p>When you start using replication methods that involve writes to multiple nodes it introduces <strong><em>conflicts</em></strong>. The best way to deal with <em>conflicts</em> is to avoid them 🙂 ___</p>
+<p>When you start using replication methods that involve writes to multiple nodes it introduces <strong><em>conflicts</em></strong>. The best way to deal with <em>conflicts</em> is to avoid them 🙂</p>
+<hr>
 </section>
 </section>
 <section id="reading-session-17" class="level1">
@@ -735,7 +741,27 @@ TODO
 </ul>
 <section id="summary-9" class="level2">
 <h2 class="anchored" data-anchor-id="summary-9">Summary</h2>
-<p>Handle conflicts can be hard because writes are <em>concurrent</em> so their is no natural order them. An arbitrary order needs to be applied to determine the last write when using the <em>last write wins</em> approach for conflict resolution.</p>
+<p>Handling conflicts can be hard because writes are <em>concurrent</em> so their is no natural order them. An arbitrary order needs to be applied to determine the last write when using the <em>last write wins</em> approach for conflict resolution.</p>
+<hr>
+</section>
+</section>
+<section id="reading-session-18" class="level1">
+<h1>Reading Session 18</h1>
+<ul>
+<li><strong>date</strong>: Thu 10/26/2023</li>
+<li><strong>time</strong>: 4:15AM-4:30M (15 min)</li>
+<li><strong>chapter</strong>: Ch 05 Replication</li>
+<li><strong>pages</strong>: 294-314 (20 pages)</li>
+</ul>
+<section id="notes-9" class="level2">
+<h2 class="anchored" data-anchor-id="notes-9">Notes</h2>
+<blockquote class="blockquote">
+<p>For defining concurrency, exact time doesn’t matter: we simply call two operations concurrent if they are both unaware of each other, regardless of the physical time at which they occurred.</p>
+</blockquote>
+</section>
+<section id="summary-10" class="level2">
+<h2 class="anchored" data-anchor-id="summary-10">Summary</h2>
+<p>I’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of thing concepts but it will definitely require me to build something that implements these concepts for the information to truly settle in.</p>
 
 
 </section>
