@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-10-23">
+<meta name="dcterms.date" content="2023-10-27">
 <meta name="description" content="My notes on Designing Data-Intensive Applications by Martin Kleppmann.">
 
 <title>Tyler Hillery - Designing Data-Intensive Applications</title>
@@ -220,6 +220,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#notes-9" id="toc-notes-9" class="nav-link" data-scroll-target="#notes-9">Notes</a></li>
   <li><a href="#summary-10" id="toc-summary-10" class="nav-link" data-scroll-target="#summary-10">Summary</a></li>
   </ul></li>
+  <li><a href="#reading-session-19" id="toc-reading-session-19" class="nav-link" data-scroll-target="#reading-session-19">Reading Session 19</a>
+  <ul class="collapse">
+  <li><a href="#notes-10" id="toc-notes-10" class="nav-link" data-scroll-target="#notes-10">Notes</a></li>
+  <li><a href="#summary-11" id="toc-summary-11" class="nav-link" data-scroll-target="#summary-11">Summary</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/ddia/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -257,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 23, 2023</p>
+      <p class="date">October 27, 2023</p>
     </div>
   </div>
   
@@ -749,7 +754,7 @@ TODO
 <h1>Reading Session 18</h1>
 <ul>
 <li><strong>date</strong>: Thu 10/26/2023</li>
-<li><strong>time</strong>: 4:15AM-4:30M (15 min)</li>
+<li><strong>time</strong>: 4:15AM-4:30PM (15 min)</li>
 <li><strong>chapter</strong>: Ch 05 Replication</li>
 <li><strong>pages</strong>: 294-314 (20 pages)</li>
 </ul>
@@ -761,7 +766,46 @@ TODO
 </section>
 <section id="summary-10" class="level2">
 <h2 class="anchored" data-anchor-id="summary-10">Summary</h2>
-<p>I’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of thing concepts but it will definitely require me to build something that implements these concepts for the information to truly settle in.</p>
+<p>I’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of these concepts but it will definitely require me to build something where I implement them for the information to truly settle in. ___</p>
+</section>
+</section>
+<section id="reading-session-19" class="level1">
+<h1>Reading Session 19</h1>
+<ul>
+<li><strong>date</strong>: Fri 10/27/2023</li>
+<li><strong>time</strong>: 7:00PM-7:05PM (5 min)</li>
+<li><strong>chapter</strong>: Ch 06 Partitioning</li>
+<li><strong>pages</strong>: 314-319 (5 pages)</li>
+</ul>
+<section id="notes-10" class="level2">
+<h2 class="anchored" data-anchor-id="notes-10">Notes</h2>
+<blockquote class="blockquote">
+<p>If the partitioning is unfair, so that some partitions have more data or queries than others, we call it <em>skewed</em>.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>A partition with disproportionately high load is called a <em>hot spot</em></p>
+</blockquote>
+</section>
+<section id="summary-11" class="level2">
+<h2 class="anchored" data-anchor-id="summary-11">Summary</h2>
+<p>The beginning of the chapter reminds me about some of the query optimization work I do at my current role. At Nasdaq we use Redshift as our data warehouse. Couple things you can define for your tables is define a <em>distribution key</em> and <em>sort key</em>. The distribution key tells the leader node which worker node to send the data to. Each worker nodes stores the data into blocks called <em>zone maps</em>. The zone maps store the <code>min</code> and <code>max</code> values of the sort key allowing the worker node to prune the zone maps without having to read the data.</p>
+<p>The idea behind the distribution key is to <em>co-locate</em> joins to minimize the impact of the redistribution step. Make sure to pick a key that evenly distributes the data across nodes. This can be challenging at Nasdaq because many stocks can skew the data because they trade a lot more than others.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="TODO">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>If I specify a <code>DISTKEY</code> how does will Redshift still try to ensure the data is evenly distributed across nodes? For example, lets say there is a dataset with 3 symbols and we have two worker nodes. 1 symbol makes up 50% of the data and the other two make up the other 50%. Will Redshift know to distribute the symbol with more data on one node and the other two symbols on the other node?</p>
+</div>
+</div>
+</div>
 
 
 </section>
