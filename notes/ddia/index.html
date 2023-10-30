@@ -225,6 +225,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#notes-10" id="toc-notes-10" class="nav-link" data-scroll-target="#notes-10">Notes</a></li>
   <li><a href="#summary-11" id="toc-summary-11" class="nav-link" data-scroll-target="#summary-11">Summary</a></li>
   </ul></li>
+  <li><a href="#reading-session-20" id="toc-reading-session-20" class="nav-link" data-scroll-target="#reading-session-20">Reading Session 20</a>
+  <ul class="collapse">
+  <li><a href="#summary-12" id="toc-summary-12" class="nav-link" data-scroll-target="#summary-12">Summary</a></li>
+  </ul></li>
+  <li><a href="#reading-session-21" id="toc-reading-session-21" class="nav-link" data-scroll-target="#reading-session-21">Reading Session 21</a>
+  <ul class="collapse">
+  <li><a href="#summary-13" id="toc-summary-13" class="nav-link" data-scroll-target="#summary-13">Summary</a></li>
+  </ul></li>
+  <li><a href="#reading-session-22" id="toc-reading-session-22" class="nav-link" data-scroll-target="#reading-session-22">Reading Session 22</a>
+  <ul class="collapse">
+  <li><a href="#notes-11" id="toc-notes-11" class="nav-link" data-scroll-target="#notes-11">Notes</a></li>
+  <li><a href="#summary-14" id="toc-summary-14" class="nav-link" data-scroll-target="#summary-14">Summary</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/ddia/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -766,7 +779,8 @@ TODO
 </section>
 <section id="summary-10" class="level2">
 <h2 class="anchored" data-anchor-id="summary-10">Summary</h2>
-<p>I’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of these concepts but it will definitely require me to build something where I implement them for the information to truly settle in. ___</p>
+<p>I’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of these concepts but it will definitely require me to build something where I implement them for the information to truly settle in.</p>
+<hr>
 </section>
 </section>
 <section id="reading-session-19" class="level1">
@@ -806,6 +820,50 @@ TODO
 </div>
 </div>
 </div>
+<hr>
+</section>
+</section>
+<section id="reading-session-20" class="level1">
+<h1>Reading Session 20</h1>
+<ul>
+<li><strong>date</strong>: Sat 10/28/2023</li>
+<li><strong>time</strong>: 6:31PM-6:34PM (3 min)</li>
+<li><strong>chapter</strong>: Ch 06 Partitioning</li>
+<li><strong>pages</strong>: 319-321 (2 pages)</li>
+</ul>
+<section id="summary-12" class="level2">
+<h2 class="anchored" data-anchor-id="summary-12">Summary</h2>
+<p>Learned about some hashing techniques to help evenly distribute data across nodes to reduce the risk of a hot spot. ___</p>
+</section>
+</section>
+<section id="reading-session-21" class="level1">
+<h1>Reading Session 21</h1>
+<ul>
+<li><strong>date</strong>: Sun 10/29/2023</li>
+<li><strong>time</strong>: 7:17PM-7:22PM (5 min)</li>
+<li><strong>chapter</strong>: Ch 06 Partitioning</li>
+<li><strong>pages</strong>: 321-327 (6 pages)</li>
+</ul>
+<section id="summary-13" class="level2">
+<h2 class="anchored" data-anchor-id="summary-13">Summary</h2>
+<p>Secondary Indexes can introduce additional complexity when partitioning data and usually results in having to read in all the partitions. This approach is called <em>scatter/gather</em>. ___</p>
+</section>
+</section>
+<section id="reading-session-22" class="level1">
+<h1>Reading Session 22</h1>
+<ul>
+<li><strong>date</strong>: Mon 10/30/2023</li>
+<li><strong>time</strong>: 4:17AM-4:38AM (21 min)</li>
+<li><strong>chapter</strong>: Ch 06 Partitioning</li>
+<li><strong>pages</strong>: 327-347 (20 pages)</li>
+</ul>
+<section id="notes-11" class="level2">
+<h2 class="anchored" data-anchor-id="notes-11">Notes</h2>
+<p>I have heard of ZooKeeper before (mainly from Kafka) but never knew what role it had in the Kafka ecosystem. I now know that ZooKeeper can be used as a way to keep track of cluster metadata and maintains the mapping of partitions to nodes. It’s often used by the “routing tier” which is a partition-aware load balancer. The routing tier can query ZooKeeper to determine where to route the request to.</p>
+</section>
+<section id="summary-14" class="level2">
+<h2 class="anchored" data-anchor-id="summary-14">Summary</h2>
+<p>Wrapped up chapter 06 by learning more about how partitions can be rebalanced to different nodes. As a result, we also need techniques to keep track of partitions and the nodes they are assigned to so queries can be efficiently routed to the right node.</p>
 
 
 </section>

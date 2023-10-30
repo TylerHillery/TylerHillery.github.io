@@ -263,7 +263,7 @@
     "href": "notes/ddia/index.html#summary-10",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nI’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of these concepts but it will definitely require me to build something where I implement them for the information to truly settle in. ___"
+    "text": "Summary\nI’ll be honest there were parts of this chapter where a lot of the information went over my head 😅. It’s good for me to be generally aware of some of these concepts but it will definitely require me to build something where I implement them for the information to truly settle in."
   },
   {
     "objectID": "notes/ddia/index.html#notes-10",
@@ -278,6 +278,34 @@
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
     "text": "Summary\nThe beginning of the chapter reminds me about some of the query optimization work I do at my current role. At Nasdaq we use Redshift as our data warehouse. Couple things you can define for your tables is define a distribution key and sort key. The distribution key tells the leader node which worker node to send the data to. Each worker nodes stores the data into blocks called zone maps. The zone maps store the min and max values of the sort key allowing the worker node to prune the zone maps without having to read the data.\nThe idea behind the distribution key is to co-locate joins to minimize the impact of the redistribution step. Make sure to pick a key that evenly distributes the data across nodes. This can be challenging at Nasdaq because many stocks can skew the data because they trade a lot more than others.\n\n\n\n\n\n\nTODO\n\n\n\n\n\nIf I specify a DISTKEY how does will Redshift still try to ensure the data is evenly distributed across nodes? For example, lets say there is a dataset with 3 symbols and we have two worker nodes. 1 symbol makes up 50% of the data and the other two make up the other 50%. Will Redshift know to distribute the symbol with more data on one node and the other two symbols on the other node?"
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-12",
+    "href": "notes/ddia/index.html#summary-12",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nLearned about some hashing techniques to help evenly distribute data across nodes to reduce the risk of a hot spot. ___"
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-13",
+    "href": "notes/ddia/index.html#summary-13",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nSecondary Indexes can introduce additional complexity when partitioning data and usually results in having to read in all the partitions. This approach is called scatter/gather. ___"
+  },
+  {
+    "objectID": "notes/ddia/index.html#notes-11",
+    "href": "notes/ddia/index.html#notes-11",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Notes",
+    "text": "Notes\nI have heard of ZooKeeper before (mainly from Kafka) but never knew what role it had in the Kafka ecosystem. I now know that ZooKeeper can be used as a way to keep track of cluster metadata and maintains the mapping of partitions to nodes. It’s often used by the “routing tier” which is a partition-aware load balancer. The routing tier can query ZooKeeper to determine where to route the request to."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-14",
+    "href": "notes/ddia/index.html#summary-14",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nWrapped up chapter 06 by learning more about how partitions can be rebalanced to different nodes. As a result, we also need techniques to keep track of partitions and the nodes they are assigned to so queries can be efficiently routed to the right node."
   },
   {
     "objectID": "notes/atomic-habits/index.html#summary",
