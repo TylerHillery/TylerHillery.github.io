@@ -238,6 +238,16 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#notes-11" id="toc-notes-11" class="nav-link" data-scroll-target="#notes-11">Notes</a></li>
   <li><a href="#summary-14" id="toc-summary-14" class="nav-link" data-scroll-target="#summary-14">Summary</a></li>
   </ul></li>
+  <li><a href="#reading-session-23" id="toc-reading-session-23" class="nav-link" data-scroll-target="#reading-session-23">Reading Session 23</a>
+  <ul class="collapse">
+  <li><a href="#notes-12" id="toc-notes-12" class="nav-link" data-scroll-target="#notes-12">Notes</a></li>
+  <li><a href="#summary-15" id="toc-summary-15" class="nav-link" data-scroll-target="#summary-15">Summary</a></li>
+  </ul></li>
+  <li><a href="#reading-session-24" id="toc-reading-session-24" class="nav-link" data-scroll-target="#reading-session-24">Reading Session 24</a>
+  <ul class="collapse">
+  <li><a href="#notes-13" id="toc-notes-13" class="nav-link" data-scroll-target="#notes-13">Notes</a></li>
+  <li><a href="#summary-16" id="toc-summary-16" class="nav-link" data-scroll-target="#summary-16">Summary</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/ddia/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -846,7 +856,8 @@ TODO
 </ul>
 <section id="summary-13" class="level2">
 <h2 class="anchored" data-anchor-id="summary-13">Summary</h2>
-<p>Secondary Indexes can introduce additional complexity when partitioning data and usually results in having to read in all the partitions. This approach is called <em>scatter/gather</em>. ___</p>
+<p>Secondary Indexes can introduce additional complexity when partitioning data and usually results in having to read in all the partitions. This approach is called <em>scatter/gather</em>.</p>
+<hr>
 </section>
 </section>
 <section id="reading-session-22" class="level1">
@@ -864,6 +875,71 @@ TODO
 <section id="summary-14" class="level2">
 <h2 class="anchored" data-anchor-id="summary-14">Summary</h2>
 <p>Wrapped up chapter 06 by learning more about how partitions can be rebalanced to different nodes. As a result, we also need techniques to keep track of partitions and the nodes they are assigned to so queries can be efficiently routed to the right node.</p>
+<hr>
+</section>
+</section>
+<section id="reading-session-23" class="level1">
+<h1>Reading Session 23</h1>
+<ul>
+<li><strong>date</strong>: Tue 10/31/2023</li>
+<li><strong>time</strong>: 7:15PM-7:18PM (3 min)</li>
+<li><strong>chapter</strong>: Ch 07 Transactions</li>
+<li><strong>pages</strong>: 347-349 (2 pages)</li>
+</ul>
+<section id="notes-12" class="level2">
+<h2 class="anchored" data-anchor-id="notes-12">Notes</h2>
+<blockquote class="blockquote">
+<p><strong><em>Transactions</em></strong> is a way for an application to group several reads and writes together into a logical unit…Transactions are not a law of nature; they were created with a purpose, namely to simplify the programming model for applications accessing a database. By using transactions, the application is free to ignore certain potential error scenarios and concurrency issues, because the database takes care of them instead (we call these safety guarantees).</p>
+</blockquote>
+</section>
+<section id="summary-15" class="level2">
+<h2 class="anchored" data-anchor-id="summary-15">Summary</h2>
+<p>Started the chapter on transactions. I learned about some of the high level advantages that transactions provide. I’ll be the first to admit that I take transactions for granted. It’ll be nice to learn more about the lower level details of transactions, the advantages they provide along with the limitation they may impose. I wonder what scenarios are best where you could get away with not as strict transactions to maybe improve the performance of the database while sacrificing some of the safety guarantees.</p>
+<hr>
+</section>
+</section>
+<section id="reading-session-24" class="level1">
+<h1>Reading Session 24</h1>
+<ul>
+<li><strong>date</strong>: Wed 11/01/2023</li>
+<li><strong>time</strong>: 6:42PM-7:02PM ( min)</li>
+<li><strong>chapter</strong>: Ch 07 Transactions</li>
+<li><strong>pages</strong>: 349-367 (18 pages)</li>
+</ul>
+<section id="notes-13" class="level2">
+<h2 class="anchored" data-anchor-id="notes-13">Notes</h2>
+<blockquote class="blockquote">
+<p><strong><em>ACID</em></strong> The safety guarantees provided by transactions are often described by the well-known acronym ACID, which stands for Atomicity, Consistency, Isolation, and Durability.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The safety guarantees provided by transactions are often described by the well-known acronym ACID, which stands for Atomicity, Consistency, Isolation, and Durability.</p>
+</blockquote>
+<p>Interesting to here there are various degrees of ACID, I always thought if a db claimed they had ACID transactions it was the same safety guarantees.</p>
+<blockquote class="blockquote">
+<p><strong><em>atomicity</em></strong> describes what happens if a client wants to make several writes, but a fault occurs after some of the writes have been processed—for example, a process crashes, a network connection is interrupted, a disk becomes full, or some integrity constraint is violated. If the writes are grouped together into an atomic transaction, and the transaction cannot be completed (committed) due to a fault, then the transaction is aborted and the database must discard or undo any writes it has made so far in that transaction.</p>
+</blockquote>
+<p>My mental of of atomic: if full transactions doesn’t complete nothing completes. I also like the author calling it <em>abortability</em></p>
+<blockquote class="blockquote">
+<p><strong><em>consistency</em></strong> refers to an application-specific notion of the database being in a “good state.”</p>
+</blockquote>
+<p>Surprising to hear that this part of ACID is actually a property of the application.</p>
+<blockquote class="blockquote">
+<p><strong><em>Isolation</em></strong> in the sense of ACID means that concurrently executing transactions are isolated from each other: they cannot step on each other’s toes. The classic database textbooks formalize isolation as serializability, which means that each transaction can pretend that it is the only transaction running on the entire database. The database ensures that when the transactions have committed, the result is the same as if they had run serially (one after another), even though in reality they may have run concurrently [10]… Concurrently running transactions shouldn’t interfere with each other. For example, if one transaction makes several writes, then another transaction should see either all or none of those writes, but not some subset.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong><em>Durability</em></strong> is the promise that once a transaction has committed successfully, any data it has written will not be forgotten, even if there is a hardware fault or the database crashes.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The most basic level of transaction isolation is <strong><em>read committed</em></strong>. It makes two guarantees:</p>
+<ol type="1">
+<li><p>When reading from the database, you will only see data that has been committed (no <em>dirty reads</em>).</p></li>
+<li><p>When writing to the database, you will only overwrite data that has been committed (no <em>dirty writes</em>).</p></li>
+</ol>
+</blockquote>
+</section>
+<section id="summary-16" class="level2">
+<h2 class="anchored" data-anchor-id="summary-16">Summary</h2>
+<p>My take away from this part of the book is don’t take ACID at face value. ACID means different things between databases and even <em>consistency</em> falls part on the application not just the database. It’ll be interesting to learn more about how databases handle isolation in more detail as that appears to be the most complicated part of the db has to handle for ACID transactions.</p>
 
 
 </section>

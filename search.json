@@ -291,7 +291,7 @@
     "href": "notes/ddia/index.html#summary-13",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nSecondary Indexes can introduce additional complexity when partitioning data and usually results in having to read in all the partitions. This approach is called scatter/gather. ___"
+    "text": "Summary\nSecondary Indexes can introduce additional complexity when partitioning data and usually results in having to read in all the partitions. This approach is called scatter/gather."
   },
   {
     "objectID": "notes/ddia/index.html#notes-11",
@@ -306,6 +306,34 @@
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
     "text": "Summary\nWrapped up chapter 06 by learning more about how partitions can be rebalanced to different nodes. As a result, we also need techniques to keep track of partitions and the nodes they are assigned to so queries can be efficiently routed to the right node."
+  },
+  {
+    "objectID": "notes/ddia/index.html#notes-12",
+    "href": "notes/ddia/index.html#notes-12",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Notes",
+    "text": "Notes\n\nTransactions is a way for an application to group several reads and writes together into a logical unit…Transactions are not a law of nature; they were created with a purpose, namely to simplify the programming model for applications accessing a database. By using transactions, the application is free to ignore certain potential error scenarios and concurrency issues, because the database takes care of them instead (we call these safety guarantees)."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-15",
+    "href": "notes/ddia/index.html#summary-15",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nStarted the chapter on transactions. I learned about some of the high level advantages that transactions provide. I’ll be the first to admit that I take transactions for granted. It’ll be nice to learn more about the lower level details of transactions, the advantages they provide along with the limitation they may impose. I wonder what scenarios are best where you could get away with not as strict transactions to maybe improve the performance of the database while sacrificing some of the safety guarantees."
+  },
+  {
+    "objectID": "notes/ddia/index.html#notes-13",
+    "href": "notes/ddia/index.html#notes-13",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Notes",
+    "text": "Notes\n\nACID The safety guarantees provided by transactions are often described by the well-known acronym ACID, which stands for Atomicity, Consistency, Isolation, and Durability.\n\n\nThe safety guarantees provided by transactions are often described by the well-known acronym ACID, which stands for Atomicity, Consistency, Isolation, and Durability.\n\nInteresting to here there are various degrees of ACID, I always thought if a db claimed they had ACID transactions it was the same safety guarantees.\n\natomicity describes what happens if a client wants to make several writes, but a fault occurs after some of the writes have been processed—for example, a process crashes, a network connection is interrupted, a disk becomes full, or some integrity constraint is violated. If the writes are grouped together into an atomic transaction, and the transaction cannot be completed (committed) due to a fault, then the transaction is aborted and the database must discard or undo any writes it has made so far in that transaction.\n\nMy mental of of atomic: if full transactions doesn’t complete nothing completes. I also like the author calling it abortability\n\nconsistency refers to an application-specific notion of the database being in a “good state.”\n\nSurprising to hear that this part of ACID is actually a property of the application.\n\nIsolation in the sense of ACID means that concurrently executing transactions are isolated from each other: they cannot step on each other’s toes. The classic database textbooks formalize isolation as serializability, which means that each transaction can pretend that it is the only transaction running on the entire database. The database ensures that when the transactions have committed, the result is the same as if they had run serially (one after another), even though in reality they may have run concurrently [10]… Concurrently running transactions shouldn’t interfere with each other. For example, if one transaction makes several writes, then another transaction should see either all or none of those writes, but not some subset.\n\n\nDurability is the promise that once a transaction has committed successfully, any data it has written will not be forgotten, even if there is a hardware fault or the database crashes.\n\n\nThe most basic level of transaction isolation is read committed. It makes two guarantees:\n\nWhen reading from the database, you will only see data that has been committed (no dirty reads).\nWhen writing to the database, you will only overwrite data that has been committed (no dirty writes)."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-16",
+    "href": "notes/ddia/index.html#summary-16",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nMy take away from this part of the book is don’t take ACID at face value. ACID means different things between databases and even consistency falls part on the application not just the database. It’ll be interesting to learn more about how databases handle isolation in more detail as that appears to be the most complicated part of the db has to handle for ACID transactions."
   },
   {
     "objectID": "notes/atomic-habits/index.html#summary",
