@@ -567,6 +567,20 @@
     "text": "Summary\nFinished the section on transactions. Will probably need to revisit this chapter again to be able to fully digest the information. To summarize, transactions deal with a lot of complexity so your application doesn’t have to. Most of the complexity appears to come from concurrency and by that I mean what should the database due when there are multiple requests to read or write happening at the same time."
   },
   {
+    "objectID": "notes/ddia/index.html#summary-20",
+    "href": "notes/ddia/index.html#summary-20",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nRead one page again to keep that streak alive.ead one page again to keep that streak alive."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-21",
+    "href": "notes/ddia/index.html#summary-21",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nHoneymoon starts tomorrow so last couple of days I haven’t had as much time to read as I would like to."
+  },
+  {
     "objectID": "notes/atomic-habits/index.html#summary",
     "href": "notes/atomic-habits/index.html#summary",
     "title": "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
