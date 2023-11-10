@@ -588,6 +588,27 @@
     "text": "Summary\nComputer networking is very important and who knew how hard it would be to detect a partial failure in a distributed system."
   },
   {
+    "objectID": "notes/ddia/index.html#summary-23",
+    "href": "notes/ddia/index.html#summary-23",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nI am shocked that any distributed systems work with how many problems and edge cases they have to deal with such as not being able to rely on the clocks within each node."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-24",
+    "href": "notes/ddia/index.html#summary-24",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nStarting to learn more about the algortihms that help us deal with many of the challenges that distributed systems face."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-25",
+    "href": "notes/ddia/index.html#summary-25",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nConcurrency is hard and that is why many systems will impose an order on the events."
+  },
+  {
     "objectID": "notes/atomic-habits/index.html#summary",
     "href": "notes/atomic-habits/index.html#summary",
     "title": "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
