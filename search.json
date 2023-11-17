@@ -599,7 +599,7 @@
     "href": "notes/ddia/index.html#summary-24",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nStarting to learn more about the algortihms that help us deal with many of the challenges that distributed systems face."
+    "text": "Summary\nStarting to learn more about the algorithms that help us deal with many of the challenges that distributed systems face."
   },
   {
     "objectID": "notes/ddia/index.html#summary-25",
@@ -613,28 +613,49 @@
     "href": "notes/ddia/index.html#summary-26",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nRetroactivley adding these reading sessions so don’t really have any thoughts or ideas to share about these specifc pages."
+    "text": "Summary\nRetroactively adding these reading sessions so don’t really have any thoughts or ideas to share about these specific pages."
   },
   {
     "objectID": "notes/ddia/index.html#summary-27",
     "href": "notes/ddia/index.html#summary-27",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nRetroactivley adding these reading sessions so don’t really have any thoughts or ideas to share about these specifc pages."
+    "text": "Summary\nRetroactively adding these reading sessions so don’t really have any thoughts or ideas to share about these specific pages."
   },
   {
     "objectID": "notes/ddia/index.html#summary-28",
     "href": "notes/ddia/index.html#summary-28",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nRetroactivley adding these reading sessions so don’t really have any thoughts or ideas to share about these specifc pages."
+    "text": "Summary\nRetroactively adding these reading sessions so don’t really have any thoughts or ideas to share about these specific pages."
   },
   {
     "objectID": "notes/ddia/index.html#summary-29",
     "href": "notes/ddia/index.html#summary-29",
     "title": "Designing Data-Intensive Applications",
     "section": "Summary",
-    "text": "Summary\nRetroactivley adding these reading sessions so don’t really have any thoughts or ideas to share about these specifc pages."
+    "text": "Summary\nRetroactively adding these reading sessions so don’t really have any thoughts or ideas to share about these specific pages."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-30",
+    "href": "notes/ddia/index.html#summary-30",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nRetroactively adding these reading sessions so don’t really have any thoughts or ideas to share about these specific pages."
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-31",
+    "href": "notes/ddia/index.html#summary-31",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nThe kindle streak is alive! Almost forgot to read today 😅"
+  },
+  {
+    "objectID": "notes/ddia/index.html#summary-32",
+    "href": "notes/ddia/index.html#summary-32",
+    "title": "Designing Data-Intensive Applications",
+    "section": "Summary",
+    "text": "Summary\nFinished the batch processing job chapter. The author correctly predicts the convergence of MPP databases and batch processing frameworks. Batch processing frameworks like MapReduce where a lot more flexible in the sense MapReduce jobs could call arbitrary code while MPP databases usually used SQL. Now we see frameworks who were initially built on MapReduce like Spark (I don’t think it is anymore) has its new photon engine for running SQL workloads. You also have MPP databases that although the ability to query files directly on S3 vs having to store it in their proprietary storage format."
   },
   {
     "objectID": "notes/atomic-habits/index.html#summary",
