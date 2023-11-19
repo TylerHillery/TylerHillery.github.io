@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-10-27">
+<meta name="dcterms.date" content="2023-11-18">
 <meta name="description" content="My notes on Designing Data-Intensive Applications by Martin Kleppmann.">
 
 <title>Tyler Hillery - Designing Data-Intensive Applications</title>
@@ -312,6 +312,11 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#summary-32" id="toc-summary-32" class="nav-link" data-scroll-target="#summary-32">Summary</a></li>
   </ul></li>
+  <li><a href="#reading-session-41" id="toc-reading-session-41" class="nav-link" data-scroll-target="#reading-session-41">Reading Session 41</a>
+  <ul class="collapse">
+  <li><a href="#summary-33" id="toc-summary-33" class="nav-link" data-scroll-target="#summary-33">Summary</a></li>
+  </ul></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/ddia/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -349,7 +354,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 27, 2023</p>
+      <p class="date">November 18, 2023</p>
     </div>
   </div>
   
@@ -1228,9 +1233,52 @@ TODO
 <section id="summary-32" class="level2">
 <h2 class="anchored" data-anchor-id="summary-32">Summary</h2>
 <p>Finished the batch processing job chapter. The author correctly predicts the convergence of MPP databases and batch processing frameworks. Batch processing frameworks like MapReduce where a lot more flexible in the sense MapReduce jobs could call arbitrary code while MPP databases usually used SQL. Now we see frameworks who were initially built on MapReduce like Spark (I don’t think it is anymore) has its new photon engine for running SQL workloads. You also have MPP databases that although the ability to query files directly on S3 vs having to store it in their proprietary storage format.</p>
-
-
+<hr>
 </section>
+</section>
+<section id="reading-session-41" class="level1">
+<h1>Reading Session 41</h1>
+<ul>
+<li><strong>date</strong>: Sat 11/18/2023</li>
+<li><strong>time</strong>: 12:00PM-2:40PM (160 min)</li>
+<li><strong>chapter</strong>: Ch 11 Stream Processing &amp; Ch 12 The Future of Data Systems</li>
+<li><strong>pages</strong>: 682-850 (172 pages)</li>
+</ul>
+<section id="summary-33" class="level2">
+<h2 class="anchored" data-anchor-id="summary-33">Summary</h2>
+<p>Who knew the append only log could be so powerful. I like the idea of changing the way we think about building apps from stateless to stateful so we can create a complete end to end dataflow without the need for polling.</p>
+<p>There is something about event driven architecture, data streaming, immutable data, functional programming, append only logs that really identify with my way of thinking. It’s an area that I really want to explore more and specialize in.</p>
+</section>
+</section>
+<section id="recap" class="level1">
+<h1>Recap</h1>
+<p>Just a mental recap for me of all the different topics and chapters of this book</p>
+<ul>
+<li>Part 1: Foundations of Data Systems
+<ul>
+<li>Reliable, Scalable, and Maintainable Applications</li>
+<li>Data Models and Query Languages</li>
+<li>Storage and Retrieval</li>
+<li>Encoding and Evolution</li>
+</ul></li>
+<li>Part 2: Distributed Data
+<ul>
+<li>Replication</li>
+<li>Partitioning</li>
+<li>Transactions</li>
+<li>The Trouble with Distributed Systems</li>
+<li>Consistency and Consensus</li>
+</ul></li>
+<li>Part 3: Derived Data
+<ul>
+<li>Batch Processing</li>
+<li>Stream Processing</li>
+<li>The Future of Data Systems</li>
+<li>Summary</li>
+</ul></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -1467,7 +1515,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="quarto-dev/quarto-web" data-repo-id="MDEwOlJlcG9zaXRvcnkzNDc2MzMzNTg=" data-category="General" data-category-id="DIC_kwDOFLh2zs4CBQCO" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
 <div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/ddia/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/ddia/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/ddia/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/ddia/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/ddia/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
