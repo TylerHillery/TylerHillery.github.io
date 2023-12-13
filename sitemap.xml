@@ -1,99 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.tylerhillery.com/projects.html</loc>
-    <lastmod>2023-11-19T01:05:53.491Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</loc>
-    <lastmod>2023-11-19T01:05:52.723Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/local-lakehouse/index.html</loc>
-    <lastmod>2023-11-19T01:05:50.783Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-11-19T01:05:48.795Z</lastmod>
+    <loc>https://www.tylerhillery.com/resume.html</loc>
+    <lastmod>2023-12-13T21:16:33.838Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/local-lakehouse/index.html</loc>
-    <lastmod>2023-11-19T01:05:47.607Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2023-11-19T01:05:46.323Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/projects/coinbase-pipeline/index.html</loc>
-    <lastmod>2023-11-19T01:05:44.955Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/97-de-things/index.html</loc>
-    <lastmod>2023-11-19T01:05:43.527Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/code-hidden-language/index.html</loc>
-    <lastmod>2023-11-19T01:05:42.123Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/csc-155-cpp-cs-1/index.html</loc>
-    <lastmod>2023-11-19T01:05:38.755Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/csc-204-comp-arch-org/index.html</loc>
-    <lastmod>2023-11-19T01:05:37.319Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/de-fundamentals/index.html</loc>
-    <lastmod>2023-11-19T01:05:35.411Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/resume.html</loc>
-    <lastmod>2023-11-19T01:05:34.127Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
-    <lastmod>2023-11-19T01:05:36.627Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/data-pipelines-ref/index.html</loc>
-    <lastmod>2023-11-19T01:05:38.047Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/ddia/index.html</loc>
-    <lastmod>2023-11-19T01:05:40.991Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/atomic-habits/index.html</loc>
-    <lastmod>2023-11-19T01:05:42.851Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes.html</loc>
-    <lastmod>2023-11-19T01:05:44.311Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/projects/report/index.html</loc>
-    <lastmod>2023-11-19T01:05:45.591Z</lastmod>
+    <lastmod>2023-12-13T21:16:33.378Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/learning-log/index.html</loc>
-    <lastmod>2023-11-19T01:05:46.999Z</lastmod>
+    <lastmod>2023-12-13T21:16:32.074Z</lastmod>
   </url>
   <url>
-    <loc>https://www.tylerhillery.com/index.html</loc>
-    <lastmod>2023-11-19T01:05:47.939Z</lastmod>
+    <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2023-12-13T21:16:30.802Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/de-fundamentals/index.html</loc>
+    <lastmod>2023-12-13T21:16:29.882Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/97-de-things/index.html</loc>
+    <lastmod>2023-12-13T21:16:28.226Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/zero-to-py/index.html</loc>
+    <lastmod>2023-12-13T21:16:26.622Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/data-pipelines-ref/index.html</loc>
+    <lastmod>2023-12-13T21:16:24.962Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/ddia/index.html</loc>
+    <lastmod>2023-12-13T21:16:23.550Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
-    <lastmod>2023-11-19T01:05:49.507Z</lastmod>
+    <lastmod>2023-12-13T21:16:18.670Z</lastmod>
   </url>
   <url>
-    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
-    <lastmod>2023-11-19T01:05:51.615Z</lastmod>
+    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2023-12-13T21:16:17.134Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/index.html</loc>
+    <lastmod>2023-12-13T21:16:15.078Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes.html</loc>
+    <lastmod>2023-12-13T21:16:13.894Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/blog.html</loc>
-    <lastmod>2023-11-19T01:05:53.223Z</lastmod>
+    <lastmod>2023-12-13T21:16:14.750Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</loc>
+    <lastmod>2023-12-13T21:16:16.250Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
+    <lastmod>2023-12-13T21:16:17.958Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/local-lakehouse/index.html</loc>
+    <lastmod>2023-12-13T21:16:19.874Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/atomic-habits/index.html</loc>
+    <lastmod>2023-12-13T21:16:21.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/code-hidden-language/index.html</loc>
+    <lastmod>2023-12-13T21:16:24.254Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/csc-204-comp-arch-org/index.html</loc>
+    <lastmod>2023-12-13T21:16:25.674Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
+    <lastmod>2023-12-13T21:16:27.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/csc-155-cpp-cs-1/index.html</loc>
+    <lastmod>2023-12-13T21:16:28.946Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects.html</loc>
+    <lastmod>2023-12-13T21:16:30.162Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects/report/index.html</loc>
+    <lastmod>2023-12-13T21:16:31.422Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/projects/coinbase-pipeline/index.html</loc>
+    <lastmod>2023-12-13T21:16:32.726Z</lastmod>
   </url>
 </urlset>

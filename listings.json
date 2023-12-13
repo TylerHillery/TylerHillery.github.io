@@ -1,17 +1,8 @@
 [
   {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/coinbase-pipeline/index.html",
-      "/projects/local-lakehouse/index.html",
-      "/projects/report/index.html",
-      "/projects/learning-log/index.html",
-      "/projects/stock-market-data-pipeline/index.html"
-    ]
-  },
-  {
     "listing": "/notes.html",
     "items": [
+      "/notes/zero-to-py/index.html",
       "/notes/ddia/index.html",
       "/notes/atomic-habits/index.html",
       "/notes/97-de-things/index.html",
@@ -31,6 +22,16 @@
       "/blog/getting-started-in-os/index.html",
       "/blog/learning-log/index.html",
       "/blog/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/coinbase-pipeline/index.html",
+      "/projects/local-lakehouse/index.html",
+      "/projects/report/index.html",
+      "/projects/learning-log/index.html",
+      "/projects/stock-market-data-pipeline/index.html"
     ]
   }
 ]
