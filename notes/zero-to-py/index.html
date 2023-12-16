@@ -192,6 +192,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#line-structure" id="toc-line-structure" class="nav-link" data-scroll-target="#line-structure">Line Structure</a></li>
   </ul></li>
   <li><a href="#chapter-4-control-flow" id="toc-chapter-4-control-flow" class="nav-link" data-scroll-target="#chapter-4-control-flow">Chapter 4: Control Flow</a></li>
+  <li><a href="#chapter-5-functions" id="toc-chapter-5-functions" class="nav-link" data-scroll-target="#chapter-5-functions">Chapter 5: Functions</a></li>
+  <li><a href="#chapter-6-classes" id="toc-chapter-6-classes" class="nav-link" data-scroll-target="#chapter-6-classes">Chapter 6: Classes</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/zero-to-py/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -317,8 +319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3"></a><span class="bu">print</span>(<span class="bu">id</span>(x))</span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="bu">print</span>(<span class="bu">id</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>140228581131792
-140228581131792</code></pre>
+<pre><code>140366985430544
+140366985430544</code></pre>
 </div>
 </div>
 <p>This is interesting, I thought these two values would have the same id. I then read the next paragraph which calls out specific values in Python that are <strong><em>singletons</em></strong> meaning there will only ever be a single instance of this object. The integers <code>-5</code> through <code>256</code> are singletons along with <code>None</code>, <code>True</code>, <code>False</code>.</p>
@@ -328,8 +330,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-3"><a href="#cb9-3"></a><span class="bu">print</span>(<span class="bu">id</span>(x))</span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="bu">print</span>(<span class="bu">id</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>140228468623216
-140228468621712</code></pre>
+<pre><code>140366956758352
+140366956757072</code></pre>
 </div>
 </div>
 <section id="references-to-objects" class="level4">
@@ -482,6 +484,132 @@ True</code></pre>
 <pre><code>coordinate is on the x axis, y=1</code></pre>
 </div>
 </div>
+<ul>
+<li>Interesting to learn about how match works with array types and how you can use unpacking</li>
+</ul>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>location <span class="op">=</span> {</span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="st">"city"</span>: <span class="st">"Scottsdale"</span>,</span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="st">"state"</span>: <span class="st">"Arizona"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="st">"country"</span>: <span class="st">"US"</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>}</span>
+<span id="cb21-6"><a href="#cb21-6"></a></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="cf">match</span> location:</span>
+<span id="cb21-8"><a href="#cb21-8"></a>  case {<span class="st">"country"</span>: <span class="st">"US"</span>, <span class="op">**</span>rest}:</span>
+<span id="cb21-9"><a href="#cb21-9"></a>    <span class="bu">print</span>(<span class="ss">f"The city </span><span class="sc">{</span>rest[<span class="st">'city'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>rest[<span class="st">'state'</span>]<span class="sc">}</span><span class="ss"> is in the US."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The city Scottsdale, Arizona is in the US.</code></pre>
+</div>
+</div>
+<ul>
+<li>Matching based on types and values</li>
+</ul>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>item <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="cf">match</span> item:</span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="cf">case</span> <span class="bu">int</span>(<span class="dv">0</span> <span class="op">|</span> <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb23-4"><a href="#cb23-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss"> is either 0 or -1"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="cf">case</span> <span class="bu">int</span>():</span>
+<span id="cb23-6"><a href="#cb23-6"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss"> is an int, not zero or -1"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="cf">case</span> _:</span>
+<span id="cb23-8"><a href="#cb23-8"></a>    <span class="bu">print</span>(<span class="st">"This is a catch all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 is an int, not zero or -1</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong><em>guards</em></strong>: Additional conditions for pattern matching can be included with guard statements. Is an <code>if</code> statement contained in the case which checks the truthiness of an expression. <code>case (0, y) if y == 1</code></p>
+</blockquote>
+<ul>
+<li>The <strong><em>pipe</em></strong> operator can be use to match multiple patterns <code>|</code></li>
+</ul>
+</section>
+<section id="chapter-5-functions" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-5-functions">Chapter 5: Functions</h2>
+<ul>
+<li><strong><em>Function Signature</em></strong> is the combination of the function’s name and its input parameters.</li>
+<li><strong><em>Positional Argument</em></strong> is a function argument which is assigned a name in accordance to the order which the names are defined in the function signature.</li>
+<li><strong><em>Keyword Argument</em></strong> is an argument which is explicitly assigned to a specific name using <code>key=value</code>.</li>
+<li>Positional arguments must be listed first before keyword arguments.</li>
+<li>When assigning default values to a function it is recommended not to use a mutable data type because the same object is used in every function call which effectively creates shared state across all function calls.</li>
+<li><strong><em>Local Scope</em></strong> or <strong><em>namespace</em></strong> is best explain by an example where variables that are defined in a function block are only accessible within that function block and <strong>can’t</strong> be referred to outside of the block. The more formal definition is <em>the space where a given variable name is assigned</em>.</li>
+<li>Block scopes can be nested. Any nested block scope can read variables from scopes which enclose the nested scope.</li>
+<li><strong><em>LEGB</em></strong> rule stands for Local, Enclosing, Global and Build-In. This is the order the interpreter searches for a variable reference in a nested rule for searching scopes.</li>
+<li>*<strong>Closures</strong> are functions which have access to variables in an enclosing scope even when the function is invoked outside that scope. This allows the function to “remember” the values of variables from its enclosing scope, and to continue to access them, even after the enclosing scope has exited. This is useful for callbacks, decorators, and encapsulating state.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="TODO">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Closures are not really clicking for me. Come back and spend some more time understanding them.</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">def</span> outer_function(message):</span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="kw">def</span> inner_function():</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="bu">print</span>(message)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="cf">return</span> inner_function <span class="co"># what why would I return a function?</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a></span>
+<span id="cb25-6"><a href="#cb25-6"></a>my_closure <span class="op">=</span> outer_function(<span class="st">"Hello"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7"></a>my_closure()</span>
+<span id="cb25-8"><a href="#cb25-8"></a></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="co"># I really do not understand this pattern and why you would do something like this</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="kw">def</span> make_counter():</span>
+<span id="cb25-11"><a href="#cb25-11"></a>  count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-12"><a href="#cb25-12"></a>  <span class="kw">def</span> counter():</span>
+<span id="cb25-13"><a href="#cb25-13"></a>    <span class="kw">nonlocal</span> count</span>
+<span id="cb25-14"><a href="#cb25-14"></a>    count <span class="op">+=</span> <span class="dv">1</span> </span>
+<span id="cb25-15"><a href="#cb25-15"></a>    <span class="cf">return</span> count</span>
+<span id="cb25-16"><a href="#cb25-16"></a>  <span class="cf">return</span> counter</span>
+<span id="cb25-17"><a href="#cb25-17"></a></span>
+<span id="cb25-18"><a href="#cb25-18"></a>my_counter <span class="op">=</span> make_counter()</span>
+<span id="cb25-19"><a href="#cb25-19"></a><span class="bu">print</span>(my_counter())</span>
+<span id="cb25-20"><a href="#cb25-20"></a><span class="bu">print</span>(my_counter())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello
+1
+2</code></pre>
+</div>
+</div>
+<ul>
+<li>Closures are ultimately a mechanism for exposing functionality without (easily) exposing state.</li>
+<li><strong><em>Decorator</em></strong> takes the original function as an argument and returns a new function that will replace the original function. They are a way to modify the behavior of an object by wrapping it within a function.</li>
+</ul>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">def</span> my_decorator(fn):</span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="kw">def</span> wrapper():</span>
+<span id="cb27-3"><a href="#cb27-3"></a>    <span class="bu">print</span>(<span class="st">"Entering the function..."</span>)</span>
+<span id="cb27-4"><a href="#cb27-4"></a>    fn()</span>
+<span id="cb27-5"><a href="#cb27-5"></a>    <span class="bu">print</span>(<span class="st">"Exiting the function..."</span>)</span>
+<span id="cb27-6"><a href="#cb27-6"></a></span>
+<span id="cb27-7"><a href="#cb27-7"></a>  <span class="cf">return</span> wrapper</span>
+<span id="cb27-8"><a href="#cb27-8"></a></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="at">@my_decorator</span></span>
+<span id="cb27-10"><a href="#cb27-10"></a><span class="kw">def</span> my_function():</span>
+<span id="cb27-11"><a href="#cb27-11"></a>  <span class="bu">print</span>(<span class="st">"Inside the function..."</span>)</span>
+<span id="cb27-12"><a href="#cb27-12"></a></span>
+<span id="cb27-13"><a href="#cb27-13"></a>my_function()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Entering the function...
+Inside the function...
+Exiting the function...</code></pre>
+</div>
+</div>
+<ul>
+<li>Decorators are typically 2 or 3 functions deep. Instances of 3-deep functions allow you to configure the context of the decorator <code>@my_decorator("this")</code> by wrapping the decorator in another function (a closure) and returning the decorator function.</li>
+</ul>
+</section>
+<section id="chapter-6-classes" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-6-classes">Chapter 6: Classes</h2>
 
 
 </section>
