@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-12-14">
+<meta name="dcterms.date" content="2023-12-19">
 <meta name="description" content="My notes on Zero to Py by Michael Green.">
 
 <title>Tyler Hillery - Zero to Py</title>
@@ -193,8 +193,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#chapter-4-control-flow" id="toc-chapter-4-control-flow" class="nav-link" data-scroll-target="#chapter-4-control-flow">Chapter 4: Control Flow</a></li>
   <li><a href="#chapter-5-functions" id="toc-chapter-5-functions" class="nav-link" data-scroll-target="#chapter-5-functions">Chapter 5: Functions</a></li>
-  <li><a href="#chapter-6-classes" id="toc-chapter-6-classes" class="nav-link" data-scroll-target="#chapter-6-classes">Chapter 6: Classes</a></li>
   </ul></li>
+  <li><a href="#rest-of-book" id="toc-rest-of-book" class="nav-link" data-scroll-target="#rest-of-book">Rest Of Book</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/zero-to-py/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -232,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 14, 2023</p>
+      <p class="date">December 19, 2023</p>
     </div>
   </div>
   
@@ -319,8 +320,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3"></a><span class="bu">print</span>(<span class="bu">id</span>(x))</span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="bu">print</span>(<span class="bu">id</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>140366985430544
-140366985430544</code></pre>
+<pre><code>139724874712592
+139724874712592</code></pre>
 </div>
 </div>
 <p>This is interesting, I thought these two values would have the same id. I then read the next paragraph which calls out specific values in Python that are <strong><em>singletons</em></strong> meaning there will only ever be a single instance of this object. The integers <code>-5</code> through <code>256</code> are singletons along with <code>None</code>, <code>True</code>, <code>False</code>.</p>
@@ -330,8 +331,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-3"><a href="#cb9-3"></a><span class="bu">print</span>(<span class="bu">id</span>(x))</span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="bu">print</span>(<span class="bu">id</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>140366956758352
-140366956757072</code></pre>
+<pre><code>139724846103472
+139724846098352</code></pre>
 </div>
 </div>
 <section id="references-to-objects" class="level4">
@@ -608,11 +609,56 @@ Exiting the function...</code></pre>
 <li>Decorators are typically 2 or 3 functions deep. Instances of 3-deep functions allow you to configure the context of the decorator <code>@my_decorator("this")</code> by wrapping the decorator in another function (a closure) and returning the decorator function.</li>
 </ul>
 </section>
-<section id="chapter-6-classes" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-6-classes">Chapter 6: Classes</h2>
-
-
 </section>
+<section id="rest-of-book" class="level1">
+<h1>Rest Of Book</h1>
+<p>I ended up reading the rest of the book while I was traveling for the holidays so I didn’t really have a good way to take notes. Here are some highlights I made in Kindle while reading.</p>
+<blockquote class="blockquote">
+<p><strong><em>Polymorphism</em></strong>: Feature of object oriented programming that allows objects of different classes to be treated as objects of a common superclass… Python is a dynamically-typed language, which allows for a more flexible approach to Polymorphism, know as “<em>duck typing</em>” which is based on the idea of “if it quacks like a duck, it’s a duck.”</p>
+</blockquote>
+<ul>
+<li>I am not a fan of explaining duck typing with that quote I much prefer the explaination the author gave in the next paragraph</li>
+</ul>
+<blockquote class="blockquote">
+<p>In other words, the type of the object is irrelevant to the execution of your program, so long as you can operate on an object through an expected interface, your code will execute.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The <code>str.casefold()</code> method is a more powerful version of the str.lower() method that is specifically designed for case-insensitive string comparisons.</p>
+</blockquote>
+<ul>
+<li><p>I was not aware of <code>str.casefold()</code>!</p></li>
+<li><p>The <code>__main__.py</code> will run when you use <code>python -m my_package</code>. This must be how venv works e.g.&nbsp;<code>python -m venv .venv</code></p></li>
+<li><p>Multithreading is best used for IO-bound and high-level structured network code, while multiprocessing is used for CPU-bound and low-level code.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>*<strong>Thread</strong>: Is a separate execution flow that runs in parallel with the main program. Threads share the same memory space as the same program, which allows them to access and share data.</p>
+</blockquote>
+<ul>
+<li><p>Threads use a preemptive task scheduling model, where the interpreter schedules and switches between threads.</p></li>
+<li><p>The interpreter can interrupt a running thread at any time, in order to give another thread to chance to run. Python use a <strong><em>Global Interpreter Lock</em></strong> to achieve this: only the thread which has acquired the GIL may execute.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong><em>Process</em></strong>: Is a separate execution environment, with its own memory space and Python interpreter. This allows the ability to take advantage of multiple cores on a machine, and to work around the GIL that prevents multiple threads from executing Python code simultaneously.</p>
+</blockquote>
+<ul>
+<li><p>Processes run in their own execution environment which means its difficult to share data between them. You have to establish an interprocess communication, using IPC mechanisms to send and receive data.</p></li>
+<li><p><code>asyncio</code> library is a redesign how to use threading in python to handle I/O and network related tasks. One of the differences is <code>asyncio</code> relies on <strong><em>cooperative task switching</em></strong> paradigm where tasks voluntarily yield control to the scheduler. Each tasks is responsible for releasing control back to the scheduler.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong><em>coroutines</em></strong>: Tasks in the <code>asnycio</code> library which use an <code>await</code> keyword to yield control to the event loop. The event loop schedules the execution of coroutines and switches between them based on their current states and the availability of resources.</p>
+</blockquote>
+<ul>
+<li>Cooperative task switching is more efficient and less error-prone than preemptive task switching, because it allows tasks to run for as they need without interruption. The downside is it requires more explicit coordination between tasks, and it can lead to issues such as <strong>deadlocks</strong> and <strong>livelocks</strong> if not implemented correctly. Preemptive task switching can be more complex to implement and it can lead to race conditions and other synchronization issues, but it can also prevent tasks from monopolizing resources.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong><em>Profiling</em></strong>: The process of measuring the performance of your code to help identify bottlenecks.</p>
+</blockquote>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>Zero to Py was good read and it felt like a more digestible way to read through the python documentation. Some areas that I really like that I was less familiar with were: pattern matching, type hinting, multithreading, multiprocessing, async and how to build python c extensions. Without a doubt I will be referencing this book in the future.</p>
+
+
 </section>
 
 </main> <!-- /main -->

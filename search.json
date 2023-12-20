@@ -14,18 +14,102 @@
     "text": "Rating: ⭐⭐⭐⭐⭐\nMy tweet sums up how I felt about this book. Now that I have finished the whole thing, I would say it’s a must read for anyone in the data space."
   },
   {
-    "objectID": "notes/97-de-things/index.html",
-    "href": "notes/97-de-things/index.html",
-    "title": "97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts",
+    "objectID": "notes/csc-155-cpp-cs-1/index.html",
+    "href": "notes/csc-155-cpp-cs-1/index.html",
+    "title": "Computer Science I in C++",
     "section": "",
-    "text": "Rating: ⭐⭐\nPersonally I wasn’t the biggest fan of this format of short snippets from various data professionals. That’s not to say I didn’t learn anything, there were definitely some value tidbits in this book. Overall though I thought a lot of the material was repeated from various folks. I probably wont be recommending this book to anyone."
+    "text": "For now I am taking my notes in Notion so check out my notes there! In the future I might convert everything over to a qmd file."
   },
   {
-    "objectID": "notes/97-de-things/index.html#summary",
-    "href": "notes/97-de-things/index.html#summary",
-    "title": "97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts",
+    "objectID": "notes/quarto-reference/index.html",
+    "href": "notes/quarto-reference/index.html",
+    "title": "Quarto Reference Notes",
     "section": "",
-    "text": "Rating: ⭐⭐\nPersonally I wasn’t the biggest fan of this format of short snippets from various data professionals. That’s not to say I didn’t learn anything, there were definitely some value tidbits in this book. Overall though I thought a lot of the material was repeated from various folks. I probably wont be recommending this book to anyone."
+    "text": "Markdown Syntax\nOutput\n\n\n\n\n*italics* and **bold**\nitalics and bold\n\n\nsuperscript^2^ / subscript~2~\nsuperscript2 / subscript2\n\n\n~~strikethrough~~\nstrikethrough\n\n\n`verbatim code`\nverbatim code\n\n\n&gt;quote block\n\nquote block"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#text-formatting",
+    "href": "notes/quarto-reference/index.html#text-formatting",
+    "title": "Quarto Reference Notes",
+    "section": "",
+    "text": "Markdown Syntax\nOutput\n\n\n\n\n*italics* and **bold**\nitalics and bold\n\n\nsuperscript^2^ / subscript~2~\nsuperscript2 / subscript2\n\n\n~~strikethrough~~\nstrikethrough\n\n\n`verbatim code`\nverbatim code\n\n\n&gt;quote block\n\nquote block"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#headings",
+    "href": "notes/quarto-reference/index.html#headings",
+    "title": "Quarto Reference Notes",
+    "section": "Headings",
+    "text": "Headings\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n# Header 1\nHeader 1\n\n\n## Header 2\nHeader 2\n\n\n### Header 3\nHeader 3\n\n\n#### Header 4\nHeader 4\n\n\n##### Header 5\nHeader 5\n\n\n###### Header 6\nHeader 6"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#links-images",
+    "href": "notes/quarto-reference/index.html#links-images",
+    "title": "Quarto Reference Notes",
+    "section": "Links & Images",
+    "text": "Links & Images\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n&lt;https://quarto.org&gt;\nhttps://quarto.org\n\n\n[Quarto](https://quarto.org)\nQuarto\n\n\n![Caption](elephant.png)\n\n\n\n[![Caption](elephant.png)](https://quarto.org)\n\n\n\n[![Caption](elephant.png)](https://quarto.org \"An elephant\")\n\n\n\n[![](elephant.png){fig-alt=\"Alt text\"}](https://quarto.org)"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#lists",
+    "href": "notes/quarto-reference/index.html#lists",
+    "title": "Quarto Reference Notes",
+    "section": "Lists",
+    "text": "Lists\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n* unordered list\n    + sub-item 1\n    + sub-item 2\n        - sub-sub-item 1\n\nunordered list\n\nsub-item 1\nsub-item 2\n\nsub-sub-item 1\n\n\n\n\n\n*   item 2\n\n    Continued (indent 4 spaces)\n\nitem 2\nContinued (indent 4 spaces)\n\n\n\n1. ordered list\n2. item 2\n    i) sub-item 1\n         A.  sub-sub-item 1\n\nordered list\nitem 2\n\nsub-item 1\n\nsub-sub-item 1\n\n\n\n\n\n(@)  A list whose numbering\n\ncontinues after\n\n(@)  an interruption\n\nA list whose numbering\n\ncontinues after\n\nan interruption\n\n\n\nterm\n: definition\n\nterm\n\ndefinition"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#tables",
+    "href": "notes/quarto-reference/index.html#tables",
+    "title": "Quarto Reference Notes",
+    "section": "Tables",
+    "text": "Tables\nMarkdown Syntax\n| Right | Left | Default | Center |\n|------:|:-----|---------|:------:|\n|   12  |  12  |    12   |    12  |\n|  123  |  123 |   123   |   123  |\n|    1  |    1 |     1   |     1  |\nOutput\n\n\n\nRight\nLeft\nDefault\nCenter\n\n\n\n\n12\n12\n12\n12\n\n\n123\n123\n123\n123\n\n\n1\n1\n1\n1\n\n\n\n\nTable Cross Reference\nFor tables produced by executable code cells, include a label with a tbl- prefix to make them cross-referenceable. For example:\n\n```{python}\n#| label: tbl-planets\n#| tbl-cap: Planets\n#| tbl-column: margin\nfrom IPython.display import Markdown\nfrom tabulate import tabulate\ntable = [[\"Sun\",696000,1989100000],\n         [\"Earth\",6371,5973.6],\n         [\"Moon\",1737,73.5],\n         [\"Mars\",3390,641.85]]\nMarkdown(tabulate(\n  table, \n  headers=[\"Planet\",\"R (km)\", \"mass (x 10^29 kg)\"]\n))\n```\n\n\n\n\nTable 1: Planets\n\n\nPlanet\nR (km)\nmass (x 10^29 kg)\n\n\n\n\nSun\n696000\n1.9891e+09\n\n\nEarth\n6371\n5973.6\n\n\nMoon\n1737\n73.5\n\n\nMars\n3390\n641.85"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#source-code",
+    "href": "notes/quarto-reference/index.html#source-code",
+    "title": "Quarto Reference Notes",
+    "section": "Source Code",
+    "text": "Source Code\nUse ``` to delimit blocks of source code:\n```python\na_string = \"hello world\"\nprint(a_string)\n```"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#equations",
+    "href": "notes/quarto-reference/index.html#equations",
+    "title": "Quarto Reference Notes",
+    "section": "Equations",
+    "text": "Equations\nUse $ delimiters for inline math and $$ delimiters for display math. For example:\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\ninline math: $E = mc^{2}$\ninline math: \\(E=mc^{2}\\)\n\n\ndisplay math:\n\n$$E = mc^{2}$$\ndisplay math:\n\\[E = mc^{2}\\]"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#diagrams",
+    "href": "notes/quarto-reference/index.html#diagrams",
+    "title": "Quarto Reference Notes",
+    "section": "Diagrams",
+    "text": "Diagrams\nQuarto has native support for embedding Mermaid and Graphviz diagrams. This enables you to create flowcharts, sequence diagrams, state diagrams, gnatt charts, and more using a plain text syntax inspired by markdown.\nFor example, here we embed a flowchart created using Mermaid:\n\n```{mermaid}\nflowchart LR\n  A[Hard edge] --&gt; B(Round edge)\n  B --&gt; C{Decision}\n  C --&gt; D[Result one]\n  C --&gt; E[Result two]\n```\n\n\n\nflowchart LR\n  A[Hard edge] --&gt; B(Round edge)\n  B --&gt; C{Decision}\n  C --&gt; D[Result one]\n  C --&gt; E[Result two]"
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#videos",
+    "href": "notes/quarto-reference/index.html#videos",
+    "title": "Quarto Reference Notes",
+    "section": "Videos",
+    "text": "Videos\nYou can include videos in documents using the {{&lt; video &gt;}} shortcode. For example, here we embed a YouTube video:\n\nVideos can refer to video files (e.g. MPEG) or can be links to videos published on YouTube, Vimeo, or BrightCove."
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#page-breaks",
+    "href": "notes/quarto-reference/index.html#page-breaks",
+    "title": "Quarto Reference Notes",
+    "section": "Page Breaks",
+    "text": "Page Breaks\nThe pagebreak shortcode enables you to insert a native pagebreak into a document (.e.g in LaTeX this would be a \\newpage, in MS Word a docx-native pagebreak, in HTML a page-break-after: always CSS directive, etc.):\npage 1\n{{&lt; pagebreak &gt;}}\npage 2\nNative pagebreaks are supported for HTML, LaTeX, Context, MS Word, Open Document, and ePub (for other formats a form-feed character \\f is inserted)."
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#callout-blocks",
+    "href": "notes/quarto-reference/index.html#callout-blocks",
+    "title": "Quarto Reference Notes",
+    "section": "Callout Blocks",
+    "text": "Callout Blocks\n\nMarkdown Syntax\n:::{.callout-note}\nNote that there are five types of callouts, including: \n`note`, `tip`, `warning`, `caution`, and `important`.\n:::\n\n\nOutput\n\n\n\n\n\n\nNote\n\n\n\n\n\nNote that there are five types of callouts, including note, tip, warning, caution, and important. There are 3 different styles simple,minimal,default."
+  },
+  {
+    "objectID": "notes/quarto-reference/index.html#code-blocks",
+    "href": "notes/quarto-reference/index.html#code-blocks",
+    "title": "Quarto Reference Notes",
+    "section": "Code Blocks",
+    "text": "Code Blocks\nFor a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\nFigure 1: A line plot on a polar axis\n\n\n\n\n\nInline Code\nTo include executable expressions within markdown in a Python notebook, you use IPython.display.Markdown to dynamically generate markdown from within an ordinary code cell. For example, if we have a variable radius we can use it within markdown as follows:\n\n\nCode\nradius = 10\nfrom IPython.display import display, Markdown\ndisplay(Markdown(f\"\"\"\nThe radius of the circle is {radius}.\n\"\"\"))\n\n\nThe radius of the circle is 10."
   },
   {
     "objectID": "notes/zero-to-py/index.html#chapter-0-system-setup",
@@ -39,7 +123,7 @@
     "href": "notes/zero-to-py/index.html#chapter-1-fundamental-data-types",
     "title": "Zero to Py",
     "section": "Chapter 1: Fundamental Data Types",
-    "text": "Chapter 1: Fundamental Data Types\n\nVariables\nTo reference a given value in python you do so by assigning values to variables using the assignment operator =. Variables are references to values and the data type of the var is the determined by the value it is assigned to.\n\nx = \"Hello World!\"\nprint(x)\nprint(type(x))\n\nHello World!\n&lt;class 'str'&gt;\n\n\n\nVariable Naming Rules\n\nCan only contain letters, numbers and underscores no specials characters such as !, @, #, $\nMust begin with a letter or underscore\nNames are case-sensitive so x is different than X\nPython has some reserved words that cannot be used for names such as False, True, None\n\n\n# get the full list of reserved key words \nprint(__import__(\"keyword\").kwlist)\n\n['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']\n\n\nIn python there is no concept of constants meaning that variables can be reassigned whenever changing the value they reference. A common naming convention for vars that are suppose to be constant is to name the var in all caps PI = 3.14\n\nStrongly Typed Language: Operations which you can do on variables are dependent on the variable’s type.\n\n\nx = list()\ny = int()\nx + y\n\nTypeError: can only concatenate list (not \"int\") to list\n\n\n\nPrimitive Data Types: also referred to as scalar data types, represent a single value and are indivisible. Examples include bool, int, float.\n\n\nContainer Data Types: also known as non-scalar data types, represent multiple values, and are divisible. Examples include list, tuple, set, dict.\n\nstr is a special data type that has properties of both primitive and container data types.\n\nMutability: refers to the ability to be able to modify the value after they are created.\n\nFor example, a list in python is a mutable data type where you add, remove or change elements in a list after it is created. On the other hand a tuple is an immutable data type, so you cannot modify anything about it after it is created.\ntuple immutable ordered collection of items (1, 2, 3)\nlist mutable order collection of items [1, 2, 3]\nset mutable unordered collection of unique items {1, 2, 3}. You can use frozenset(my_set) to create a immutable set.\n\n\n\nObjects\nEverything in python is an object, which means that each element in the language is an instance of a specific *class. This includes built in data types such as str, int, list.\n\nWhen a variable is assigned a value in Python, that value is a reference to an object in memory. This reason for this is because the standard implementation of Python is built in C-based infrastructure, where the basic unit of memory that holds the value of a python object is a C structure called a PyObject*. This struct contains information about the object’s type, its reference count, and the actual value. PyObject* is a pointer to PyObject and it can be used as an opaque handle to the python object, allowing the implementation to abstract the details of these objects and providing python developers a consistent way to interact with any kind of python object, regardless of its type.\n\nEach object in python has its own unique id assigned to it when created. You can use the built in id() function to find out what the id is for a particular object\n\nx = 42\ny = 42 \nprint(id(x))\nprint(id(y))\n\n140366985430544\n140366985430544\n\n\nThis is interesting, I thought these two values would have the same id. I then read the next paragraph which calls out specific values in Python that are singletons meaning there will only ever be a single instance of this object. The integers -5 through 256 are singletons along with None, True, False.\n\nx = 257\ny = 257\nprint(id(x))\nprint(id(y))\n\n140366956758352\n140366956757072\n\n\n\nReferences to Objects\nIn python, variables are references to objects meaning when you create a variable and assign a value to it, the variable does not store the value directly, instead stores a reference to the object that contains that value. It is important to note when working with immutable data types if you assign the value through a second variable both variables reference the same mutable object in memory.\n\nx = 257\ny = x\nx = 300\nprint(x)\nprint(y)\n\nx = {}\ny = x \ny[\"fizz\"] = \"buzz\"\nprint(x)\nprint(y)\n\n300\n257\n{'fizz': 'buzz'}\n{'fizz': 'buzz'}"
+    "text": "Chapter 1: Fundamental Data Types\n\nVariables\nTo reference a given value in python you do so by assigning values to variables using the assignment operator =. Variables are references to values and the data type of the var is the determined by the value it is assigned to.\n\nx = \"Hello World!\"\nprint(x)\nprint(type(x))\n\nHello World!\n&lt;class 'str'&gt;\n\n\n\nVariable Naming Rules\n\nCan only contain letters, numbers and underscores no specials characters such as !, @, #, $\nMust begin with a letter or underscore\nNames are case-sensitive so x is different than X\nPython has some reserved words that cannot be used for names such as False, True, None\n\n\n# get the full list of reserved key words \nprint(__import__(\"keyword\").kwlist)\n\n['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']\n\n\nIn python there is no concept of constants meaning that variables can be reassigned whenever changing the value they reference. A common naming convention for vars that are suppose to be constant is to name the var in all caps PI = 3.14\n\nStrongly Typed Language: Operations which you can do on variables are dependent on the variable’s type.\n\n\nx = list()\ny = int()\nx + y\n\nTypeError: can only concatenate list (not \"int\") to list\n\n\n\nPrimitive Data Types: also referred to as scalar data types, represent a single value and are indivisible. Examples include bool, int, float.\n\n\nContainer Data Types: also known as non-scalar data types, represent multiple values, and are divisible. Examples include list, tuple, set, dict.\n\nstr is a special data type that has properties of both primitive and container data types.\n\nMutability: refers to the ability to be able to modify the value after they are created.\n\nFor example, a list in python is a mutable data type where you add, remove or change elements in a list after it is created. On the other hand a tuple is an immutable data type, so you cannot modify anything about it after it is created.\ntuple immutable ordered collection of items (1, 2, 3)\nlist mutable order collection of items [1, 2, 3]\nset mutable unordered collection of unique items {1, 2, 3}. You can use frozenset(my_set) to create a immutable set.\n\n\n\nObjects\nEverything in python is an object, which means that each element in the language is an instance of a specific *class. This includes built in data types such as str, int, list.\n\nWhen a variable is assigned a value in Python, that value is a reference to an object in memory. This reason for this is because the standard implementation of Python is built in C-based infrastructure, where the basic unit of memory that holds the value of a python object is a C structure called a PyObject*. This struct contains information about the object’s type, its reference count, and the actual value. PyObject* is a pointer to PyObject and it can be used as an opaque handle to the python object, allowing the implementation to abstract the details of these objects and providing python developers a consistent way to interact with any kind of python object, regardless of its type.\n\nEach object in python has its own unique id assigned to it when created. You can use the built in id() function to find out what the id is for a particular object\n\nx = 42\ny = 42 \nprint(id(x))\nprint(id(y))\n\n139724874712592\n139724874712592\n\n\nThis is interesting, I thought these two values would have the same id. I then read the next paragraph which calls out specific values in Python that are singletons meaning there will only ever be a single instance of this object. The integers -5 through 256 are singletons along with None, True, False.\n\nx = 257\ny = 257\nprint(id(x))\nprint(id(y))\n\n139724846103472\n139724846098352\n\n\n\nReferences to Objects\nIn python, variables are references to objects meaning when you create a variable and assign a value to it, the variable does not store the value directly, instead stores a reference to the object that contains that value. It is important to note when working with immutable data types if you assign the value through a second variable both variables reference the same mutable object in memory.\n\nx = 257\ny = x\nx = 300\nprint(x)\nprint(y)\n\nx = {}\ny = x \ny[\"fizz\"] = \"buzz\"\nprint(x)\nprint(y)\n\n300\n257\n{'fizz': 'buzz'}\n{'fizz': 'buzz'}"
   },
   {
     "objectID": "notes/zero-to-py/index.html#chapter-2-operators",
@@ -68,13 +152,6 @@
     "title": "Zero to Py",
     "section": "Chapter 5: Functions",
     "text": "Chapter 5: Functions\n\nFunction Signature is the combination of the function’s name and its input parameters.\nPositional Argument is a function argument which is assigned a name in accordance to the order which the names are defined in the function signature.\nKeyword Argument is an argument which is explicitly assigned to a specific name using key=value.\nPositional arguments must be listed first before keyword arguments.\nWhen assigning default values to a function it is recommended not to use a mutable data type because the same object is used in every function call which effectively creates shared state across all function calls.\nLocal Scope or namespace is best explain by an example where variables that are defined in a function block are only accessible within that function block and can’t be referred to outside of the block. The more formal definition is the space where a given variable name is assigned.\nBlock scopes can be nested. Any nested block scope can read variables from scopes which enclose the nested scope.\nLEGB rule stands for Local, Enclosing, Global and Build-In. This is the order the interpreter searches for a variable reference in a nested rule for searching scopes.\n*Closures are functions which have access to variables in an enclosing scope even when the function is invoked outside that scope. This allows the function to “remember” the values of variables from its enclosing scope, and to continue to access them, even after the enclosing scope has exited. This is useful for callbacks, decorators, and encapsulating state.\n\n\n\n\n\n\n\nTODO\n\n\n\n\n\nClosures are not really clicking for me. Come back and spend some more time understanding them.\n\n\n\n\ndef outer_function(message):\n  def inner_function():\n    print(message)\n  return inner_function # what why would I return a function?\n\nmy_closure = outer_function(\"Hello\")\nmy_closure()\n\n# I really do not understand this pattern and why you would do something like this\ndef make_counter():\n  count = 0\n  def counter():\n    nonlocal count\n    count += 1 \n    return count\n  return counter\n\nmy_counter = make_counter()\nprint(my_counter())\nprint(my_counter())\n\nHello\n1\n2\n\n\n\nClosures are ultimately a mechanism for exposing functionality without (easily) exposing state.\nDecorator takes the original function as an argument and returns a new function that will replace the original function. They are a way to modify the behavior of an object by wrapping it within a function.\n\n\ndef my_decorator(fn):\n  def wrapper():\n    print(\"Entering the function...\")\n    fn()\n    print(\"Exiting the function...\")\n\n  return wrapper\n\n@my_decorator\ndef my_function():\n  print(\"Inside the function...\")\n\nmy_function()\n\nEntering the function...\nInside the function...\nExiting the function...\n\n\n\nDecorators are typically 2 or 3 functions deep. Instances of 3-deep functions allow you to configure the context of the decorator @my_decorator(\"this\") by wrapping the decorator in another function (a closure) and returning the decorator function."
-  },
-  {
-    "objectID": "notes/zero-to-py/index.html#chapter-6-classes",
-    "href": "notes/zero-to-py/index.html#chapter-6-classes",
-    "title": "Zero to Py",
-    "section": "Chapter 6: Classes",
-    "text": "Chapter 6: Classes"
   },
   {
     "objectID": "notes/data-pipelines-ref/index.html",
@@ -508,7 +585,7 @@
     "href": "notes.html",
     "title": "Tyler Hillery",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nZero to Py\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy notes on Zero to Py by Michael Green.\n\n\n\n\n\n\nDec 14, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nDesigning Data-Intensive Applications\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy notes on Designing Data-Intensive Applications by Martin Kleppmann.\n\n\n\n\n\n\nNov 18, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nAtomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones\n\n\n\n\n\n\n\nSelf-Help Books\n\n\n\n\nMy short review of the book Atomic Habits An Easy & Proven Way to Build Good Habits & Break Bad Ones by James Clear.\n\n\n\n\n\n\nOct 21, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\n97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book 97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts by Tobias Macey.\n\n\n\n\n\n\nOct 7, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nData Pipelines Pocket Reference\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book Data Pipelines Pocket Reference by James Densmore.\n\n\n\n\n\n\nSep 5, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nComputer Organization and Architecture\n\n\n\n\n\n\n\nCourses\n\n\n\n\nThese are my notes for CSC 204 Computer Organization and Architecture through Oakton Community College. The course uses the book The Essentials of Computer Organization and Architecture.\n\n\n\n\n\n\nJun 5, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nFundamentals of Data Engineering\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book Fundamentals of Data Engineering by Joe Reis & Matt Housley.\n\n\n\n\n\n\nJun 3, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nCode: The Hidden Language of Computer Hardware and Software\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book Code The Hidden Language of Computer Hardware and Software by Charles Petzold.\n\n\n\n\n\n\nApr 24, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nComputer Science I in C++\n\n\n\n\n\n\n\nCourses\n\n\n\n\nThese are my notes for CSC 155 Computer Science 1 in C++ through Oakton Community College. The course uses the book C++ Programming From Problem Analysis to Program Design.\n\n\n\n\n\n\nJan 17, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nQuarto Reference Notes\n\n\n\n\n\n\n\nReferences\n\n\n\n\nCool things that you can do with Quarto that I want to be able to reference back to\n\n\n\n\n\n\nDec 25, 2022\n\n\nTyler Hillery\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nMIT 6.042J Mathematics for Computer Science\n\n\n\n\n\n\n\nCourses\n\n\n\n\nMy notes on MIT 6.042J Mathematics for Computer Science taught by professors Albert Meyer and Adam Chlipala.\n\n\n\n\n\n\nDec 21, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nThe Pragmatic Programmer\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy notes on The Pragmatic Programmer by David Thomas and Andrew Hunt.\n\n\n\n\n\n\nDec 20, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nZero to Py\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy notes on Zero to Py by Michael Green.\n\n\n\n\n\n\nDec 19, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nDesigning Data-Intensive Applications\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy notes on Designing Data-Intensive Applications by Martin Kleppmann.\n\n\n\n\n\n\nNov 18, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nAtomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones\n\n\n\n\n\n\n\nSelf-Help Books\n\n\n\n\nMy short review of the book Atomic Habits An Easy & Proven Way to Build Good Habits & Break Bad Ones by James Clear.\n\n\n\n\n\n\nOct 21, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\n97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book 97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts by Tobias Macey.\n\n\n\n\n\n\nOct 7, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nData Pipelines Pocket Reference\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book Data Pipelines Pocket Reference by James Densmore.\n\n\n\n\n\n\nSep 5, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nComputer Organization and Architecture\n\n\n\n\n\n\n\nCourses\n\n\n\n\nThese are my notes for CSC 204 Computer Organization and Architecture through Oakton Community College. The course uses the book The Essentials of Computer Organization and Architecture.\n\n\n\n\n\n\nJun 5, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nFundamentals of Data Engineering\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book Fundamentals of Data Engineering by Joe Reis & Matt Housley.\n\n\n\n\n\n\nJun 3, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nCode: The Hidden Language of Computer Hardware and Software\n\n\n\n\n\n\n\nTechnical Books\n\n\n\n\nMy short review of the book Code The Hidden Language of Computer Hardware and Software by Charles Petzold.\n\n\n\n\n\n\nApr 24, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nComputer Science I in C++\n\n\n\n\n\n\n\nCourses\n\n\n\n\nThese are my notes for CSC 155 Computer Science 1 in C++ through Oakton Community College. The course uses the book C++ Programming From Problem Analysis to Program Design.\n\n\n\n\n\n\nJan 17, 2023\n\n\nTyler Hillery\n\n\n\n\n\n\n  \n\n\n\n\nQuarto Reference Notes\n\n\n\n\n\n\n\nReferences\n\n\n\n\nCool things that you can do with Quarto that I want to be able to reference back to\n\n\n\n\n\n\nDec 25, 2022\n\n\nTyler Hillery\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog.html",
@@ -679,102 +756,60 @@
     "text": "For now I am taking my notes in Notion so check out my notes there! In the future I might convert everything over to a qmd file."
   },
   {
-    "objectID": "notes/quarto-reference/index.html",
-    "href": "notes/quarto-reference/index.html",
-    "title": "Quarto Reference Notes",
+    "objectID": "notes/pragmatic-programmer/index.html",
+    "href": "notes/pragmatic-programmer/index.html",
+    "title": "The Pragmatic Programmer",
     "section": "",
-    "text": "Markdown Syntax\nOutput\n\n\n\n\n*italics* and **bold**\nitalics and bold\n\n\nsuperscript^2^ / subscript~2~\nsuperscript2 / subscript2\n\n\n~~strikethrough~~\nstrikethrough\n\n\n`verbatim code`\nverbatim code\n\n\n&gt;quote block\n\nquote block"
+    "text": "Notes\n\nThis is where pragmatism comes in. You shouldn’t be wedded to any particular technology, but have a broad enough background and experience based to all you to choose good solutions in particular situations\n\n\nThis preface was so good. I could tell right off the bat that this book was going to be one of my favorites\nI really identify with some of the traits of a Pragmatic Programmer:\n\nEarly adopter / Fast adopter\n\nInstinct for new tech\nLove to try things out\nGrasp new things quickly and can integrate it with the rest of your knowledge\nConfidence is born from experience\n\nInquisitive\n\nTends to ask questions\nPack rat for little facts, each of which may affect some decisions years from now\n\nCritical Thinker\n\nRarely take things as given without first getting the facts\nWhen people say “because that’s the way things are done” you smell a challenge\n\nRealistic\n\nTry to understand the underlying nature of each problem you face\nThe realism gives you a good feel for how difficult things ares, and how long things with take\nDeeply understanding that a process should be difficult or will take a while to complete gives you the stamina to keep at it.\n\nJack of all Trades\n\nBe familiar with a broad range of tech\nYour current role may require you to be a specialist but you’ll always be able to move on to new areas and new challenges\n\n\n\n\n\n\n\n\n\n💡Tip 1\n\n\n\nCare about your craft\n\n\n\n\n\n\n\n\n💡Tip 2\n\n\n\nThink! About your work\n\n\n\nThe metaphor of the “broken window” is such a great example of how bad code can further lead to a bad project. “All the rest of the code is crap, I’ll just follow suit”\nThe example of how the firefighters went to put out a fire at a fancy house but place down a mat so they didn’t ruin the carpet and how that equates to a project where the code is pristine you will take extra care not to mess it up.\n\n\nDon’t be afraid to make stone soup. Start with a POC that you can reasonably ask for then show people and let them marvel. Then say “of course… it would be better if we add..”\n\n\nThe early bird gets the worm but what happens to the early worm?\n\n\nTwo or more things are orthogonal if changes in one do not affect any of the others\n\n\nTracer code advantage: Developers build a structure to work in. The most daunting piece of paper is the one with nothing written on it. If you have worked out all the end-to-end interactions of your application and have embodied them in your code then your team won’t need to pull as much out of thin air.\n\n\nThink of prototyping as the reconnaissance and intelligence gathering that takes place before a single tracer is fired.\n\n\n\n\n\n\n\nImportant\n\n\n\nCome back to page 64-65 and do exercises 4-7\n\n\n\nAs a bonus at the end of this section we’ll reveal the single correct answer to give whenever anyone asks you for an estimate\n\n\nMy guess is that it’s “it depends”. (I was wrong it was “I’ll Get back to you.”)\n\n\nEach tool will have its own personality and quirks, and will need its own special handling. Each must be sharpened in a unique way, or held just so. Over time, each will wear according to use, until the grip looks like a mold of the woodworker’s hands and the cutting surface aligns perfectly with the angle at which the tool is held. **At this point, the tools become conduits from the maker’s brain to the finished product–they have become extensions of their hands.\n\n\nAt some point you’ll be surprised to discover your fingers moving ove the keyboard manipulating text without conscious thought.\n\n\nI crave this feeling. I am not there yet but I have been working on my typing speed, vim and shortcuts in my editor. I have gone from 35wpm will proper typing form to 65wpm. I use a site called typing.io to practice typing lines of code because programming usually involves characters that are not as common in normal typing like brackets, slashes etc.\n\n\n\nReview"
   },
   {
-    "objectID": "notes/quarto-reference/index.html#text-formatting",
-    "href": "notes/quarto-reference/index.html#text-formatting",
-    "title": "Quarto Reference Notes",
+    "objectID": "notes/97-de-things/index.html",
+    "href": "notes/97-de-things/index.html",
+    "title": "97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts",
     "section": "",
-    "text": "Markdown Syntax\nOutput\n\n\n\n\n*italics* and **bold**\nitalics and bold\n\n\nsuperscript^2^ / subscript~2~\nsuperscript2 / subscript2\n\n\n~~strikethrough~~\nstrikethrough\n\n\n`verbatim code`\nverbatim code\n\n\n&gt;quote block\n\nquote block"
+    "text": "Rating: ⭐⭐\nPersonally I wasn’t the biggest fan of this format of short snippets from various data professionals. That’s not to say I didn’t learn anything, there were definitely some value tidbits in this book. Overall though I thought a lot of the material was repeated from various folks. I probably wont be recommending this book to anyone."
   },
   {
-    "objectID": "notes/quarto-reference/index.html#headings",
-    "href": "notes/quarto-reference/index.html#headings",
-    "title": "Quarto Reference Notes",
-    "section": "Headings",
-    "text": "Headings\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n# Header 1\nHeader 1\n\n\n## Header 2\nHeader 2\n\n\n### Header 3\nHeader 3\n\n\n#### Header 4\nHeader 4\n\n\n##### Header 5\nHeader 5\n\n\n###### Header 6\nHeader 6"
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#links-images",
-    "href": "notes/quarto-reference/index.html#links-images",
-    "title": "Quarto Reference Notes",
-    "section": "Links & Images",
-    "text": "Links & Images\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n&lt;https://quarto.org&gt;\nhttps://quarto.org\n\n\n[Quarto](https://quarto.org)\nQuarto\n\n\n![Caption](elephant.png)\n\n\n\n[![Caption](elephant.png)](https://quarto.org)\n\n\n\n[![Caption](elephant.png)](https://quarto.org \"An elephant\")\n\n\n\n[![](elephant.png){fig-alt=\"Alt text\"}](https://quarto.org)"
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#lists",
-    "href": "notes/quarto-reference/index.html#lists",
-    "title": "Quarto Reference Notes",
-    "section": "Lists",
-    "text": "Lists\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\n* unordered list\n    + sub-item 1\n    + sub-item 2\n        - sub-sub-item 1\n\nunordered list\n\nsub-item 1\nsub-item 2\n\nsub-sub-item 1\n\n\n\n\n\n*   item 2\n\n    Continued (indent 4 spaces)\n\nitem 2\nContinued (indent 4 spaces)\n\n\n\n1. ordered list\n2. item 2\n    i) sub-item 1\n         A.  sub-sub-item 1\n\nordered list\nitem 2\n\nsub-item 1\n\nsub-sub-item 1\n\n\n\n\n\n(@)  A list whose numbering\n\ncontinues after\n\n(@)  an interruption\n\nA list whose numbering\n\ncontinues after\n\nan interruption\n\n\n\nterm\n: definition\n\nterm\n\ndefinition"
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#tables",
-    "href": "notes/quarto-reference/index.html#tables",
-    "title": "Quarto Reference Notes",
-    "section": "Tables",
-    "text": "Tables\nMarkdown Syntax\n| Right | Left | Default | Center |\n|------:|:-----|---------|:------:|\n|   12  |  12  |    12   |    12  |\n|  123  |  123 |   123   |   123  |\n|    1  |    1 |     1   |     1  |\nOutput\n\n\n\nRight\nLeft\nDefault\nCenter\n\n\n\n\n12\n12\n12\n12\n\n\n123\n123\n123\n123\n\n\n1\n1\n1\n1\n\n\n\n\nTable Cross Reference\nFor tables produced by executable code cells, include a label with a tbl- prefix to make them cross-referenceable. For example:\n\n```{python}\n#| label: tbl-planets\n#| tbl-cap: Planets\n#| tbl-column: margin\nfrom IPython.display import Markdown\nfrom tabulate import tabulate\ntable = [[\"Sun\",696000,1989100000],\n         [\"Earth\",6371,5973.6],\n         [\"Moon\",1737,73.5],\n         [\"Mars\",3390,641.85]]\nMarkdown(tabulate(\n  table, \n  headers=[\"Planet\",\"R (km)\", \"mass (x 10^29 kg)\"]\n))\n```\n\n\n\n\nTable 1: Planets\n\n\nPlanet\nR (km)\nmass (x 10^29 kg)\n\n\n\n\nSun\n696000\n1.9891e+09\n\n\nEarth\n6371\n5973.6\n\n\nMoon\n1737\n73.5\n\n\nMars\n3390\n641.85"
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#source-code",
-    "href": "notes/quarto-reference/index.html#source-code",
-    "title": "Quarto Reference Notes",
-    "section": "Source Code",
-    "text": "Source Code\nUse ``` to delimit blocks of source code:\n```python\na_string = \"hello world\"\nprint(a_string)\n```"
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#equations",
-    "href": "notes/quarto-reference/index.html#equations",
-    "title": "Quarto Reference Notes",
-    "section": "Equations",
-    "text": "Equations\nUse $ delimiters for inline math and $$ delimiters for display math. For example:\n\n\n\n\n\n\n\nMarkdown Syntax\nOutput\n\n\n\n\ninline math: $E = mc^{2}$\ninline math: \\(E=mc^{2}\\)\n\n\ndisplay math:\n\n$$E = mc^{2}$$\ndisplay math:\n\\[E = mc^{2}\\]"
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#diagrams",
-    "href": "notes/quarto-reference/index.html#diagrams",
-    "title": "Quarto Reference Notes",
-    "section": "Diagrams",
-    "text": "Diagrams\nQuarto has native support for embedding Mermaid and Graphviz diagrams. This enables you to create flowcharts, sequence diagrams, state diagrams, gnatt charts, and more using a plain text syntax inspired by markdown.\nFor example, here we embed a flowchart created using Mermaid:\n\n```{mermaid}\nflowchart LR\n  A[Hard edge] --&gt; B(Round edge)\n  B --&gt; C{Decision}\n  C --&gt; D[Result one]\n  C --&gt; E[Result two]\n```\n\n\n\nflowchart LR\n  A[Hard edge] --&gt; B(Round edge)\n  B --&gt; C{Decision}\n  C --&gt; D[Result one]\n  C --&gt; E[Result two]"
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#videos",
-    "href": "notes/quarto-reference/index.html#videos",
-    "title": "Quarto Reference Notes",
-    "section": "Videos",
-    "text": "Videos\nYou can include videos in documents using the {{&lt; video &gt;}} shortcode. For example, here we embed a YouTube video:\n\nVideos can refer to video files (e.g. MPEG) or can be links to videos published on YouTube, Vimeo, or BrightCove."
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#page-breaks",
-    "href": "notes/quarto-reference/index.html#page-breaks",
-    "title": "Quarto Reference Notes",
-    "section": "Page Breaks",
-    "text": "Page Breaks\nThe pagebreak shortcode enables you to insert a native pagebreak into a document (.e.g in LaTeX this would be a \\newpage, in MS Word a docx-native pagebreak, in HTML a page-break-after: always CSS directive, etc.):\npage 1\n{{&lt; pagebreak &gt;}}\npage 2\nNative pagebreaks are supported for HTML, LaTeX, Context, MS Word, Open Document, and ePub (for other formats a form-feed character \\f is inserted)."
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#callout-blocks",
-    "href": "notes/quarto-reference/index.html#callout-blocks",
-    "title": "Quarto Reference Notes",
-    "section": "Callout Blocks",
-    "text": "Callout Blocks\n\nMarkdown Syntax\n:::{.callout-note}\nNote that there are five types of callouts, including: \n`note`, `tip`, `warning`, `caution`, and `important`.\n:::\n\n\nOutput\n\n\n\n\n\n\nNote\n\n\n\n\n\nNote that there are five types of callouts, including note, tip, warning, caution, and important. There are 3 different styles simple,minimal,default."
-  },
-  {
-    "objectID": "notes/quarto-reference/index.html#code-blocks",
-    "href": "notes/quarto-reference/index.html#code-blocks",
-    "title": "Quarto Reference Notes",
-    "section": "Code Blocks",
-    "text": "Code Blocks\nFor a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\nFigure 1: A line plot on a polar axis\n\n\n\n\n\nInline Code\nTo include executable expressions within markdown in a Python notebook, you use IPython.display.Markdown to dynamically generate markdown from within an ordinary code cell. For example, if we have a variable radius we can use it within markdown as follows:\n\n\nCode\nradius = 10\nfrom IPython.display import display, Markdown\ndisplay(Markdown(f\"\"\"\nThe radius of the circle is {radius}.\n\"\"\"))\n\n\nThe radius of the circle is 10."
-  },
-  {
-    "objectID": "notes/csc-155-cpp-cs-1/index.html",
-    "href": "notes/csc-155-cpp-cs-1/index.html",
-    "title": "Computer Science I in C++",
+    "objectID": "notes/97-de-things/index.html#summary",
+    "href": "notes/97-de-things/index.html#summary",
+    "title": "97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts",
     "section": "",
-    "text": "For now I am taking my notes in Notion so check out my notes there! In the future I might convert everything over to a qmd file."
+    "text": "Rating: ⭐⭐\nPersonally I wasn’t the biggest fan of this format of short snippets from various data professionals. That’s not to say I didn’t learn anything, there were definitely some value tidbits in this book. Overall though I thought a lot of the material was repeated from various folks. I probably wont be recommending this book to anyone."
+  },
+  {
+    "objectID": "notes/mit-math-for-cs/index.html#introduction",
+    "href": "notes/mit-math-for-cs/index.html#introduction",
+    "title": "MIT 6.042J Mathematics for Computer Science",
+    "section": "Introduction",
+    "text": "Introduction\nThis subject offers an introduction to discrete mathematics oriented toward computer science and engineering.\nThe subject coverage is divided into three parts:\n\nFundamental concepts of mathematics: Definitions, proofs, sets, functions.\nDiscrete structures: Elementary number theory, graphs, counting.\nDiscrete probability theory."
+  },
+  {
+    "objectID": "notes/mit-math-for-cs/index.html#prerequisite",
+    "href": "notes/mit-math-for-cs/index.html#prerequisite",
+    "title": "MIT 6.042J Mathematics for Computer Science",
+    "section": "Prerequisite",
+    "text": "Prerequisite\nThe prerequisite is 18.01 Single Variable Calculus. In particular, some familiarity with sequences and series, limits, and differentiation and integration of functions of one variable are necessary."
+  },
+  {
+    "objectID": "notes/mit-math-for-cs/index.html#objectives",
+    "href": "notes/mit-math-for-cs/index.html#objectives",
+    "title": "MIT 6.042J Mathematics for Computer Science",
+    "section": "Objectives",
+    "text": "Objectives\nUpon completion of 6.042J, students will be able to explain and apply basic methods of discrete (noncontinuous) mathematics in computer science. They will be able to use these methods in subsequent courses in the design and analysis of algorithms, computability theory, software engineering, and computer systems.\nIn particular, students will be able to:\n\nReason mathematically about basic data types and structures (such as numbers, sets, graphs, and trees) used in computer algorithms and systems; distinguish rigorous definitions and conclusions from merely plausible ones; synthesize elementary proofs, especially proofs by induction.\nModel and analyze computational processes using analytic and combinatorial methods.\nApply principles of discrete probability to calculate probabilities and expectations of simple random processes.\nWork in small teams to accomplish all the objectives above."
+  },
+  {
+    "objectID": "notes/mit-math-for-cs/index.html#learning-outcomes",
+    "href": "notes/mit-math-for-cs/index.html#learning-outcomes",
+    "title": "MIT 6.042J Mathematics for Computer Science",
+    "section": "Learning Outcomes",
+    "text": "Learning Outcomes\nAt the end of this course, students will be able to:\n\nUse logical notation to define and reason about fundamental mathematical concepts such as sets, relations, functions, and integers.\nEvaluate elementary mathematical arguments and identify fallacious reasoning (not just fallacious conclusions).\nSynthesize induction hypotheses and simple induction proofs.\nProve elementary properties of modular arithmetic and explain their applications in computer science, for example, in cryptography and hashing algorithms.\nApply graph-theoretic models of data structures and state machines to solve problems of connectivity and constraint satisfaction (e.g. scheduling).\nApply the method of invariants and well-founded ordering to prove correctness and termination of processes and state machines.\nDerive closed-form and asymptotic expressions from series and recurrences for growth rates of processes.\nCalculate numbers of possible outcomes of elementary combinatorial processes such as permutations and combinations.\nCalculate probabilities and discrete distributions for simple combinatorial processes; calculate expectations.\nProblem solve and study in a small team with fellow students."
+  },
+  {
+    "objectID": "notes/mit-math-for-cs/index.html#team-problem-solving",
+    "href": "notes/mit-math-for-cs/index.html#team-problem-solving",
+    "title": "MIT 6.042J Mathematics for Computer Science",
+    "section": "Team Problem Solving",
+    "text": "Team Problem Solving\n6.042J is taught as a “flipped” class: Students prepare by doing assigned reading and answering online questions before class. Class meeting time is then devoted almost entirely to problem solving in teams of 6 to 8 students sitting around a table with a nearby whiteboard where a team can write their solutions. Participation in team sessions counts for 25% of the final grade."
   },
   {
     "objectID": "projects.html",
