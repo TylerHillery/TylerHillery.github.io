@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-06-03">
-<meta name="description" content="My short review of the book Fundamentals of Data Engineering by Joe Reis &amp; Matt Housley.">
+<meta name="dcterms.date" content="2023-12-28">
+<meta name="description" content="My experience developing a python package and publishing it to PyPI.">
 
-<title>Tyler Hillery - Fundamentals of Data Engineering</title>
+<title>Tyler Hillery - Tyler Tries Publishing a Python Package to PyPI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -141,9 +141,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TL;DR</a></li>
+  <li><a href="#what-is-a-python-package-anyway" id="toc-what-is-a-python-package-anyway" class="nav-link" data-scroll-target="#what-is-a-python-package-anyway">What is a Python Package Anyway?</a></li>
+  <li><a href="#harelquin" id="toc-harelquin" class="nav-link" data-scroll-target="#harelquin">Harelquin</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/de-fundamentals/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/blog/tyler-tries-publishing-py-pack/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -154,15 +157,16 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fundamentals of Data Engineering</h1>
+<h1 class="title">Tyler Tries Publishing a Python Package to PyPI</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Technical Books</div>
+    <div class="quarto-category">Data Tools</div>
+    <div class="quarto-category">Open-Source</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    My short review of the book <a href="https://a.co/d/hNfukbx">Fundamentals of Data Engineering</a> by Joe Reis &amp; Matt Housley.
+    My experience developing a python package and publishing it to PyPI.
   </div>
 </div>
 
@@ -179,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 3, 2023</p>
+      <p class="date">December 28, 2023</p>
     </div>
   </div>
   
@@ -189,11 +193,42 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<hr>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<p>I developed a python package, <a href="https://pypi.org/project/harlequin_trino/">harlequin_trino</a>, and published it <a href="pypi.org">The Python Package Index</a> (PyPI). This provides a <a href="trino.io">Trino</a> adapter for <a href="harlequin.sh">Harelquin</a> a SQL IDE for your terminal.</p>
+<p></p><div id="tweet-13970"></div><script>tweet={"url":"https:\/\/twitter.com\/_TylerHillery\/status\/1738590957392519216","author_name":"Tyler Hillery","author_url":"https:\/\/twitter.com\/_TylerHillery","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E\u003Ca href=\"https:\/\/twitter.com\/tedconbeer?ref_src=twsrc%5Etfw\"\u003E@tedconbeer\u003C\/a\u003E I got a Christmas present for you, a working demo of the harlequin-trino adapter! \u003Ca href=\"https:\/\/t.co\/jB3cc6jPsU\"\u003Epic.twitter.com\/jB3cc6jPsU\u003C\/a\u003E\u003C\/p\u003E&mdash; Tyler Hillery (@_TylerHillery) \u003Ca href=\"https:\/\/twitter.com\/_TylerHillery\/status\/1738590957392519216?ref_src=twsrc%5Etfw\"\u003EDecember 23, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-13970").innerHTML = tweet["html"];</script><p></p>
+</section>
+<section id="what-is-a-python-package-anyway" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-python-package-anyway">What is a Python Package Anyway?</h2>
+<p>One of the many great things about the python community is the plethora of packages available that you can install. These packages extend the functionality of python that is not available in the standard library. This is beneficial for developers as it saves time from writing code from scratch for common tasks. Instead you can leverage the hard work of others who have solved similar problems.</p>
+<p>The most common place to publish python packages is to PyPI which is described as:</p>
+<blockquote class="blockquote">
+<p><strong><em>A repository of software for the Python programming language.</em></strong> <em>PyPI helps you find and install software and shared by the Python community.</em></p>
+</blockquote>
+<p>The most popular way to install python packages is to use <code>pip</code> which is the package installer for python. Now package installation, dependencies, python versions, and virtual environments is a touchy subject for many python devs… I am not going to into that here but instead talk about my experiencing developing my first ever python package and publishing it to PyPI.</p>
+</section>
+<section id="harelquin" class="level2">
+<h2 class="anchored" data-anchor-id="harelquin">Harelquin</h2>
+<p>Harelquin is a SQL IDE for your terminal. Originally, it was developed strictly for DuckDB but the creator, <a href="tedconbeer.com">Ted Conbeer</a>, changed that by adding the feature of database adapters. There is even a nice <a href="https://github.com/tconbeer/harlequin-adapter-template">harlequin-adapter-template</a> to get adapter authors started with creating their own.</p>
+<p>This really intrigued me as I am always looking for ways to contribute to open-source as I find it a great way to learn and give back to the community.</p>
+<p>This project in particular interested me because I am a big fan of it and because of the extra thought and care Ted has put into the project to set up contributors for success:</p>
+<ul>
+<li><a href="https://harlequin.sh/docs/contributing/index">Contributing To Harelquin</a></li>
+<li><a href="https://harlequin.sh/docs/contributing/adapter-guide">Creating an Adapter</a></li>
+<li>Example adapters that use the adapter-template: <a href="https://github.com/tconbeer/harlequin-postgres">Postgres</a>, <a href="https://github.com/tconbeer/harlequin-mysql">MySQL</a></li>
+</ul>
+<p>Ted here has created one of the biggest <a href="https://blog.codinghorror.com/falling-into-the-pit-of-success/">pits of success</a> ever.</p>
+<p>I decided on creating a Trino adapter simply because I could run it locally in a docker container and I didn’t have to sign up for an account.</p>
+<p>After I forked the adapter template I started following the commits that were made to the other adapter projects to see what changes were made and replicating them to my project, while modifying any database specific stuff. Two things that really helped me along the way:</p>
+<ul>
+<li><a href="https://github.com/tconbeer/harlequin-postgres/blob/main/Makefile">Makefile</a> that was used in the other adapters which was helpful as it gave me insight to the commands I should be running to ensure my adapter is working. At the end I was basically just going through one by one each error from pytest or mypy and making sure everything was all ✅</li>
+<li><a href="https://github.com/tconbeer/harlequin-postgres/tree/main/.github/workflows">GitHub Actions</a> made it ridiculously easy to make releases and publish to PyPI. At first I didn’t understand what they did but after ChatGPT explained it to me I was off to the races. So the actual process for making a release and publishing to PyPI is completely automated for me. The only manual thing I have to do is kick off the release workflow when I want to create a new release.</li>
+</ul>
+</section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p><strong>Rating</strong>: ⭐⭐⭐⭐⭐</p>
-<p>My tweet sums up how I felt about this book. Now that I have finished the whole thing, I would say it’s a must read for anyone in the data space.</p>
-<p></p><div id="tweet-94925"></div><script>tweet={"url":"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345","author_name":"Tyler Hillery","author_url":"https:\/\/twitter.com\/_TylerHillery","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EPerfect travel reading material. I’m halfway through and really liking it. I love the focus on data engineering as a discipline opposed to a tech stack. \u003Ca href=\"https:\/\/t.co\/FjapFCTHdV\"\u003Epic.twitter.com\/FjapFCTHdV\u003C\/a\u003E\u003C\/p\u003E&mdash; Tyler Hillery (@_TylerHillery) \u003Ca href=\"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345?ref_src=twsrc%5Etfw\"\u003EJune 2, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-94925").innerHTML = tweet["html"];</script><p></p>
+<p>Long story short my experience building my first ever python package and publishing it to PyPI was easy because of the hard work that Ted put into setting me up for success. This post is less about my experience and more about what you can do as an open source maintainer to encourage high quality contributions.</p>
 
 
 </section>
@@ -435,7 +470,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
-<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/de-fundamentals/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/de-fundamentals/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/de-fundamentals/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/blog/tyler-tries-publishing-py-pack/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/blog/tyler-tries-publishing-py-pack/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/blog/tyler-tries-publishing-py-pack/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/blog/tyler-tries-publishing-py-pack/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/blog/tyler-tries-publishing-py-pack/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 

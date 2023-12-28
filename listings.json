@@ -1,5 +1,16 @@
 [
   {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/harlequin-trino/index.html",
+      "/projects/coinbase-pipeline/index.html",
+      "/projects/local-lakehouse/index.html",
+      "/projects/report/index.html",
+      "/projects/learning-log/index.html",
+      "/projects/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
     "listing": "/notes.html",
     "items": [
       "/notes/mit-math-for-cs/index.html",
@@ -19,21 +30,12 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/blog/tyler-tries-publishing-py-pack/index.html",
       "/blog/tyler-tries-real-time-data/index.html",
       "/blog/local-lakehouse/index.html",
       "/blog/getting-started-in-os/index.html",
       "/blog/learning-log/index.html",
       "/blog/stock-market-data-pipeline/index.html"
-    ]
-  },
-  {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/coinbase-pipeline/index.html",
-      "/projects/local-lakehouse/index.html",
-      "/projects/report/index.html",
-      "/projects/learning-log/index.html",
-      "/projects/stock-market-data-pipeline/index.html"
     ]
   }
 ]
