@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Tyler Hillery">
+<meta name="dcterms.date" content="2024-01-14">
+<meta name="description" content="These are my notes for MAT 144 Discrete Mathematics through Oakton Community College. The course uses the book Discrete Mathematics with Applications.">
 
-<title>Tyler Hillery – blog</title>
+<title>Tyler Hillery - Discrete Mathematics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +26,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./assets/images/favicon.ico" rel="icon">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/social-share.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/all.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -62,41 +65,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-blog .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-blog'] = new List('listing-blog', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="alternate" type="application/rss+xml" title="Tyler Hillery" href="blog.xml"></head>
+</head>
 
 <body class="floating nav-fixed">
 
@@ -105,7 +77,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Tyler Hillery</span>
     </a>
   </div>
@@ -116,15 +88,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../../blog.html" rel="" target="">
  <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./notes.html" rel="" target="">
+    <a class="nav-link" href="../../notes.html" rel="" target="">
  <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html" rel="" target="">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
  <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
@@ -150,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -162,229 +134,82 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#blog" id="toc-blog" class="nav-link active" data-scroll-target="#blog">Blog</a></li>
+  <li><a href="#course-description" id="toc-course-description" class="nav-link active" data-scroll-target="#course-description">Course Description</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/blog.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/mat-144-discrete-mathematics/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-
-
-<section id="blog" class="level2">
-<h2 class="anchored" data-anchor-id="blog">Blog</h2>
-<div id="listing-blog" class="quarto-listing quarto-listing-container-default">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-blog-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-blog'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Discrete Mathematics</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Courses</div>
+    <div class="quarto-category">In Progress</div>
   </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+  </div>
+
+<div>
+  <div class="description">
+    These are my notes for <a href="https://catalog.oakton.edu/course-descriptions/course-descriptions-discipline/mat/">MAT 144 Discrete Mathematics</a> through Oakton Community College. The course uses the book <a href="https://a.co/d/89Hg3Ae">Discrete Mathematics with Applications</a>.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tyler Hillery </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 14, 2024</p>
     </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<hr>
+<section id="course-description" class="level1">
+<h1>Course Description</h1>
+<p>Course introduces mathematical induction and recursion; set theory; relations and functions; logic, combinatorics, graph theory and trees; Boolean Algebra, probability, matrices and analysis of algorithms.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Syllabus">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Data Tools,Open-Source" data-listing-date-sort="1703721600000" data-listing-file-modified-sort="1704118409113" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./blog/tyler-tries-publishing-py-pack/index.html"> <img src="./assets/images/harlequin-trino.svg" class="thumbnail-image"> </a></p>
+<div class="callout-title-container flex-fill">
+Syllabus
 </div>
-<div class="body">
-<a href="./blog/tyler-tries-publishing-py-pack/index.html">
-<h3 class="no-anchor listing-title">
-Tyler Tries Publishing a Python Package to PyPI
-</h3>
-<div class="listing-subtitle">
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 
 </div>
-<div class="listing-description">
-<p>My experience developing a python package and publishing it to PyPI.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/tyler-tries-publishing-py-pack/index.html">
-<div class="listing-date">
-Dec 28, 2023
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="Real-Time Data,Data Apps,Data Engineering" data-listing-date-sort="1696118400000" data-listing-file-modified-sort="1704118409117" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19">
-<div class="thumbnail">
-<p><a href="./blog/tyler-tries-real-time-data/index.html"> <img src="./assets/images/streamlit_app_coinbase.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/tyler-tries-real-time-data/index.html">
-<h3 class="no-anchor listing-title">
-Tyler Tries Real-Time Data
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>My experience building a real-time data pipeline to visualize Coinbase order book depth, highlighting the seamless integration of Redpanda, Materialize, dbt, and Streamlit.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/tyler-tries-real-time-data/index.html">
-<div class="listing-date">
-Oct 1, 2023
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Data Lakehouse,Iceberg" data-listing-date-sort="1687737600000" data-listing-file-modified-sort="1704118409113" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
-<div class="thumbnail">
-<p><a href="./blog/local-lakehouse/index.html"> <img src="./assets/images/local-lakehouse.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/local-lakehouse/index.html">
-<h3 class="no-anchor listing-title">
-Building a Local (Data) Lakehouse - Part 1: The Blueprint
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>Local (Data) Lakehouse is a personal sandbox environment to quickly spin up various tools for me to explore new ideas and learn.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/local-lakehouse/index.html">
-<div class="listing-date">
-Jun 26, 2023
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Open Source,dbt,duckdb" data-listing-date-sort="1657584000000" data-listing-file-modified-sort="1704118409113" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
-<div class="thumbnail">
-<p><a href="./blog/getting-started-in-os/index.html"> <img src="./assets/images/Open-Source-Software.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/getting-started-in-os/index.html">
-<h3 class="no-anchor listing-title">
-Why and How I Made My First Open Source Contribution
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>My experience on why and how I made my first open source contribution and why you should too.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/getting-started-in-os/index.html">
-<div class="listing-date">
-Jul 12, 2022
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Projects,Streamlit,Data Apps,Self Taught" data-listing-date-sort="1653955200000" data-listing-file-modified-sort="1704118409113" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./blog/learning-log/index.html"> <img src="./assets/images/learning-log.jpg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/learning-log/index.html">
-<h3 class="no-anchor listing-title">
-Make a Public Commitment to Learn
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>Making your learning public can help you stick to your goals. Find ways to communicate to others what your learning about. That is why I built the learning log.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/learning-log/index.html">
-<div class="listing-date">
-May 31, 2022
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="Projects,dbt,Airbyte,Preset,Google Cloud,Data Engineering,Python" data-listing-date-sort="1648598400000" data-listing-file-modified-sort="1704118409113" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
-<div class="thumbnail">
-<p><a href="./blog/stock-market-data-pipeline/index.html"> <img src="./assets/images/stock-market-data-pipeline.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/stock-market-data-pipeline/index.html">
-<h3 class="no-anchor listing-title">
-Stock Market Data Pipeline
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>I wrote about my experience on setting up a data pipeline to help extract, ingest, store, transform and visualize stock market data using open source technologies such as Airbyte, Dagster, dbt &amp; Preset.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/stock-market-data-pipeline/index.html">
-<div class="listing-date">
-Mar 30, 2022
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
-
 
 
 </section>
@@ -623,9 +448,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
 </div> <!-- /content -->
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/mat-144-discrete-mathematics/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/mat-144-discrete-mathematics/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/mat-144-discrete-mathematics/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/mat-144-discrete-mathematics/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/mat-144-discrete-mathematics/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
