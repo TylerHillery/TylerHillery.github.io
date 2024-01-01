@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-12-20">
+<meta name="dcterms.date" content="2023-12-31">
 <meta name="description" content="My notes on The Pragmatic Programmer by David Thomas and Andrew Hunt.">
 
 <title>Tyler Hillery - The Pragmatic Programmer</title>
@@ -67,6 +67,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -180,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 20, 2023</p>
+      <p class="date">December 31, 2023</p>
     </div>
   </div>
   
@@ -303,9 +305,211 @@ Important
 <ul>
 <li>I crave this feeling. I am not there yet but I have been working on my typing speed, vim and shortcuts in my editor. I have gone from 35wpm will proper typing form to 65wpm. I use a site called <a href="typing.io">typing.io</a> to practice typing lines of code because programming usually involves characters that are not as common in normal typing like brackets, slashes etc.</li>
 </ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 46">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 46
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t Chain Method Calls</p>
+</div>
+</div>
+<ul>
+<li><p>I am not sure how I feel about this tip. I am huge fan of chaining method calls and I often feel it reads better. Also I am pretty sure earlier in this book the author mentions how create the pipe system is in bash with all the different utilities you can use together. How is method chaining any different?</p></li>
+<li><p>The author does point this out in the next section <strong>Chains and Pipelines</strong> but it’s still not clear to me how the author views these two as different things…</p></li>
+<li><p>One thing that I find interesting about <strong>Reactive Programming, Streams and Events</strong> is how it applies to so many different domains. The mindset of thinking about the world as a stream of events is a powerful one. The author even points out the influence this has had in web dev with frameworks like React. My background is in data and streaming platforms are commonly used in to handle real time data use cases. Usually they are paired with a stream processor that allows for real time transformations. Once you start to see it, it’s hard to unsee the world this way. This is one strong belief I have about tech, the other is every software problem is a data problem. The author even makes a similar point</p>
+<ul>
+<li><blockquote class="blockquote">
+<p>All programs transform data, converting an input into an output</p>
+</blockquote></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 49">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 49
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Programming Is About Code, But Programs Are About Data</p>
+</div>
+</div>
+<ul>
+<li>WOW, I love tip 49. I couldn’t agree more.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong><em>Concurrency</em></strong> is when the execution of two or more pieces of code act as if they run at the same time. <strong><em>Parallelism</em></strong> is when they <em>do</em> run at the same time.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><span class="math inline">\(O(1)\)</span> Constant (access element in array, simple statements)</p>
+<p><span class="math inline">\(O(lg\ n)\)</span> Logarithmic (binary search). The base of the logarithm doesn’t matter, so this is</p>
+<p><span class="math inline">\(O(n)\)</span> Linear (sequential search)</p>
+<p><span class="math inline">\(O(n\ lg\ n)\)</span> Worse than linear, but not much worse (Average runtime of quicksort, heapsort)</p>
+<p><span class="math inline">\(O(n^2)\)</span> Square law (selection and insertion sorts)</p>
+<p><span class="math inline">\(O(n^3)\)</span> Cubic (multiplication of two <span class="math inline">\(n*n\)</span> matrices)</p>
+<p><span class="math inline">\(O(C^n)\)</span> Exponential (traveling salesman problem. set partitioning)</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Think of code that needs refactoring as “a growth.” Removing it requires invasive surgery. You can go in now, and take it out while it is still small. Or, you could wait while it grows and spreads–but removing it then will be both more expensive and more dangerous. Wait even longer, and you may lose the patient entirely.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 61">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 61
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Listen to Your Inner Lizard</p>
+</div>
+</div>
+<ul>
+<li>The inner lizard is all about your <em>human instinct</em>, listen to them. When coding and you feel yourself struggling, take a step back and ask yourself why?</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 62">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 62
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t Program by Coincidence</p>
+</div>
+</div>
+<ul>
+<li>Program deliberately</li>
+</ul>
+<blockquote class="blockquote">
+<p>Some language communities prefer <code>camelCase</code>, with embedded capital letters, while others prefer <code>snake_case</code> with embedded underscores to separate words. The languages themselves will of course accept either, but that doesn’t make it right. Honor the local culture.</p>
+</blockquote>
+<ul>
+<li>I love that last sentence <em>honor the local culture</em>. One of the many things I love about different programming languages is the culture around them is often unique.</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 76">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 76
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Programmers Help People Understand What They Want</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 81">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 81
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t Think Outside the Box–<em>Find</em> the Box</p>
+</div>
+</div>
+<ul>
+<li><p>Understand the degrees of freedom and limitations of the problem before going to solve it. Be like Alexander the Great and chop the know to bits.</p></li>
+<li><p>Some of the most productive and impactful work I have done if my career has happened during pair and mob programming. I think it’s a very underrated exercise.</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 85">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 85
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Schedule It to Make It Happen</p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Automation</strong>: A great way to ensure both consistency and accuracy is to automate everything the team does. WHy struggle with code formatting standards when your editor or IDE can do it for you automatically? Why do manual testing when the continuous build can rust test automatically? Why deploy by hand when automation can do it the same every time, repeatably and reliably?</p>
+</blockquote>
+<ul>
+<li><p>🙌 Say it louder so the people in the back can here. AUTOMATE EVERYTHING. EVEN YOUR JOB AWAY.</p></li>
+<li><p>The <em>Pragmatic Start Kit</em></p>
+<ul>
+<li>Version Control</li>
+<li>Regression Testing</li>
+<li>Full Automation</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 89">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 89
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use Version Control to Drive Builds, Tests, and Releases</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 96">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 96
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Delight Users, Don’t Just Deliver Code</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="💡Tip 100">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡Tip 100
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It’s Your Life.</p>
+<p>Share it. Celebrate it. Build it.</p>
+<p>AND HAVE FUN!</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="TODO">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I admittedly didn’t do the most important thing in this book and which was the exercises. I had a hard time putting the book down to take the time and do them. I want to come back and work through them.</p>
+</div>
+</div>
 </section>
 <section id="review" class="level1">
 <h1>Review</h1>
+<p>I finished this book on 12/31/2023 and what a way to end the year. At the end of this book I was ready to run through a brick wall. There are very few books I have read in my life that have made me feel this way. I don’t know how to put it into words but this book deeply resonated with me. I for one feel so grateful as someone who is so early into their programmer career to get to reap the knowledge of these authors who have distilled their wisdom, that they’ve gain over 45 years, down to under 300 pages. This book is a must read for any programmer or programming adjacent role. I am glad I got the hard copy of this book because I am going to keep it on my desk as a reminder who I strive to be, <strong>A Pragmatic Programmer</strong>.</p>
 
 
 </section>
@@ -544,7 +748,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
 <div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/pragmatic-programmer/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/pragmatic-programmer/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/pragmatic-programmer/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/pragmatic-programmer/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/pragmatic-programmer/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>

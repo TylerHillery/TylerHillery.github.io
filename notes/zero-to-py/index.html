@@ -320,8 +320,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3"></a><span class="bu">print</span>(<span class="bu">id</span>(x))</span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="bu">print</span>(<span class="bu">id</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>139724874712592
-139724874712592</code></pre>
+<pre><code>140630089565712
+140630089565712</code></pre>
 </div>
 </div>
 <p>This is interesting, I thought these two values would have the same id. I then read the next paragraph which calls out specific values in Python that are <strong><em>singletons</em></strong> meaning there will only ever be a single instance of this object. The integers <code>-5</code> through <code>256</code> are singletons along with <code>None</code>, <code>True</code>, <code>False</code>.</p>
@@ -331,8 +331,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-3"><a href="#cb9-3"></a><span class="bu">print</span>(<span class="bu">id</span>(x))</span>
 <span id="cb9-4"><a href="#cb9-4"></a><span class="bu">print</span>(<span class="bu">id</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>139724846103472
-139724846098352</code></pre>
+<pre><code>140629019118608
+140629019124944</code></pre>
 </div>
 </div>
 <section id="references-to-objects" class="level4">
@@ -631,7 +631,7 @@ Exiting the function...</code></pre>
 <li><p>Multithreading is best used for IO-bound and high-level structured network code, while multiprocessing is used for CPU-bound and low-level code.</p></li>
 </ul>
 <blockquote class="blockquote">
-<p>*<strong>Thread</strong>: Is a separate execution flow that runs in parallel with the main program. Threads share the same memory space as the same program, which allows them to access and share data.</p>
+<p><strong><em>Thread</em></strong>: Is a separate execution flow that runs in parallel with the main program. Threads share the same memory space as the same program, which allows them to access and share data.</p>
 </blockquote>
 <ul>
 <li><p>Threads use a preemptive task scheduling model, where the interpreter schedules and switches between threads.</p></li>
@@ -895,7 +895,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
 <div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/zero-to-py/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/zero-to-py/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/zero-to-py/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/zero-to-py/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/zero-to-py/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
