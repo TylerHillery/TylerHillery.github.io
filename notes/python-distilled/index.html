@@ -23,6 +23,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -137,7 +171,18 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#chapter-1.-python-basics" id="toc-chapter-1.-python-basics" class="nav-link" data-scroll-target="#chapter-1.-python-basics">Chapter 1. Python Basics</a></li>
+  <li><a href="#chapter-2.-operators-expressions-and-data-manipulation" id="toc-chapter-2.-operators-expressions-and-data-manipulation" class="nav-link" data-scroll-target="#chapter-2.-operators-expressions-and-data-manipulation">Chapter 2. Operators, Expressions, and Data Manipulation</a></li>
+  <li><a href="#chapter-3.-program-structure-and-control-flow" id="toc-chapter-3.-program-structure-and-control-flow" class="nav-link" data-scroll-target="#chapter-3.-program-structure-and-control-flow">Chapter 3. Program Structure and Control Flow</a></li>
+  <li><a href="#chapter-4.-objects-types-and-protocols" id="toc-chapter-4.-objects-types-and-protocols" class="nav-link" data-scroll-target="#chapter-4.-objects-types-and-protocols">Chapter 4. Objects, Types and Protocols</a></li>
+  <li><a href="#chapter-5.-functions" id="toc-chapter-5.-functions" class="nav-link" data-scroll-target="#chapter-5.-functions">Chapter 5. Functions</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/python-distilled/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -185,8 +230,260 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <hr>
+<section id="preface" class="level1">
+<h1>Preface</h1>
+<ul>
+<li><p>Book is focused on presenting a modern yet curated core of the language.</p></li>
+<li><p>I like the author’s opinion about <strong>not</strong> using python for large scale projects, ones with millions and millions of code.</p></li>
+<li><p>This book is written during python 3.9 so it doesn’t not include some of the newer language features. Current version of python as of me reading this book is 3.12.</p></li>
+</ul>
+</section>
+<section id="chapter-1.-python-basics" class="level1">
+<h1>Chapter 1. Python Basics</h1>
+<ul>
+<li><blockquote class="blockquote">
+<p><strong><em>REPL</em></strong> stands for read-evaluation-print-loop</p>
+</blockquote></li>
+<li><p>The author brings up how he uses it as their desktop which I found funny because the first time I saw someone use python as their calculator was on Tsoding’s twitch stream. I remember thinking that was so odd but I guess it’s a lot more common than I think!</p></li>
+<li><p>You can add type hinting to variable assignment by doing <code>x: int = 42</code></p></li>
+<li><p>With f-strings I did not know you could align them like <code>print(f'{year:&gt;3d} {principal:0.2f}')</code></p></li>
+<li><p>Didn’t know <code>divmod(x,y)</code> which returns <code>(x // y, x % y)</code> existed. I could see this being handy.</p></li>
+<li><p>Remember falsy values include <code>False</code>, <code>None</code>, <code>0</code>, or empty</p></li>
+<li><p>Python ternary expression <code>a if a &gt; b else b</code></p></li>
+<li><p>If you have a large file you can read it in chunks like so:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'data.txt'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="cf">while</span> (chunk <span class="op">:=</span> <span class="bu">file</span>.read(<span class="dv">10000</span>)):</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="bu">print</span>(chunk, end<span class="op">=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Common Python project structure</p>
+<ul>
+<li>tutorial-project/
+<ul>
+<li>tutorial/
+<ul>
+<li><strong>init</strong>.py</li>
+<li>other_files.py</li>
+</ul></li>
+</ul></li>
+<li>tests/
+<ul>
+<li>test_file.py</li>
+</ul></li>
+<li>examples/
+<ul>
+<li>example.py</li>
+</ul></li>
+<li>doc/
+<ul>
+<li>tutorial.txt</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="chapter-2.-operators-expressions-and-data-manipulation" class="level1">
+<h1>Chapter 2. Operators, Expressions, and Data Manipulation</h1>
+<ul>
+<li><p>Helpful tip I always forget about, you can use a <code>_</code> to visual separate digits: <code>123_456_789</code></p></li>
+<li><p>Interesting “truthiness” bug</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> foo(x, items<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="cf">if</span> <span class="kw">not</span> items: <span class="co"># should use if items is None otherwise a new list gets created</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    items <span class="op">=</span> []</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  items.append(x)</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>a <span class="op">=</span> []</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>foo(<span class="dv">3</span>,a) <span class="co"># nothing happens to a</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="bu">print</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[]</code></pre>
+</div>
+</div></li>
+<li><p>I did not realize you could have multiple starred variables when unpacking more complex data structures</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>datetime <span class="op">=</span> ((<span class="dv">5</span>,<span class="dv">19</span>,<span class="dv">2008</span>), (<span class="dv">10</span>,<span class="dv">30</span>, <span class="st">"am"</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>(month, <span class="op">*</span>_), (hour, <span class="op">*</span>_) <span class="op">=</span> datetime</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="bu">print</span>(month)</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="bu">print</span>(hour)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5
+10</code></pre>
+</div>
+</div></li>
+<li><p>I never heard of this way to unpack variables in assignment as <em>splatting</em></p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>items <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb6-2"><a href="#cb6-2"></a>a <span class="op">=</span> [<span class="dv">10</span>, <span class="op">*</span>items, <span class="dv">11</span>]</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="bu">print</span>(a)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[10, 1, 2, 3, 11]</code></pre>
+</div>
+</div></li>
+<li><p>Be careful when assigning variables to other variables that are mutable data types such as list. What is really happening is now both variables have the same reference to the value (e.g.&nbsp;a list). If either variable mutates the list then the other variable with also see that change.</p></li>
+<li><blockquote class="blockquote">
+<p>A <strong><em>generator expression</em></strong> is an object that carries out the same computation as a list comprehension but produces the result iteratively. You can only iterate over a generator expression once.</p>
+</blockquote>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>nums <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
+<span id="cb8-2"><a href="#cb8-2"></a>squares <span class="op">=</span> (x<span class="op">*</span>x <span class="cf">for</span> x <span class="kw">in</span> nums)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(squares)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="bu">next</span>(squares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;generator object &lt;genexpr&gt; at 0x7fc30108c580&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="592">
+<pre><code>1</code></pre>
+</div>
+</div></li>
+<li><p>The main difference between the generator vs list comprehensions is generator expressions merely know how to produce the data on demand while list comprehensions creates a list that contains the resulting data.</p></li>
+</ul>
+</section>
+<section id="chapter-3.-program-structure-and-control-flow" class="level1">
+<h1>Chapter 3. Program Structure and Control Flow</h1>
+<ul>
+<li><p><code>break</code> and <code>continue</code> statements apply only to the innermost loop being executed.</p></li>
+<li><p><code>else</code> clause of a loop only executes if the loop runs to completion</p></li>
+<li><blockquote class="blockquote">
+<p>You should only catch exceptions from which your code can actually recover. If recovery is not possible, it’s often better to let the exception propagate.</p>
+</blockquote></li>
+<li><p>Exceptions are organized into a hierarchy. Instead of trying to defend against every exceptions look to see if there is a higher exception that you can handle.</p></li>
+<li><p>These are the only exceptions that alter control flow: <code>SystemsExit</code>, <code>KeyboardInterrupt</code>, <code>StopIteration</code></p></li>
+<li><blockquote class="blockquote">
+<p>Exceptions have an associated stack traceback that provides information about where an error occurred. The traceback is stored in the <code>__traceback__</code> attribute of an exception. You can use the <code>traceback</code> module to produce the traceback message yourself, which is helpful for reporting or debugging</p>
+</blockquote>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> traceback</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="cf">try</span>:</span>
+<span id="cb11-4"><a href="#cb11-4"></a>  spam()</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb11-6"><a href="#cb11-6"></a>  tblines <span class="op">=</span> traceback.format_exception(<span class="bu">type</span>(e), e, e.__traceback__)</span>
+<span id="cb11-7"><a href="#cb11-7"></a>  tbmsg <span class="op">=</span> <span class="st">''</span>.join(tblines)</span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="bu">print</span>(<span class="st">"It Failed:"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9"></a>  <span class="bu">print</span>(tbmsg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>It Failed:
+Traceback (most recent call last):
+  File "/tmp/ipykernel_62665/1129224790.py", line 4, in &lt;module&gt;
+    spam()
+NameError: name 'spam' is not defined
+</code></pre>
+</div>
+</div></li>
+</ul>
+</section>
+<section id="chapter-4.-objects-types-and-protocols" class="level1">
+<h1>Chapter 4. Objects, Types and Protocols</h1>
+<ul>
+<li><p>Identity is the is a number representing the values location in memory</p></li>
+<li><p>All objects are reference-counted</p></li>
+<li><p>An object’s reference count is increased whenever it’s assigned to a new name or placed in a container such as a list, tuple or dictionary. The current reference count of an object can be obtained by using <code>sys.getrefcount()</code> function.</p></li>
+<li><p>Once an object’s reference count reaches zero, it is garbage-collected.</p></li>
+<li><p><code>None</code> is stored as a singleton so it best to test against none with the <code>is</code> or <code>is not</code> operator instead of <code>==</code>.</p></li>
+<li><p><strong><em>Object Protocols</em></strong> is another term to describe <strong><em>dunder methods</em></strong></p></li>
+<li><p>Using in place operators like <code>+=</code> or <code>-+</code> might be able to provide performance optimizations when the object is not shared because it can modify in place without allocating a newly created object for the result.</p></li>
+</ul>
+</section>
+<section id="chapter-5.-functions" class="level1">
+<h1>Chapter 5. Functions</h1>
+<ul>
+<li><p>Only use immutable objects for default argument values because default arguments are evaluated once when the function is first defined, not each time the function is called.</p></li>
+<li><p>It’s possible to force the use of keyword arguments by listing parameters after a <code>*</code> argument in the definition <code>def read_data(filename, *, debug=False)</code> this would make it so <code>read_data('data.csv', True)</code> would not work and you have to write <code>read_date('data.csv', debug=True)</code></p></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Side Effects</em></strong> occur when functions mutate their input values, or change the state of other parts of the program behind the scenes.</p>
+</blockquote></li>
+<li><p>Functions that do have side effects tend to return <code>None</code></p></li>
+<li><p><code>NamedTuple</code> allows you to reference the returned values using named attributes:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">from</span> typing <span class="im">import</span> NamedTuple</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">class</span> ParseResult(NamedTuple):</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  name: <span class="bu">str</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  value: <span class="bu">str</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="kw">def</span> parse_value(text):</span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="co">"""</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co">  Split text of the form name=val into (name, val)</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">  """</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>  parts <span class="op">=</span> text.split(<span class="st">"="</span>, <span class="dv">1</span>)</span>
+<span id="cb13-12"><a href="#cb13-12"></a>  <span class="cf">return</span> ParseResult(parts[<span class="dv">0</span>].strip(), parts[<span class="dv">1</span>].strip())</span>
+<span id="cb13-13"><a href="#cb13-13"></a></span>
+<span id="cb13-14"><a href="#cb13-14"></a>r <span class="op">=</span> parse_value(<span class="st">"url=http://www.python.org"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="bu">print</span>(r.name, r.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>url http://www.python.org</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Revist">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Revist
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I don’t quite understand this late binding example for <code>lambda</code> expressions.</p>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>x <span class="op">=</span> <span class="dv">2</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> y: x<span class="op">*</span>y</span>
+<span id="cb15-3"><a href="#cb15-3"></a>x <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>g <span class="op">=</span> <span class="kw">lambda</span> y: x<span class="op">*</span>y</span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="bu">print</span>(f(<span class="dv">10</span>))</span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="bu">print</span>(g(<span class="dv">10</span>))</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>x <span class="op">=</span> <span class="dv">2</span> </span>
+<span id="cb15-9"><a href="#cb15-9"></a>f <span class="op">=</span> <span class="kw">lambda</span> y, x<span class="op">=</span>x: x<span class="op">*</span>y</span>
+<span id="cb15-10"><a href="#cb15-10"></a>x <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>g <span class="op">=</span> <span class="kw">lambda</span> y, x<span class="op">=</span>x: x<span class="op">*</span>y</span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="bu">print</span>(f(<span class="dv">10</span>))</span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="bu">print</span>(g(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30
+30
+20
+30</code></pre>
+</div>
+</div></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Higher-order Functions</em></strong> mean functions can be passed as arguments to other functions, placed in data structures, and returned as a result… Said to be <em>first-class objects</em></p>
+</blockquote></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Callback Function</em></strong> when a functions “call back” another function.</p>
+</blockquote></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Closure</em></strong> a function with an environment containing all the variables needed to execute the function body</p>
+</blockquote>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="im">import</span> time</span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="kw">def</span> after(seconds, func):</span>
+<span id="cb17-4"><a href="#cb17-4"></a>  time.sleep(seconds)</span>
+<span id="cb17-5"><a href="#cb17-5"></a>  func()</span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="kw">def</span> main():</span>
+<span id="cb17-8"><a href="#cb17-8"></a>  name <span class="op">=</span> <span class="st">"Tyler"</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="kw">def</span> greeting():</span>
+<span id="cb17-10"><a href="#cb17-10"></a>    <span class="bu">print</span>(<span class="st">"Hello"</span>, name)</span>
+<span id="cb17-11"><a href="#cb17-11"></a>  after(<span class="dv">3</span>, greeting) <span class="co"># the function remembers its env, an uses the value of name (closure)</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a></span>
+<span id="cb17-13"><a href="#cb17-13"></a>main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello Tyler</code></pre>
+</div>
+</div></li>
+<li><blockquote class="blockquote">
+<p>Closures and nested functions are useful when you write code based on the concept of lazy or delayed evaluation. The <code>after()</code> function is an illustration of this. It receives a function that is not evaluated right away–that only happens at some later point.</p>
+</blockquote></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -422,10 +719,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/python-distilled/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/python-distilled/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/python-distilled/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/python-distilled/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/python-distilled/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/python-distilled/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/python-distilled/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/python-distilled/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/python-distilled/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/python-distilled/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/python-distilled/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 
