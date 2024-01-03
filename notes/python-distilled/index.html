@@ -181,6 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#chapter-3.-program-structure-and-control-flow" id="toc-chapter-3.-program-structure-and-control-flow" class="nav-link" data-scroll-target="#chapter-3.-program-structure-and-control-flow">Chapter 3. Program Structure and Control Flow</a></li>
   <li><a href="#chapter-4.-objects-types-and-protocols" id="toc-chapter-4.-objects-types-and-protocols" class="nav-link" data-scroll-target="#chapter-4.-objects-types-and-protocols">Chapter 4. Objects, Types and Protocols</a></li>
   <li><a href="#chapter-5.-functions" id="toc-chapter-5.-functions" class="nav-link" data-scroll-target="#chapter-5.-functions">Chapter 5. Functions</a></li>
+  <li><a href="#chapter-6.-generators" id="toc-chapter-6.-generators" class="nav-link" data-scroll-target="#chapter-6.-generators">Chapter 6. Generators</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/python-distilled/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -331,9 +332,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(squares)</span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="bu">next</span>(squares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;generator object &lt;genexpr&gt; at 0x7fc30108c580&gt;</code></pre>
+<pre><code>&lt;generator object &lt;genexpr&gt; at 0x7f594a9a6b90&gt;</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="592">
+<div class="cell-output cell-output-display" data-execution_count="56">
 <pre><code>1</code></pre>
 </div>
 </div></li>
@@ -366,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>It Failed:
 Traceback (most recent call last):
-  File "/tmp/ipykernel_62665/1129224790.py", line 4, in &lt;module&gt;
+  File "/tmp/ipykernel_97297/1129224790.py", line 4, in &lt;module&gt;
     spam()
 NameError: name 'spam' is not defined
 </code></pre>
@@ -480,7 +481,113 @@ Revist
 <li><blockquote class="blockquote">
 <p>Closures and nested functions are useful when you write code based on the concept of lazy or delayed evaluation. The <code>after()</code> function is an illustration of this. It receives a function that is not evaluated right away–that only happens at some later point.</p>
 </blockquote></li>
+<li><p>To solve the issue of not being able to pass arguments to function callbacks, we need to think about <strong><em>function composition</em></strong>, “<em>when functions are mixed together in various ways, you need to think about how function inputs and outputs connect together</em>”</p></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Thunk</em></strong> a smmall zero-argument function <code>after(10, lambda: add(2,3))</code>. It’s an expression that will be evaluated later when it’s eventually called as a zero-argument function.</p>
+</blockquote></li>
+<li><p>You can use <code>partial()</code> instead of a lambda with the key difference being that <code>partial()</code> the arguments are evaluated and bound at the time the partial function is first defined. With a zero-argument <code>lambda</code> the arguments are evaluated and bound when the <code>lambda</code> function actually executes later</p></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Currying</em></strong> is a functional programming technique where a multiple-argument function is expressed as a chain of nested single-argument functions:</p>
+</blockquote>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># three argument function</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">def</span> f(x, y, z):</span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="cf">return</span> x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co"># curried version</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="kw">def</span> fc(x):</span>
+<span id="cb19-7"><a href="#cb19-7"></a>  <span class="cf">return</span> <span class="kw">lambda</span> y: (<span class="kw">lambda</span> z: x <span class="op">+</span> y <span class="op">+</span> z) <span class="co"># okay this makes no sense to me </span></span>
+<span id="cb19-8"><a href="#cb19-8"></a></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co"># example use</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>a <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb19-11"><a href="#cb19-11"></a>b <span class="op">=</span> fc(<span class="dv">2</span>)(<span class="dv">3</span>)(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>LOL this part of the book about currying has me dying 😂</p>
+<blockquote class="blockquote">
+<p>This is not a common Python programming style and there are few practical reasons for doing it. However, sometimes you’ll hear the word “<em>currying</em>” thrown about in conversations with coders who’ve spent too much time warping their brains with things like <code>lambda</code> calculus. This technique of handling multiple arguments is named in honor of the famous logician Haskell Curry. Knowing what it is might be useful–should you stumble into a group of functional programmers having a heated flamewar at a social event.</p>
+</blockquote></li>
+<li><p>Some issues arise when return callback function results. Mainly from the fact that it can be hard to distinguish when where an error is coming from, the original function or the callback function. Here are some techniques to handle this:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Chained Exceptions</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="kw">class</span> CallbackError(<span class="pp">Exception</span>):</span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="cf">pass</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="kw">def</span> after(seconds, func, <span class="op">*</span>args):</span>
+<span id="cb20-6"><a href="#cb20-6"></a>  time.sleep(seconds)</span>
+<span id="cb20-7"><a href="#cb20-7"></a>  <span class="cf">try</span>:</span>
+<span id="cb20-8"><a href="#cb20-8"></a>    <span class="cf">return</span> func(<span class="op">*</span>args)</span>
+<span id="cb20-9"><a href="#cb20-9"></a>  <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> err:</span>
+<span id="cb20-10"><a href="#cb20-10"></a>    <span class="cf">raise</span> CallbackError(<span class="st">"Callback function failed"</span>) <span class="im">from</span> err</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># isolates errors from the supplied callback into its own exception category</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="cf">try</span>:</span>
+<span id="cb21-3"><a href="#cb21-3"></a>  r <span class="op">=</span> after(delay, add, x, y)</span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="cf">except</span> CallbackError <span class="im">as</span> err:</span>
+<span id="cb21-5"><a href="#cb21-5"></a>  <span class="bu">print</span>(<span class="st">"It failed. Reason"</span>, err.__cause__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>NameError: name 'delay' is not defined</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># package the result of the callback function into some kind of result instance</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># that holds both a value and an error.</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="kw">def</span> add(x,y):</span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb23-5"><a href="#cb23-5"></a></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="kw">class</span> Result:</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, value<span class="op">=</span><span class="va">None</span>, exc<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb23-8"><a href="#cb23-8"></a>    <span class="va">self</span>._value <span class="op">=</span> value</span>
+<span id="cb23-9"><a href="#cb23-9"></a>    <span class="va">self</span>._exc <span class="op">=</span> exc</span>
+<span id="cb23-10"><a href="#cb23-10"></a></span>
+<span id="cb23-11"><a href="#cb23-11"></a>  <span class="kw">def</span> result(<span class="va">self</span>):</span>
+<span id="cb23-12"><a href="#cb23-12"></a>    <span class="cf">if</span> <span class="va">self</span>._exc:</span>
+<span id="cb23-13"><a href="#cb23-13"></a>      <span class="cf">raise</span> <span class="va">self</span>._exc</span>
+<span id="cb23-14"><a href="#cb23-14"></a>    <span class="cf">else</span>:</span>
+<span id="cb23-15"><a href="#cb23-15"></a>      <span class="cf">return</span> <span class="va">self</span>._value</span>
+<span id="cb23-16"><a href="#cb23-16"></a></span>
+<span id="cb23-17"><a href="#cb23-17"></a><span class="kw">def</span> after(seconds, func, <span class="op">*</span>args):</span>
+<span id="cb23-18"><a href="#cb23-18"></a>  time.sleep(seconds)</span>
+<span id="cb23-19"><a href="#cb23-19"></a>  <span class="cf">try</span>:</span>
+<span id="cb23-20"><a href="#cb23-20"></a>    <span class="cf">return</span> Result(value<span class="op">=</span>func(<span class="op">*</span>args))</span>
+<span id="cb23-21"><a href="#cb23-21"></a>  <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> err:</span>
+<span id="cb23-22"><a href="#cb23-22"></a>    <span class="cf">return</span> Result(exc<span class="op">=</span>err)</span>
+<span id="cb23-23"><a href="#cb23-23"></a></span>
+<span id="cb23-24"><a href="#cb23-24"></a><span class="co"># example use</span></span>
+<span id="cb23-25"><a href="#cb23-25"></a>r <span class="op">=</span> after(<span class="dv">1</span>, add, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb23-26"><a href="#cb23-26"></a><span class="bu">print</span>(r.result())</span>
+<span id="cb23-27"><a href="#cb23-27"></a></span>
+<span id="cb23-28"><a href="#cb23-28"></a><span class="co"># s = after("1", add, 2, 3) raises Type Error</span></span>
+<span id="cb23-29"><a href="#cb23-29"></a></span>
+<span id="cb23-30"><a href="#cb23-30"></a>t <span class="op">=</span> after(<span class="dv">1</span>, add, <span class="st">"2"</span>, <span class="dv">3</span>)</span>
+<span id="cb23-31"><a href="#cb23-31"></a></span>
+<span id="cb23-32"><a href="#cb23-32"></a><span class="bu">print</span>(t.result()) <span class="co"># raises type error</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>TypeError: can only concatenate str (not "int") to str</code></pre>
+</div>
+</div></li>
+<li><p>This style of boxing a result into a special instance to be unwrapped later is common pattern in modern programming languages. One reason is the function is fully defined with type checking as after will always return <code>Result</code> type <code>def after(seconds, func, *args) -&gt; Result</code></p></li>
+<li><blockquote class="blockquote">
+<p>This pattern is not as common in Python code but it does arise when working with concurrency primitives such as threads and processes. For example, instances of so-called <code>Future</code> behave like this when working with thread pools. For example:</p>
+</blockquote>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="im">from</span> concurrent.futures <span class="im">import</span> ThreadPoolExecutor</span>
+<span id="cb26-2"><a href="#cb26-2"></a></span>
+<span id="cb26-3"><a href="#cb26-3"></a>pool <span class="op">=</span> ThreadPoolExecutor(<span class="dv">16</span>)</span>
+<span id="cb26-4"><a href="#cb26-4"></a>r <span class="op">=</span> pool.submit(add, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="bu">print</span>(r.result())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5</code></pre>
+</div>
+</div></li>
+<li><p>Calling an async function doesn’t execute at all instead you get an instance of a coroutine object in return. It must run under supervision of other code. A common option is <code>asyncio</code> <code>asyncio.run(gretting("Tyler"))</code></p></li>
 </ul>
+</section>
+<section id="chapter-6.-generators" class="level1">
+<h1>Chapter 6. Generators</h1>
 
 
 </section>
