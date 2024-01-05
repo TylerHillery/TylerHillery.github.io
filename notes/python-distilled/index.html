@@ -182,6 +182,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#chapter-4.-objects-types-and-protocols" id="toc-chapter-4.-objects-types-and-protocols" class="nav-link" data-scroll-target="#chapter-4.-objects-types-and-protocols">Chapter 4. Objects, Types and Protocols</a></li>
   <li><a href="#chapter-5.-functions" id="toc-chapter-5.-functions" class="nav-link" data-scroll-target="#chapter-5.-functions">Chapter 5. Functions</a></li>
   <li><a href="#chapter-6.-generators" id="toc-chapter-6.-generators" class="nav-link" data-scroll-target="#chapter-6.-generators">Chapter 6. Generators</a></li>
+  <li><a href="#chapter-7.-classes-and-object-oriented-programming" id="toc-chapter-7.-classes-and-object-oriented-programming" class="nav-link" data-scroll-target="#chapter-7.-classes-and-object-oriented-programming">Chapter 7. Classes and Object-Oriented Programming</a></li>
+  <li><a href="#chapter-8.-modules-and-packages" id="toc-chapter-8.-modules-and-packages" class="nav-link" data-scroll-target="#chapter-8.-modules-and-packages">Chapter 8. Modules and Packages</a></li>
+  <li><a href="#chapter-9.-input-and-output" id="toc-chapter-9.-input-and-output" class="nav-link" data-scroll-target="#chapter-9.-input-and-output">Chapter 9. Input and Output</a></li>
+  <li><a href="#review" id="toc-review" class="nav-link" data-scroll-target="#review">Review</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/python-distilled/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
@@ -194,10 +198,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python Di</h1>
+<h1 class="title">Python Distilled</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Technical Books</div>
-    <div class="quarto-category">In Progress</div>
   </div>
   </div>
 
@@ -332,9 +335,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(squares)</span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="bu">next</span>(squares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;generator object &lt;genexpr&gt; at 0x7f5fee890e40&gt;</code></pre>
+<pre><code>&lt;generator object &lt;genexpr&gt; at 0x7f25a4b88ac0&gt;</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="346">
 <pre><code>1</code></pre>
 </div>
 </div></li>
@@ -367,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>It Failed:
 Traceback (most recent call last):
-  File "/tmp/ipykernel_108408/1129224790.py", line 4, in &lt;module&gt;
+  File "/tmp/ipykernel_178624/1129224790.py", line 4, in &lt;module&gt;
     spam()
 NameError: name 'spam' is not defined
 </code></pre>
@@ -588,6 +591,172 @@ Revist
 </section>
 <section id="chapter-6.-generators" class="level1">
 <h1>Chapter 6. Generators</h1>
+<blockquote class="blockquote">
+<p>Generators allows you to alter the spacetime dimensions of normal function evaluation.</p>
+</blockquote>
+<ul>
+<li>So by using generators I become Loki?</li>
+</ul>
+</section>
+<section id="chapter-7.-classes-and-object-oriented-programming" class="level1">
+<h1>Chapter 7. Classes and Object-Oriented Programming</h1>
+<ul>
+<li><p>Objects help encapsulate state</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">class</span> Account:</span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="co">'''</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co">  A simple bank account</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="co">  '''</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>  owner: <span class="bu">str</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a>  balance: <span class="bu">float</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a></span>
+<span id="cb28-8"><a href="#cb28-8"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, owner:<span class="bu">str</span>, balance:<span class="bu">float</span>):</span>
+<span id="cb28-9"><a href="#cb28-9"></a>    <span class="va">self</span>.owner <span class="op">=</span> owner</span>
+<span id="cb28-10"><a href="#cb28-10"></a>    <span class="va">self</span>.balance <span class="op">=</span> balance</span>
+<span id="cb28-11"><a href="#cb28-11"></a></span>
+<span id="cb28-12"><a href="#cb28-12"></a>  <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb28-13"><a href="#cb28-13"></a>    <span class="cf">return</span> <span class="ss">f'Account(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>owner<span class="sc">!r}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>balance<span class="sc">!r}</span><span class="ss">)'</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a></span>
+<span id="cb28-15"><a href="#cb28-15"></a>  <span class="kw">def</span> deposit(<span class="va">self</span>, amount:<span class="bu">float</span>):</span>
+<span id="cb28-16"><a href="#cb28-16"></a>    <span class="va">self</span>.balance <span class="op">+=</span> amount</span>
+<span id="cb28-17"><a href="#cb28-17"></a></span>
+<span id="cb28-18"><a href="#cb28-18"></a>  <span class="kw">def</span> withdraw(<span class="va">self</span>, amount:<span class="bu">float</span>):</span>
+<span id="cb28-19"><a href="#cb28-19"></a>    <span class="va">self</span>.balance <span class="op">-=</span> amount</span>
+<span id="cb28-20"><a href="#cb28-20"></a></span>
+<span id="cb28-21"><a href="#cb28-21"></a>  <span class="kw">def</span> inquiry(<span class="va">self</span>):</span>
+<span id="cb28-22"><a href="#cb28-22"></a>    <span class="cf">return</span> <span class="va">self</span>.balance</span>
+<span id="cb28-23"><a href="#cb28-23"></a></span>
+<span id="cb28-24"><a href="#cb28-24"></a>a <span class="op">=</span> Account(<span class="st">"Tyler"</span>, <span class="dv">1_000_000</span>)</span>
+<span id="cb28-25"><a href="#cb28-25"></a><span class="bu">print</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Account('Tyler', 1000000)</code></pre>
+</div>
+</div></li>
+<li><p><code>Class</code> itself doesn’t create any instances of the class. I like to think of it as the blue print on how to create the instance of the class</p></li>
+<li><blockquote class="blockquote">
+<p>When you access a method as an attribute, you get an object known as a <strong><em>bound method</em></strong>. A bound method is an object that contains both an instance and the function that implements the method. You can call a bound method by adding parentheses and arguments, it executed the method, passing the attached instance as the first argument.</p>
+</blockquote></li>
+<li><p>The <code>self</code> parameter in Python is akin to the <code>this</code> pointer in other languages, but in Python you always have to use it explicitly</p></li>
+<li><p>Sometimes it’s better to avoid inheritance via composition. The example given in the book shows making a stack data structure with push and pop operations. A bad way to do this is by inheriting from the list class</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">class</span> Stack(<span class="bu">list</span>):</span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="kw">def</span> push(<span class="va">self</span>, item):</span>
+<span id="cb30-3"><a href="#cb30-3"></a>      <span class="va">self</span>.append(item)</span>
+<span id="cb30-4"><a href="#cb30-4"></a></span>
+<span id="cb30-5"><a href="#cb30-5"></a>s <span class="op">=</span> Stack()</span>
+<span id="cb30-6"><a href="#cb30-6"></a>s.push(<span class="dv">1</span>)</span>
+<span id="cb30-7"><a href="#cb30-7"></a>s.push(<span class="dv">2</span>)</span>
+<span id="cb30-8"><a href="#cb30-8"></a>s.pop()</span>
+<span id="cb30-9"><a href="#cb30-9"></a>s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="357">
+<pre><code>[1]</code></pre>
+</div>
+</div>
+<p>The problem with the above code is that is has other features that don’t make sense for the <code>Stack</code> data structure like inserting, sorting etc. This is called implementation inheritance–you used inheritance to reuse some code which you built something else, but you got a lot of features that aren’t pertinent to the problem. Instead we should <strong><em>composition</em></strong>. Build an independent class that happens to have a list contained in it.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">class</span> Stack():</span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb32-3"><a href="#cb32-3"></a>      <span class="va">self</span>._items <span class="op">=</span> <span class="bu">list</span>()</span>
+<span id="cb32-4"><a href="#cb32-4"></a></span>
+<span id="cb32-5"><a href="#cb32-5"></a>  <span class="kw">def</span> push(<span class="va">self</span>, item):</span>
+<span id="cb32-6"><a href="#cb32-6"></a>      <span class="va">self</span>._items.append(item)</span>
+<span id="cb32-7"><a href="#cb32-7"></a></span>
+<span id="cb32-8"><a href="#cb32-8"></a>  <span class="kw">def</span> pop(<span class="va">self</span>):</span>
+<span id="cb32-9"><a href="#cb32-9"></a>      <span class="cf">return</span> <span class="va">self</span>._items.pop()</span>
+<span id="cb32-10"><a href="#cb32-10"></a></span>
+<span id="cb32-11"><a href="#cb32-11"></a>  <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
+<span id="cb32-12"><a href="#cb32-12"></a>      <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>._items)</span>
+<span id="cb32-13"><a href="#cb32-13"></a></span>
+<span id="cb32-14"><a href="#cb32-14"></a>s <span class="op">=</span> Stack()</span>
+<span id="cb32-15"><a href="#cb32-15"></a>s.push(<span class="dv">1</span>)</span>
+<span id="cb32-16"><a href="#cb32-16"></a>s.push(<span class="dv">2</span>)</span>
+<span id="cb32-17"><a href="#cb32-17"></a>s.pop()</span>
+<span id="cb32-18"><a href="#cb32-18"></a>s.push(<span class="dv">3</span>)</span>
+<span id="cb32-19"><a href="#cb32-19"></a>s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="358">
+<pre><code>&lt;__main__.Stack at 0x7f25e05be770&gt;</code></pre>
+</div>
+</div>
+<p>We could also extend the implementation by accepting an internal <code>list</code> class as an optional argument</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">class</span> Stack():</span>
+<span id="cb34-2"><a href="#cb34-2"></a>    def__init__(<span class="va">self</span>, <span class="op">*</span>, container<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb34-3"><a href="#cb34-3"></a>        <span class="cf">if</span> container <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb34-4"><a href="#cb34-4"></a>            container <span class="op">=</span> <span class="bu">list</span>()</span>
+<span id="cb34-5"><a href="#cb34-5"></a>        <span class="va">self</span>._items <span class="op">=</span> container </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This promotes loose coupling of components, e.g.&nbsp;you can make a stack that stores its elements in a typed array instead of a list.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="im">import</span> array</span>
+<span id="cb35-2"><a href="#cb35-2"></a></span>
+<span id="cb35-3"><a href="#cb35-3"></a>s <span class="op">=</span> Stack(conatiner<span class="op">=</span>array.array(<span class="st">"i"</span>))</span>
+<span id="cb35-4"><a href="#cb35-4"></a>s.push(<span class="dv">42</span>)</span>
+<span id="cb35-5"><a href="#cb35-5"></a>s.push(<span class="dv">23</span>)</span>
+<span id="cb35-6"><a href="#cb35-6"></a>s.push(<span class="st">"a lot"</span>) <span class="co"># TypeError</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is also known as <strong><em>dependency injection</em></strong>. Instead of hardwiring <code>Stack</code> to depend on <code>list</code>, you can make it depend on any container a user decides to pass in, provided it implements the required interface.</p></li>
+<li><p>I like to think of <strong><em>duck typing</em></strong> as python does not care if each variable is the same object but rather looks to see if implements the same interfaces to interact with it (methods and attributes). A good example is how the <code>for</code> loop works with many different objects such as lists, files, generators, strings etc. even though none of these classes inherit from any kind of special <code>Iterable</code> base class</p></li>
+<li><p><strong><em>Class Method</em></strong> is a method applied on the class itself, not an instance of it. Meaning you do not pass <code>self</code> in the method but instead <code>cls</code>. It’s common to create class methods to define alternate instance constructors and you can create the method by adding the <code>@classmethod</code> decorator.</p></li>
+<li><p><strong><em>Static Method</em></strong> is unlike a normal method or class method, a static method does not take extra <code>self</code> or <code>cls</code> argument. A static method is just an ordinary function that happens to be defined inside a class.</p>
+<p>::: {.cell execution_count=17} ``` {.python .cell-code} class Ops: <span class="citation" data-cites="staticmethod">@staticmethod</span> def add(x, y): return x + y</p>
+<pre><code>  @staticmethod
+  def sub(x, y):
+      return x - y</code></pre>
+<p>a = Ops.add(2,3) b = Ops.sub(4,5) print(a) print(b) ```</p>
+<p>::: {.cell-output .cell-output-stdout} <code>5   -1</code> ::: :::</p></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Property</em></strong> is a special kind of attribute that intercepts attribute access and handles it via user-defined methods.</p>
+</blockquote>
+<p>::: {.cell execution_count=18} ``` {.python .cell-code} import string</p>
+<p>class Account: def <strong>init</strong>(self, owner, balance): self.owner = owner self._balance = balance</p>
+<pre><code>  @property
+  def owner(self):
+      return self._owner
+
+  @owner.setter
+  def owner(self, value):
+      if not isinstance(value, str):
+          raise TypeError("Expected Str")
+      if not all(c in string.ascii_uppercase for c in value):
+          raise ValueError("Must be uppercase ASCII")
+      if len(value) &gt; 10:
+          raise ValueError("Must be 10 characters or less")
+      self._owner = value</code></pre>
+<p>``` :::</p>
+<p>In thi above example the <code>owner</code> attribute is being constrained to a 10-char uppercase ASCII string. With this property set on owner it now automatically routes through the getter/setter methods that you implemented.</p></li>
+<li><p>In the <code>__init__</code> method we have to use <code>self.owner = owner</code> instead of <code>self._owner = owner</code> otherwise it would case infinite recursion. T</p>
+<blockquote class="blockquote">
+<p>Since each access to a property attribute automatically invokes a method, the actual value needs to b stored under a different name. This is why <code>_owner</code> is used inside the getter and setter methods.</p>
+</blockquote></li>
+<li><p><strong><em>Abstract base classes</em></strong> using the <code>abc</code> module and the <code>@abstractmethod</code> are used together to describe an interface. It’s not meant to be instantiated directly rather serve as a guide for writing subclasses.</p></li>
+<li><p>Wow OOP can get complex in python, but I appreciate the author’s advice at the end of the chapter which is basically keep it simple stupid.</p></li>
+</ul>
+</section>
+<section id="chapter-8.-modules-and-packages" class="level1">
+<h1>Chapter 8. Modules and Packages</h1>
+<ul>
+<li><blockquote class="blockquote">
+<p>A common misconception is that the <code>from module import name</code> statement is more efficient–possible only loading part of a module. This is not hte case. Either way, the entire module is loaded and stored in the cache.</p>
+</blockquote>
+<p>Interesting, I definitely had this misconception</p></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Package</em></strong> is a collection of modules that are grouped under a common top-level name.</p>
+</blockquote></li>
+<li><p>You can run a package submodule as a script but defining a <code>if __name__ == "__main__" and then executing</code>python -m name_of_submodule.py`</p></li>
+<li><p>You can use the <code>__init__.py</code> to build and manage the contents of the top level namespace.</p></li>
+</ul>
+</section>
+<section id="chapter-9.-input-and-output" class="level1">
+<h1>Chapter 9. Input and Output</h1>
+<ul>
+<li><p>The formatting of strings follows this format <code>[[fill][align][sign][0][width][,][.precision][type]</code></p></li>
+<li><blockquote class="blockquote">
+<p>one useful easter egg of the <code>http</code> package is the ability for Python to run a standalone web server. Go a directory with a collection of files and type the following:</p>
+</blockquote>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1"></a><span class="ex">$</span> python <span class="at">-m</span> http.server</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="ex">Serving</span> HTTP on 0.0.0.0 port 8000 <span class="er">(</span><span class="ex">http://0.0.0.0:8000/</span><span class="kw">)</span> <span class="ex">...</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p><code>os.path</code> is legacy, use the <code>pathlib</code> module instead</p></li>
+</ul>
+</section>
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>I know this book is called “Python Distilled” but wow does it get in pretty in depth. Before this book I would classify myself as a “fundamental” python programmer (which I like to think of as someone between intermediate and beginner level). I found this book to be very helpful to me as it felt like I got to “look under the cover” as to how a lot of the different functionality of python works. I believe any python programmer will get some value added out of reading this book but I think it can really serve as a great jumping off point for other non python programmers who are looking to learn python.</p>
 
 
 </section>
