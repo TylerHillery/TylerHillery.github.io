@@ -74,7 +74,35 @@
     "href": "notes/python-in-a-nutshell/index.html#chapter-12.-persistence-and-databases",
     "title": "Python in a Nutshell",
     "section": "Chapter 12. Persistence and Databases",
-    "text": "Chapter 12. Persistence and Databases\n\n\nPython supplies several modules to serialize (save) Python objects to various kinds of byte streams and deserialize (load and re-create) Python objects back from streams. Serialization is also known as marshaling, which means formatting for data interchange"
+    "text": "Chapter 12. Persistence and Databases\n\n\nPython supplies several modules to serialize (save) Python objects to various kinds of byte streams and deserialize (load and re-create) Python objects back from streams. Serialization is also known as marshaling, which means formatting for data interchange\n\nI was not aware of the psycopg3 package, I have always used psycopg2."
+  },
+  {
+    "objectID": "notes/python-in-a-nutshell/index.html#chapter-15.-concurrency-threads-and-process",
+    "href": "notes/python-in-a-nutshell/index.html#chapter-15.-concurrency-threads-and-process",
+    "title": "Python in a Nutshell",
+    "section": "Chapter 15. Concurrency: Threads and Process",
+    "text": "Chapter 15. Concurrency: Threads and Process\n\n\nProcesses are instances of running programs that the operating system protects from on that another. They can communicate with each other by using interprocess communication (IPC) mechanisms.\n\n\n*Thread is a flow of control that shares a global state with other threads inside a single process\n\nGeneral rule of thumb: I/O-bound reach for async programming, CPU Bound reach for multiprocessing because in python the GIL ensures that only one Python-coded thread at a time can execute so multithreading isn’t as effective"
+  },
+  {
+    "objectID": "notes/python-in-a-nutshell/index.html#chapter-18.-networking-basics",
+    "href": "notes/python-in-a-nutshell/index.html#chapter-18.-networking-basics",
+    "title": "Python in a Nutshell",
+    "section": "Chapter 18. Networking Basics",
+    "text": "Chapter 18. Networking Basics\n\nThe main connection-oriented protocol is the transmission control protocol.\nThe main connectionless or datagram protocol use the User Datagram Protocol (UDP).\nSockets give access to pipelines between independent endpoints, using a transport layer protocol to move information between those endpoints.\nBoth UDP and TCP are carried over a common Internet Protocol (IP) network layer known as TCP/IP."
+  },
+  {
+    "objectID": "notes/python-in-a-nutshell/index.html#chapter-19.-client-side-networking-protocol-modules",
+    "href": "notes/python-in-a-nutshell/index.html#chapter-19.-client-side-networking-protocol-modules",
+    "title": "Python in a Nutshell",
+    "section": "Chapter 19. Client-Side Networking Protocol Modules",
+    "text": "Chapter 19. Client-Side Networking Protocol Modules\n\na URL is a string composed of several parts called components: the scheme, location, path, query and fragment e.g scheme://lo.ca.ti.on/pa/th?qu=ery#fragment"
+  },
+  {
+    "objectID": "notes/python-in-a-nutshell/index.html#chapter-20.-serving-http",
+    "href": "notes/python-in-a-nutshell/index.html#chapter-20.-serving-http",
+    "title": "Python in a Nutshell",
+    "section": "Chapter 20. Serving HTTP",
+    "text": "Chapter 20. Serving HTTP\n\n\nCommon Gateway Interface (CGI) requires the server to run a separate program each time a client request dynamic content.\n\n\n\n\n\n\n\nCheckout HTTP: The Definitive Guide\n\n\n\n\n\n\n\nWeb Server Gateway Interface (WSGI) is the standard way for all modern Python web development frameworks to interface with underlying web servers… WSGI is an interface, and that interface has two sides: the web server/gateway side and the application/framework side. The framework side’s job is to provide a WSGI application object, a callable object respecting conventions in the PEP, and to connect the application object to the server by whatever means the specific sever documents. Gunicorn is an example WSGI server.\n\nASGI is the async version of WSGI\n\n\n\n\n\n\n\n\n\n\nComponent\nRole\nWSGI\nASGI\n\n\n\n\nWeb Server\nHandling HTTP requests, serving static files (HTML, CSS, JavaScript and managing SLL/TSL for secure HTTPS connections. It’s often used as a reverse proxy and load balancer as well forwarding requests to other servers in the background and returning responses to clients.\nNGINX\nNGINX\n\n\nGI Server\nDesigned for handling HTTP traffic destined for Python code. It describes how a web server communicates with web applications. Acts as middleware between NGINX and web apps\nGunicorn\nUvicorn or Hypercorn\n\n\nGI Utility / Toolkit\nCommonly used by lightweight frameworks for various components to handle any functionality not strictly related to HTTP\nWerkzueg\nStarlette**\n\n\nApplication Framework\nProvides the core tools and functionalities to create a web app such as routing, templates, RESTful request dispatching.\nDjango, Flask\nFastAPI, Quart\n\n\n\n*Starlette can also be used as a lightweight app framework*"
   },
   {
     "objectID": "blog/learning-log/index.html",
