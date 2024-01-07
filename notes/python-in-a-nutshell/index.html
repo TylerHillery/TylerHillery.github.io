@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-06-03">
-<meta name="description" content="My short review of the book Fundamentals of Data Engineering by Joe Reis &amp; Matt Housley.">
+<meta name="dcterms.date" content="2024-01-06">
+<meta name="description" content="My notes on Python in a Nutshell by Alex Martelli, Anna Martelli Ravenscroft, Steven Holden, Paul McGuire.">
 
-<title>Tyler Hillery - Fundamentals of Data Engineering</title>
+<title>Tyler Hillery - Python in a Nutshell</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -141,9 +141,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#part-ii-core-python-language-and-built-ins" id="toc-part-ii-core-python-language-and-built-ins" class="nav-link" data-scroll-target="#part-ii-core-python-language-and-built-ins">Part II, Core Python Language and Built-ins</a>
+  <ul class="collapse">
+  <li><a href="#chapter-5.-type-annotations" id="toc-chapter-5.-type-annotations" class="nav-link" data-scroll-target="#chapter-5.-type-annotations">Chapter 5. Type Annotations</a></li>
+  </ul></li>
+  <li><a href="#part-iii-python-library-and-extension-modules" id="toc-part-iii-python-library-and-extension-modules" class="nav-link" data-scroll-target="#part-iii-python-library-and-extension-modules">Part III, Python Library and Extension Modules</a>
+  <ul class="collapse">
+  <li><a href="#chapter-11.-file-and-text-operations" id="toc-chapter-11.-file-and-text-operations" class="nav-link" data-scroll-target="#chapter-11.-file-and-text-operations">Chapter 11. File and Text Operations</a></li>
+  <li><a href="#chapter-12.-persistence-and-databases" id="toc-chapter-12.-persistence-and-databases" class="nav-link" data-scroll-target="#chapter-12.-persistence-and-databases">Chapter 12. Persistence and Databases</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/de-fundamentals/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/python-in-a-nutshell/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -154,15 +163,16 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fundamentals of Data Engineering</h1>
+<h1 class="title">Python in a Nutshell</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Technical Books</div>
+    <div class="quarto-category">In Progress</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    My short review of the book <a href="https://a.co/d/hNfukbx">Fundamentals of Data Engineering</a> by Joe Reis &amp; Matt Housley.
+    My notes on <a href="https://a.co/d/crDbxOD">Python in a Nutshell</a> by Alex Martelli, Anna Martelli Ravenscroft, Steven Holden, Paul McGuire.
   </div>
 </div>
 
@@ -179,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 3, 2023</p>
+      <p class="date">January 6, 2024</p>
     </div>
   </div>
   
@@ -189,13 +199,85 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p><strong>Rating</strong>: ⭐⭐⭐⭐⭐</p>
-<p>My tweet sums up how I felt about this book. Now that I have finished the whole thing, I would say it’s a must read for anyone in the data space.</p>
-<p></p><div id="tweet-51878"></div><script>tweet={"url":"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345","author_name":"Tyler Hillery","author_url":"https:\/\/twitter.com\/_TylerHillery","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EPerfect travel reading material. I’m halfway through and really liking it. I love the focus on data engineering as a discipline opposed to a tech stack. \u003Ca href=\"https:\/\/t.co\/FjapFCTHdV\"\u003Epic.twitter.com\/FjapFCTHdV\u003C\/a\u003E\u003C\/p\u003E&mdash; Tyler Hillery (@_TylerHillery) \u003Ca href=\"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345?ref_src=twsrc%5Etfw\"\u003EJune 2, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-51878").innerHTML = tweet["html"];</script><p></p>
+<hr>
+<section id="preface" class="level1">
+<h1>Preface</h1>
+<ul>
+<li><blockquote class="blockquote">
+<p>While you can read this volume linearly from the beginning, we also aim for it to be a useful reference for the working programmer. You may choose to index to locate items of interest, or to read specific chapters for coverage their particular topics.</p>
+</blockquote>
+<p>I don’t plan on reading this book from start finish. Below are the chapters I plan on reading</p>
+<ul>
+<li>Part II, Core Python Language and Built-ins
+<ul>
+<li>Chapter 5, “Type Annotations”</li>
+</ul></li>
+<li>All of Part III, Python Library and Extension Modules</li>
+<li>All of Part IV, Network and Web Programming</li>
+<li>All of Part V, Extending, Distributing, and Version Upgrade and Migration</li>
+</ul></li>
+</ul>
+</section>
+<section id="part-ii-core-python-language-and-built-ins" class="level1">
+<h1>Part II, Core Python Language and Built-ins</h1>
+<section id="chapter-5.-type-annotations" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-5.-type-annotations">Chapter 5. Type Annotations</h2>
+<ul>
+<li><p>Type annotations are <em>not</em> enforced at runtime.</p></li>
+<li><blockquote class="blockquote">
+<p><strong><em>PEP</em></strong> stands for Python Enhancement Proposal, a design document describing a new feature for python</p>
+</blockquote></li>
+<li><blockquote class="blockquote">
+<p>The <code>typing</code> module defines several <code>protocols</code>, which are similar to what some other languages call “interfaces”. Protocols are abstract base classes intended to concisely express constraints on a type, ensuring it contains certain methods.</p>
+</blockquote>
+<div class="callout callout-style-default callout-caution callout-titled" title="Use `cast` with Caution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Use <code>cast</code> with Caution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p><code>cast</code> is a way of overriding any interfaces or prior annotations that may be present at particular place in your code. It may hide actual type errors in your code, rendering the type-checking pass incomplete or inaccurate.</p>
+</blockquote>
+</div>
+</div>
+</div></li>
+<li><blockquote class="blockquote">
+<p><strong><em>Generics</em></strong> are types that define a template for classes that can adapt the type annotations of their method signatures based on one or more parameters.</p>
+</blockquote></li>
+<li><p>I like this general rule of thumb on when and now to add type annotations to new code</p>
+<blockquote class="blockquote">
+<p>the Two Function Rule: as soon as your script contains two functions or methods, go back and add type annotations to the method signatures, and any shared variables or types as necessary. Use <code>TypeDict</code> to annotate any <code>dict</code> structures that are used in place of classes, so that <code>dict</code> keys get clearly defined up front or get documented as you go; use <code>NamedTuples</code>(or <code>dataclasses</code>: some of the book’s authors <em>strongly</em> prefer the later option) to define the specific attributes for those data “bundles”</p>
+</blockquote></li>
+</ul>
+</section>
+</section>
+<section id="part-iii-python-library-and-extension-modules" class="level1">
+<h1>Part III, Python Library and Extension Modules</h1>
+<section id="chapter-11.-file-and-text-operations" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-11.-file-and-text-operations">Chapter 11. File and Text Operations</h2>
+<ul>
+<li><p><strong><em>File Buffering</em></strong> is where data can be temporarily held in memory on the way to or from the file.</p></li>
+<li><p><strong><em>Random Access</em></strong> files allows moving forward and back within the file, or jumping to read or write at a particular location in the file.</p></li>
+</ul>
+</section>
+<section id="chapter-12.-persistence-and-databases" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-12.-persistence-and-databases">Chapter 12. Persistence and Databases</h2>
+<ul>
+<li><blockquote class="blockquote">
+<p>Python supplies several modules to <strong><em>serialize</em></strong> (save) Python objects to various kinds of byte streams and <strong><em>deserialize</em></strong> (load and re-create) Python objects back from streams. Serialization is also known as <strong><em>marshaling</em></strong>, which means formatting for <strong><em>data interchange</em></strong></p>
+</blockquote></li>
+<li></li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -435,10 +517,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
-<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/de-fundamentals/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/de-fundamentals/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/de-fundamentals/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/python-in-a-nutshell/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/python-in-a-nutshell/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/python-in-a-nutshell/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/python-in-a-nutshell/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/python-in-a-nutshell/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 
 <script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
-<script src="https://platform.twitter.com/widgets.js"></script>
 </body></html>
