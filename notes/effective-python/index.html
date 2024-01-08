@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2024-01-07">
-<meta name="description" content="My notes on Python in a Nutshell by Alex Martelli, Anna Martelli Ravenscroft, Steven Holden, Paul McGuire.">
+<meta name="dcterms.date" content="2024-01-08">
+<meta name="description" content="My notes on Effective Python by Brett Slatkin">
 
-<title>Tyler Hillery - Python in a Nutshell</title>
+<title>Tyler Hillery - Effective Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -142,25 +176,9 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
-  <li><a href="#part-ii-core-python-language-and-built-ins" id="toc-part-ii-core-python-language-and-built-ins" class="nav-link" data-scroll-target="#part-ii-core-python-language-and-built-ins">Part II, Core Python Language and Built-ins</a>
-  <ul class="collapse">
-  <li><a href="#chapter-5.-type-annotations" id="toc-chapter-5.-type-annotations" class="nav-link" data-scroll-target="#chapter-5.-type-annotations">Chapter 5. Type Annotations</a></li>
-  </ul></li>
-  <li><a href="#part-iii-python-library-and-extension-modules" id="toc-part-iii-python-library-and-extension-modules" class="nav-link" data-scroll-target="#part-iii-python-library-and-extension-modules">Part III, Python Library and Extension Modules</a>
-  <ul class="collapse">
-  <li><a href="#chapter-11.-file-and-text-operations" id="toc-chapter-11.-file-and-text-operations" class="nav-link" data-scroll-target="#chapter-11.-file-and-text-operations">Chapter 11. File and Text Operations</a></li>
-  <li><a href="#chapter-12.-persistence-and-databases" id="toc-chapter-12.-persistence-and-databases" class="nav-link" data-scroll-target="#chapter-12.-persistence-and-databases">Chapter 12. Persistence and Databases</a></li>
-  <li><a href="#chapter-15.-concurrency-threads-and-process" id="toc-chapter-15.-concurrency-threads-and-process" class="nav-link" data-scroll-target="#chapter-15.-concurrency-threads-and-process">Chapter 15. Concurrency: Threads and Process</a></li>
-  </ul></li>
-  <li><a href="#part-iv-network-and-web-programming" id="toc-part-iv-network-and-web-programming" class="nav-link" data-scroll-target="#part-iv-network-and-web-programming">Part IV, Network and Web Programming</a>
-  <ul class="collapse">
-  <li><a href="#chapter-18.-networking-basics" id="toc-chapter-18.-networking-basics" class="nav-link" data-scroll-target="#chapter-18.-networking-basics">Chapter 18. Networking Basics</a></li>
-  <li><a href="#chapter-19.-client-side-networking-protocol-modules" id="toc-chapter-19.-client-side-networking-protocol-modules" class="nav-link" data-scroll-target="#chapter-19.-client-side-networking-protocol-modules">Chapter 19. Client-Side Networking Protocol Modules</a></li>
-  <li><a href="#chapter-20.-serving-http" id="toc-chapter-20.-serving-http" class="nav-link" data-scroll-target="#chapter-20.-serving-http">Chapter 20. Serving HTTP</a></li>
-  </ul></li>
-  <li><a href="#review" id="toc-review" class="nav-link" data-scroll-target="#review">Review</a></li>
+  <li><a href="#chapter-1.-pythonic-thinking" id="toc-chapter-1.-pythonic-thinking" class="nav-link" data-scroll-target="#chapter-1.-pythonic-thinking">Chapter 1. Pythonic Thinking</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/python-in-a-nutshell/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/effective-python/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -171,15 +189,16 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python in a Nutshell</h1>
+<h1 class="title">Effective Python</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Technical Books</div>
+    <div class="quarto-category">In Progress</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    My notes on <a href="https://a.co/d/crDbxOD">Python in a Nutshell</a> by Alex Martelli, Anna Martelli Ravenscroft, Steven Holden, Paul McGuire.
+    My notes on <a href="https://a.co/d/49i4S3a">Effective Python</a> by Brett Slatkin
   </div>
 </div>
 
@@ -196,7 +215,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 7, 2024</p>
+      <p class="date">January 8, 2024</p>
     </div>
   </div>
   
@@ -209,189 +228,82 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 <section id="preface" class="level1">
 <h1>Preface</h1>
+<ul>
+<li><p>Love the start of this book.</p>
 <blockquote class="blockquote">
-<p>While you can read this volume linearly from the beginning, we also aim for it to be a useful reference for the working programmer. You may choose to index to locate items of interest, or to read specific chapters for coverage their particular topics.</p>
-</blockquote>
-<p>I don’t plan on reading this book from start finish. Below are the chapters I plan on reading</p>
-<ul>
-<li>Part II, Core Python Language and Built-ins
-<ul>
-<li>Chapter 5, “Type Annotations”</li>
-</ul></li>
-<li>Part III, Python Library and Extension Modules
-<ul>
-<li>Chapter 11. File and Text Operations</li>
-<li>Chapter 12. Persistence and Databases</li>
-<li>Chapter 15. Concurrency: Threads and Process</li>
-</ul></li>
-<li>Part IV, Network and Web Programming
-<ul>
-<li>Chapter 18. Networking Basics</li>
-<li>Chapter 19. Client-Side Networking Protocol Modules</li>
-<li>Chapter 20. Serving HTTP</li>
-</ul></li>
+<p>This book provides insight into the <em>Pythonic</em> way of writing programs: the best way to use python. It builds on a fundamental understanding of the language that I assume you already have. Novice programmers will learn the best practices of Python’s capabilities. Experienced programmers will learn how to embrace the strangeness of a new tool with confidence</p>
+</blockquote></li>
 </ul>
 </section>
-<section id="part-ii-core-python-language-and-built-ins" class="level1">
-<h1>Part II, Core Python Language and Built-ins</h1>
-<section id="chapter-5.-type-annotations" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-5.-type-annotations">Chapter 5. Type Annotations</h2>
+<section id="chapter-1.-pythonic-thinking" class="level1">
+<h1>Chapter 1. Pythonic Thinking</h1>
 <ul>
-<li><p>Type annotations are <em>not</em> enforced at runtime.</p></li>
-<li><blockquote class="blockquote">
-<p><strong><em>PEP</em></strong> stands for Python Enhancement Proposal, a design document describing a new feature for python</p>
-</blockquote></li>
-<li><blockquote class="blockquote">
-<p>The <code>typing</code> module defines several <code>protocols</code>, which are similar to what some other languages call “interfaces”. Protocols are abstract base classes intended to concisely express constraints on a type, ensuring it contains certain methods.</p>
-</blockquote>
-<div class="callout callout-style-default callout-caution callout-titled" title="Use `cast` with Caution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<li><p>PEP 8 is commonly referred to the style guide for how to format Python code. I personally like use the <a href="https://docs.astral.sh/ruff/formatter/">Ruff Formatter</a> so I don’t have to worry about if I am properly formatting my code</p></li>
+<li><p>You don’t need to explicitly test if a container data type length is 0 or &gt; than 1 when using in an <code>if</code> statement because an empty container with result in <code>False</code> and a container with a length &gt; 0 will result in <code>True</code></p></li>
+<li><p><code>bytes</code> contains sequences of 8-bit values, and <code>str</code> contains sequences of Unicode code points.</p></li>
+<li><p>Why go through the trouble of assigning the default value for the <code>.get()</code> to <code>['']</code> instead of 0?</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> urllib.parse <span class="im">import</span> parse_qs </span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>my_values <span class="op">=</span> parse_qs(<span class="st">"red=5&amp;blue=0&amp;green="</span>,keep_blank_values<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="bu">print</span>(my_values)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>green <span class="op">=</span> my_values.get(<span class="st">"green"</span>, [<span class="st">''</span>])[<span class="dv">0</span>] <span class="kw">or</span> <span class="dv">0</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>green_my_way <span class="op">=</span> my_values.get(<span class="st">"green"</span>, <span class="dv">0</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="bu">print</span>(<span class="ss">f"Green: </span><span class="sc">{</span>green<span class="sc">!r}</span><span class="ss">"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="bu">print</span>(<span class="ss">f"Green: </span><span class="sc">{</span>green_my_way<span class="sc">!r}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'red': ['5'], 'blue': ['0'], 'green': ['']}
+Green: 0
+Green: ['']</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-Use <code>cast</code> with Caution
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<blockquote class="blockquote">
-<p><code>cast</code> is a way of overriding any interfaces or prior annotations that may be present at particular place in your code. It may hide actual type errors in your code, rendering the type-checking pass incomplete or inaccurate.</p>
-</blockquote>
-</div>
+<p>Ah I see, it appears the default return value for <code>parse_qs</code> if there is no value for the color is a list with an empty string. So that’s why we index into the list and if it’s <code>''</code> which also means <code>False</code> we can use the <code>or 0</code> to default it to 0</p></li>
+<li><p>Make use of helper functions in Python. Here is an example of how to solve the above problem with a helper function</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> get_first_int(values, key, default<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  found <span class="op">=</span> values.get(key, [<span class="st">''</span>])</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="cf">if</span> found[<span class="dv">0</span>]:</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="cf">return</span> <span class="bu">int</span>(found[<span class="dv">0</span>])</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="cf">return</span> default</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>green <span class="op">=</span> get_first_int(my_values, <span class="st">"green"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="bu">print</span>(green)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0</code></pre>
 </div>
 </div></li>
-<li><blockquote class="blockquote">
-<p><strong><em>Generics</em></strong> are types that define a template for classes that can adapt the type annotations of their method signatures based on one or more parameters.</p>
-</blockquote></li>
-<li><p>I like this general rule of thumb on when and now to add type annotations to new code</p>
-<blockquote class="blockquote">
-<p>the Two Function Rule: as soon as your script contains two functions or methods, go back and add type annotations to the method signatures, and any shared variables or types as necessary. Use <code>TypeDict</code> to annotate any <code>dict</code> structures that are used in place of classes, so that <code>dict</code> keys get clearly defined up front or get documented as you go; use <code>NamedTuples</code>(or <code>dataclasses</code>: some of the book’s authors <em>strongly</em> prefer the later option) to define the specific attributes for those data “bundles”</p>
-</blockquote></li>
-</ul>
-</section>
-</section>
-<section id="part-iii-python-library-and-extension-modules" class="level1">
-<h1>Part III, Python Library and Extension Modules</h1>
-<section id="chapter-11.-file-and-text-operations" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-11.-file-and-text-operations">Chapter 11. File and Text Operations</h2>
-<ul>
-<li><p><strong><em>File Buffering</em></strong> is where data can be temporarily held in memory on the way to or from the file.</p></li>
-<li><p><strong><em>Random Access</em></strong> files allows moving forward and back within the file, or jumping to read or write at a particular location in the file.</p></li>
-</ul>
-</section>
-<section id="chapter-12.-persistence-and-databases" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-12.-persistence-and-databases">Chapter 12. Persistence and Databases</h2>
-<ul>
-<li><blockquote class="blockquote">
-<p>Python supplies several modules to <strong><em>serialize</em></strong> (save) Python objects to various kinds of byte streams and <strong><em>deserialize</em></strong> (load and re-create) Python objects back from streams. Serialization is also known as <strong><em>marshaling</em></strong>, which means formatting for <strong><em>data interchange</em></strong></p>
-</blockquote></li>
-<li>I was not aware of the <code>psycopg3</code> package, I have always used <code>psycopg2</code>.</li>
-</ul>
-</section>
-<section id="chapter-15.-concurrency-threads-and-process" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-15.-concurrency-threads-and-process">Chapter 15. Concurrency: Threads and Process</h2>
-<ul>
-<li><blockquote class="blockquote">
-<p><strong><em>Processes</em></strong> are instances of running programs that the operating system protects from on that another. They can communicate with each other by using <strong><em>interprocess communication (IPC)</em></strong> mechanisms.</p>
-</blockquote></li>
-<li><blockquote class="blockquote">
-<p>*<strong>Thread</strong> is a flow of control that shares a global state with other threads inside a single process</p>
-</blockquote></li>
-<li>General rule of thumb: <em>I/O-bound</em> reach for async programming, <em>CPU Bound</em> reach for <code>multiprocessing</code> because in python the GIL ensures that only one Python-coded thread at a time can execute so <code>multithreading</code> isn’t as effective</li>
-</ul>
-</section>
-</section>
-<section id="part-iv-network-and-web-programming" class="level1">
-<h1>Part IV, Network and Web Programming</h1>
-<section id="chapter-18.-networking-basics" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-18.-networking-basics">Chapter 18. Networking Basics</h2>
-<ul>
-<li><p>The main <em>connection-oriented</em> protocol is the transmission control protocol.</p></li>
-<li><p>The main <em>connectionless</em> or <em>datagram</em> protocol use the User Datagram Protocol (UDP).</p></li>
-<li><p><strong><em>Sockets</em></strong> give access to pipelines between independent endpoints, using a <strong><em>transport layer protocol</em></strong> to move information between those endpoints.</p></li>
-<li><p>Both UDP and TCP are carried over a common Internet Protocol (IP) network layer known as TCP/IP.</p></li>
-</ul>
-</section>
-<section id="chapter-19.-client-side-networking-protocol-modules" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-19.-client-side-networking-protocol-modules">Chapter 19. Client-Side Networking Protocol Modules</h2>
-<ul>
-<li>a URL is a string composed of several parts called <em>components</em>: the <em>scheme</em>, <em>location</em>, <em>path</em>, <em>query</em> and <em>fragment</em> e.g <code>scheme://lo.ca.ti.on/pa/th?qu=ery#fragment</code></li>
-</ul>
-</section>
-<section id="chapter-20.-serving-http" class="level2">
-<h2 class="anchored" data-anchor-id="chapter-20.-serving-http">Chapter 20. Serving HTTP</h2>
-<ul>
-<li><blockquote class="blockquote">
-<p><strong><em>Common Gateway Interface (CGI)</em></strong> requires the server to run a separate program each time a client request dynamic content.</p>
-</blockquote>
-<div class="callout callout-style-default callout-note callout-titled" title="Checkout HTTP: The Definitive Guide">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Checkout HTTP: The Definitive Guide
-</div>
-</div>
-<div class="callout-body-container callout-body">
-
+<li><p>You can use unpacking to swap variables in place without need to create temp variables</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> temp_bubble_sort(a):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(a)):</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(a)):</span>
+<span id="cb5-4"><a href="#cb5-4"></a>      <span class="cf">if</span> a[i] <span class="op">&lt;</span> a[i<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb5-5"><a href="#cb5-5"></a>        temp <span class="op">=</span> a[i]</span>
+<span id="cb5-6"><a href="#cb5-6"></a>        a[i] <span class="op">=</span> a[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb5-7"><a href="#cb5-7"></a>        a[i<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> temp</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="kw">def</span> inplace_bubble_sort(a):</span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(a)):</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(a)):</span>
+<span id="cb5-12"><a href="#cb5-12"></a>      <span class="cf">if</span> a[i] <span class="op">&lt;</span> a[i<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb5-13"><a href="#cb5-13"></a>        a[i<span class="op">-</span><span class="dv">1</span>], a[i] <span class="op">=</span> a[i], a[i<span class="op">-</span><span class="dv">1</span>] </span>
+<span id="cb5-14"><a href="#cb5-14"></a></span>
+<span id="cb5-15"><a href="#cb5-15"></a>names1 <span class="op">=</span> [<span class="st">"pretzels"</span>, <span class="st">"carrots"</span>, <span class="st">"arugula"</span>, <span class="st">"bacon"</span>]</span>
+<span id="cb5-16"><a href="#cb5-16"></a>names2 <span class="op">=</span> [<span class="st">"pretzels"</span>, <span class="st">"carrots"</span>, <span class="st">"arugula"</span>, <span class="st">"bacon"</span>]</span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a>temp_bubble_sort(names1)</span>
+<span id="cb5-19"><a href="#cb5-19"></a>inplace_bubble_sort(names2)</span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="bu">print</span>(names1)</span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="bu">print</span>(names2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['arugula', 'bacon', 'carrots', 'pretzels']
+['arugula', 'bacon', 'carrots', 'pretzels']</code></pre>
 </div>
 </div></li>
-<li><blockquote class="blockquote">
-<p><strong><em>Web Server Gateway Interface (WSGI)</em></strong> is the standard way for all modern Python web development frameworks to interface with underlying web servers… WSGI is an <em>interface</em>, and that interface has two sides: the <em>web server/gateway side</em> and the <em>application/framework</em> side. The framework side’s job is to provide a <em>WSGI application</em> object, a callable object respecting conventions in the PEP, and to connect the application object to the server by whatever means the specific sever documents. <code>Gunicorn</code> is an example WSGI server.</p>
-</blockquote></li>
-<li><strong><em>ASGI</em></strong> is the async version of WSGI</li>
+<li></li>
 </ul>
-<table class="table">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 81%">
-<col style="width: 4%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Component</th>
-<th>Role</th>
-<th>WSGI</th>
-<th>ASGI</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Web Server</td>
-<td>Handling HTTP requests, serving static files (HTML, CSS, JavaScript and managing SLL/TSL for secure HTTPS connections. It’s often used as a reverse proxy and load balancer as well forwarding requests to other servers in the background and returning responses to clients.</td>
-<td>NGINX</td>
-<td>NGINX</td>
-</tr>
-<tr class="even">
-<td>GI Server</td>
-<td>Designed for handling HTTP traffic destined for Python code. It describes how a web server communicates with web applications. Acts as middleware between NGINX and web apps</td>
-<td>Gunicorn</td>
-<td>Uvicorn or Hypercorn</td>
-</tr>
-<tr class="odd">
-<td>GI Utility / Toolkit</td>
-<td>Commonly used by lightweight frameworks for various components to handle any functionality not strictly related to HTTP</td>
-<td>Werkzueg</td>
-<td>Starlette**</td>
-</tr>
-<tr class="even">
-<td>Application Framework</td>
-<td>Provides the core tools and functionalities to create a web app such as routing, templates, RESTful request dispatching.</td>
-<td>Django, Flask</td>
-<td>FastAPI, Quart</td>
-</tr>
-</tbody>
-</table>
-<pre><code>*Starlette can also be used as a lightweight app framework*</code></pre>
-</section>
-</section>
-<section id="review" class="level1">
-<h1>Review</h1>
-<p>I would take this review with a grain of salt as I only read select sections of this book that interested me. Overall I wasn’t a big fan of how this book was structured. There was far too many tables with methods or attributes with their definition opposed to content from the authors. With that being said I still think there is tons of great information in this book but it should be used as a reference guide for when you want to look something up.</p>
 
 
 </section>
@@ -633,7 +545,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
-<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/python-in-a-nutshell/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/python-in-a-nutshell/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/python-in-a-nutshell/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/python-in-a-nutshell/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/python-in-a-nutshell/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/effective-python/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/effective-python/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/effective-python/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/effective-python/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/effective-python/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 

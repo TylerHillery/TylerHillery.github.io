@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2024-01-01">
+<meta name="dcterms.date" content="2024-01-05">
 <meta name="description" content="My notes on Python Distilled by David Beazley.">
 
 <title>Tyler Hillery - Python Distilled</title>
@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2024</p>
+      <p class="date">January 5, 2024</p>
     </div>
   </div>
   
@@ -335,9 +335,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-3"><a href="#cb8-3"></a><span class="bu">print</span>(squares)</span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="bu">next</span>(squares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;generator object &lt;genexpr&gt; at 0x7f2836194d60&gt;</code></pre>
+<pre><code>&lt;generator object &lt;genexpr&gt; at 0x7fd858580110&gt;</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="167">
 <pre><code>1</code></pre>
 </div>
 </div></li>
@@ -370,8 +370,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>It Failed:
 Traceback (most recent call last):
-  File "/tmp/ipykernel_208383/1129224790.py", line 4, in &lt;module&gt;
+  File "/tmp/ipykernel_40760/1129224790.py", line 4, in &lt;module&gt;
     spam()
+    ^^^^
 NameError: name 'spam' is not defined
 </code></pre>
 </div>
@@ -648,7 +649,7 @@ Revist
 <span id="cb30-7"><a href="#cb30-7"></a>s.push(<span class="dv">2</span>)</span>
 <span id="cb30-8"><a href="#cb30-8"></a>s.pop()</span>
 <span id="cb30-9"><a href="#cb30-9"></a>s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="178">
 <pre><code>[1]</code></pre>
 </div>
 </div>
@@ -673,8 +674,8 @@ Revist
 <span id="cb32-17"><a href="#cb32-17"></a>s.pop()</span>
 <span id="cb32-18"><a href="#cb32-18"></a>s.push(<span class="dv">3</span>)</span>
 <span id="cb32-19"><a href="#cb32-19"></a>s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>&lt;__main__.Stack at 0x7f28360c7250&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="179">
+<pre><code>&lt;__main__.Stack at 0x7fd8613abad0&gt;</code></pre>
 </div>
 </div>
 <p>We could also extend the implementation by accepting an internal <code>list</code> class as an optional argument</p>
@@ -694,32 +695,51 @@ Revist
 <li><p>I like to think of <strong><em>duck typing</em></strong> as python does not care if each variable is the same object but rather looks to see if implements the same interfaces to interact with it (methods and attributes). A good example is how the <code>for</code> loop works with many different objects such as lists, files, generators, strings etc. even though none of these classes inherit from any kind of special <code>Iterable</code> base class</p></li>
 <li><p><strong><em>Class Method</em></strong> is a method applied on the class itself, not an instance of it. Meaning you do not pass <code>self</code> in the method but instead <code>cls</code>. It’s common to create class methods to define alternate instance constructors and you can create the method by adding the <code>@classmethod</code> decorator.</p></li>
 <li><p><strong><em>Static Method</em></strong> is unlike a normal method or class method, a static method does not take extra <code>self</code> or <code>cls</code> argument. A static method is just an ordinary function that happens to be defined inside a class.</p>
-<p>::: {.cell execution_count=17} ``` {.python .cell-code} class Ops: <span class="citation" data-cites="staticmethod">@staticmethod</span> def add(x, y): return x + y</p>
-<pre><code>  @staticmethod
-  def sub(x, y):
-      return x - y</code></pre>
-<p>a = Ops.add(2,3) b = Ops.sub(4,5) print(a) print(b) ```</p>
-<p>::: {.cell-output .cell-output-stdout} <code>5   -1</code> ::: :::</p></li>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">class</span> Ops:</span>
+<span id="cb36-2"><a href="#cb36-2"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a>    <span class="kw">def</span> add(x, y):</span>
+<span id="cb36-4"><a href="#cb36-4"></a>        <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb36-5"><a href="#cb36-5"></a></span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="at">@staticmethod</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="kw">def</span> sub(x, y):</span>
+<span id="cb36-8"><a href="#cb36-8"></a>    <span class="cf">return</span> x <span class="op">-</span> y</span>
+<span id="cb36-9"><a href="#cb36-9"></a></span>
+<span id="cb36-10"><a href="#cb36-10"></a></span>
+<span id="cb36-11"><a href="#cb36-11"></a>a <span class="op">=</span> Ops.add(<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb36-12"><a href="#cb36-12"></a>b <span class="op">=</span> Ops.sub(<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb36-13"><a href="#cb36-13"></a><span class="bu">print</span>(a)</span>
+<span id="cb36-14"><a href="#cb36-14"></a><span class="bu">print</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>AttributeError: type object 'Ops' has no attribute 'sub'</code></pre>
+</div>
+</div></li>
 <li><blockquote class="blockquote">
 <p><strong><em>Property</em></strong> is a special kind of attribute that intercepts attribute access and handles it via user-defined methods.</p>
 </blockquote>
-<p>::: {.cell execution_count=18} ``` {.python .cell-code} import string</p>
-<p>class Account: def <strong>init</strong>(self, owner, balance): self.owner = owner self._balance = balance</p>
-<pre><code>  @property
-  def owner(self):
-      return self._owner
-
-  @owner.setter
-  def owner(self, value):
-      if not isinstance(value, str):
-          raise TypeError("Expected Str")
-      if not all(c in string.ascii_uppercase for c in value):
-          raise ValueError("Must be uppercase ASCII")
-      if len(value) &gt; 10:
-          raise ValueError("Must be 10 characters or less")
-      self._owner = value</code></pre>
-<p>``` :::</p>
-<p>In thi above example the <code>owner</code> attribute is being constrained to a 10-char uppercase ASCII string. With this property set on owner it now automatically routes through the getter/setter methods that you implemented.</p></li>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="im">import</span> string</span>
+<span id="cb38-2"><a href="#cb38-2"></a></span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="kw">class</span> Account:</span>
+<span id="cb38-4"><a href="#cb38-4"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, owner, balance):</span>
+<span id="cb38-5"><a href="#cb38-5"></a>        <span class="va">self</span>.owner <span class="op">=</span> owner</span>
+<span id="cb38-6"><a href="#cb38-6"></a>        <span class="va">self</span>._balance <span class="op">=</span> balance</span>
+<span id="cb38-7"><a href="#cb38-7"></a></span>
+<span id="cb38-8"><a href="#cb38-8"></a>    <span class="at">@property</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a>    <span class="kw">def</span> owner(<span class="va">self</span>):</span>
+<span id="cb38-10"><a href="#cb38-10"></a>        <span class="cf">return</span> <span class="va">self</span>._owner</span>
+<span id="cb38-11"><a href="#cb38-11"></a></span>
+<span id="cb38-12"><a href="#cb38-12"></a>    <span class="at">@owner.setter</span></span>
+<span id="cb38-13"><a href="#cb38-13"></a>    <span class="kw">def</span> owner(<span class="va">self</span>, value):</span>
+<span id="cb38-14"><a href="#cb38-14"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(value, <span class="bu">str</span>):</span>
+<span id="cb38-15"><a href="#cb38-15"></a>            <span class="cf">raise</span> <span class="pp">TypeError</span>(<span class="st">"Expected Str"</span>)</span>
+<span id="cb38-16"><a href="#cb38-16"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">all</span>(c <span class="kw">in</span> string.ascii_uppercase <span class="cf">for</span> c <span class="kw">in</span> value):</span>
+<span id="cb38-17"><a href="#cb38-17"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Must be uppercase ASCII"</span>)</span>
+<span id="cb38-18"><a href="#cb38-18"></a>        <span class="cf">if</span> <span class="bu">len</span>(value) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
+<span id="cb38-19"><a href="#cb38-19"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Must be 10 characters or less"</span>)</span>
+<span id="cb38-20"><a href="#cb38-20"></a>        <span class="va">self</span>._owner <span class="op">=</span> value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this above example the <code>owner</code> attribute is being constrained to a 10-char uppercase ASCII string. With this property set on owner it now automatically routes through the getter/setter methods that you implemented.</p></li>
 <li><p>In the <code>__init__</code> method we have to use <code>self.owner = owner</code> instead of <code>self._owner = owner</code> otherwise it would case infinite recursion. T</p>
 <blockquote class="blockquote">
 <p>Since each access to a property attribute automatically invokes a method, the actual value needs to b stored under a different name. This is why <code>_owner</code> is used inside the getter and setter methods.</p>
@@ -732,7 +752,7 @@ Revist
 <h1>Chapter 8. Modules and Packages</h1>
 <ul>
 <li><blockquote class="blockquote">
-<p>A common misconception is that the <code>from module import name</code> statement is more efficient–possible only loading part of a module. This is not hte case. Either way, the entire module is loaded and stored in the cache.</p>
+<p>A common misconception is that the <code>from module import name</code> statement is more efficient–possible only loading part of a module. This is not the case. Either way, the entire module is loaded and stored in the cache.</p>
 </blockquote>
 <p>Interesting, I definitely had this misconception</p></li>
 <li><blockquote class="blockquote">
@@ -749,8 +769,8 @@ Revist
 <li><blockquote class="blockquote">
 <p>one useful easter egg of the <code>http</code> package is the ability for Python to run a standalone web server. Go a directory with a collection of files and type the following:</p>
 </blockquote>
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1"></a><span class="ex">$</span> python <span class="at">-m</span> http.server</span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="ex">Serving</span> HTTP on 0.0.0.0 port 8000 <span class="er">(</span><span class="ex">http://0.0.0.0:8000/</span><span class="kw">)</span> <span class="ex">...</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1"></a><span class="ex">$</span> python <span class="at">-m</span> http.server</span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="ex">Serving</span> HTTP on 0.0.0.0 port 8000 <span class="er">(</span><span class="ex">http://0.0.0.0:8000/</span><span class="kw">)</span> <span class="ex">...</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><code>os.path</code> is legacy, use the <code>pathlib</code> module instead</p></li>
 </ul>
 </section>
