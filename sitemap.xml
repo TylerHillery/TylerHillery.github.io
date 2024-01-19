@@ -2,126 +2,130 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.tylerhillery.com/resume.html</loc>
-    <lastmod>2024-01-08T20:30:11.403Z</lastmod>
+    <lastmod>2024-01-19T17:17:59.251Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/local-lakehouse/index.html</loc>
-    <lastmod>2024-01-08T20:30:10.927Z</lastmod>
+    <lastmod>2024-01-19T17:17:58.779Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/learning-log/index.html</loc>
-    <lastmod>2024-01-08T20:30:09.527Z</lastmod>
+    <lastmod>2024-01-19T17:17:56.487Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2024-01-08T20:30:08.135Z</lastmod>
+    <lastmod>2024-01-19T17:17:54.907Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects.html</loc>
-    <lastmod>2024-01-08T20:30:06.939Z</lastmod>
+    <lastmod>2024-01-19T17:17:53.659Z</lastmod>
   </url>
   <url>
-    <loc>https://www.tylerhillery.com/notes/python-distilled/index.html</loc>
-    <lastmod>2024-01-08T20:30:04.071Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/effective-python/index.html</loc>
-    <lastmod>2024-01-08T20:30:02.235Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
-    <lastmod>2024-01-08T20:30:00.403Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/zero-to-py/index.html</loc>
-    <lastmod>2024-01-08T20:29:58.475Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/data-pipelines-ref/index.html</loc>
-    <lastmod>2024-01-08T20:29:56.647Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/ddia/index.html</loc>
-    <lastmod>2024-01-08T20:29:55.279Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/atomic-habits/index.html</loc>
-    <lastmod>2024-01-08T20:29:52.379Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/local-lakehouse/index.html</loc>
-    <lastmod>2024-01-08T20:29:51.027Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/tyler-tries-publishing-py-pack/index.html</loc>
-    <lastmod>2024-01-08T20:29:49.119Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
-    <lastmod>2024-01-08T20:29:47.263Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/index.html</loc>
-    <lastmod>2024-01-08T20:29:45.307Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes.html</loc>
-    <lastmod>2024-01-08T20:29:44.099Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog.html</loc>
-    <lastmod>2024-01-08T20:29:44.991Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</loc>
-    <lastmod>2024-01-08T20:29:46.435Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
-    <lastmod>2024-01-08T20:29:48.091Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
-    <lastmod>2024-01-08T20:29:49.851Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/python-in-a-nutshell/index.html</loc>
-    <lastmod>2024-01-08T20:29:53.263Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/code-hidden-language/index.html</loc>
-    <lastmod>2024-01-08T20:29:55.943Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/csc-204-comp-arch-org/index.html</loc>
-    <lastmod>2024-01-08T20:29:57.287Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/pragmatic-programmer/index.html</loc>
-    <lastmod>2024-01-08T20:29:59.515Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tylerhillery.com/notes/97-de-things/index.html</loc>
-    <lastmod>2024-01-08T20:30:01.007Z</lastmod>
+    <loc>https://www.tylerhillery.com/notes/data-engineering-with-dbt/index.html</loc>
+    <lastmod>2024-01-19T17:17:51.075Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/notes/csc-155-cpp-cs-1/index.html</loc>
-    <lastmod>2024-01-08T20:30:02.875Z</lastmod>
+    <lastmod>2024-01-19T17:17:49.055Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/97-de-things/index.html</loc>
+    <lastmod>2024-01-19T17:17:47.543Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/pragmatic-programmer/index.html</loc>
+    <lastmod>2024-01-19T17:17:45.647Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/csc-204-comp-arch-org/index.html</loc>
+    <lastmod>2024-01-19T17:17:43.383Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/code-hidden-language/index.html</loc>
+    <lastmod>2024-01-19T17:17:41.991Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/python-in-a-nutshell/index.html</loc>
+    <lastmod>2024-01-19T17:17:39.211Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/learning-log/index.html</loc>
+    <lastmod>2024-01-19T17:17:35.323Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</loc>
+    <lastmod>2024-01-19T17:17:33.599Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</loc>
+    <lastmod>2024-01-19T17:17:31.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog.html</loc>
+    <lastmod>2024-01-19T17:17:30.247Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes.html</loc>
+    <lastmod>2024-01-19T17:17:29.323Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/index.html</loc>
+    <lastmod>2024-01-19T17:17:30.583Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</loc>
+    <lastmod>2024-01-19T17:17:32.691Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/tyler-tries-publishing-py-pack/index.html</loc>
+    <lastmod>2024-01-19T17:17:34.583Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/blog/local-lakehouse/index.html</loc>
+    <lastmod>2024-01-19T17:17:36.571Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/atomic-habits/index.html</loc>
+    <lastmod>2024-01-19T17:17:38.255Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/ddia/index.html</loc>
+    <lastmod>2024-01-19T17:17:41.355Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/data-pipelines-ref/index.html</loc>
+    <lastmod>2024-01-19T17:17:42.651Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/zero-to-py/index.html</loc>
+    <lastmod>2024-01-19T17:17:44.571Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/quarto-reference/index.html</loc>
+    <lastmod>2024-01-19T17:17:46.719Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/effective-python/index.html</loc>
+    <lastmod>2024-01-19T17:17:48.379Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tylerhillery.com/notes/python-distilled/index.html</loc>
+    <lastmod>2024-01-19T17:17:50.259Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/notes/de-fundamentals/index.html</loc>
-    <lastmod>2024-01-08T20:30:06.643Z</lastmod>
+    <lastmod>2024-01-19T17:17:53.343Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/harlequin-trino/index.html</loc>
-    <lastmod>2024-01-08T20:30:07.547Z</lastmod>
+    <lastmod>2024-01-19T17:17:54.291Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/report/index.html</loc>
-    <lastmod>2024-01-08T20:30:08.759Z</lastmod>
+    <lastmod>2024-01-19T17:17:55.591Z</lastmod>
   </url>
   <url>
     <loc>https://www.tylerhillery.com/projects/coinbase-pipeline/index.html</loc>
-    <lastmod>2024-01-08T20:30:10.199Z</lastmod>
+    <lastmod>2024-01-19T17:17:58.183Z</lastmod>
   </url>
 </urlset>

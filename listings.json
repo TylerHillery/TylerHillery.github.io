@@ -11,8 +11,20 @@
     ]
   },
   {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/tyler-tries-publishing-py-pack/index.html",
+      "/blog/tyler-tries-real-time-data/index.html",
+      "/blog/local-lakehouse/index.html",
+      "/blog/getting-started-in-os/index.html",
+      "/blog/learning-log/index.html",
+      "/blog/stock-market-data-pipeline/index.html"
+    ]
+  },
+  {
     "listing": "/notes.html",
     "items": [
+      "/notes/data-engineering-with-dbt/index.html",
       "/notes/effective-python/index.html",
       "/notes/python-in-a-nutshell/index.html",
       "/notes/python-distilled/index.html",
@@ -27,17 +39,6 @@
       "/notes/code-hidden-language/index.html",
       "/notes/csc-155-cpp-cs-1/index.html",
       "/notes/quarto-reference/index.html"
-    ]
-  },
-  {
-    "listing": "/blog.html",
-    "items": [
-      "/blog/tyler-tries-publishing-py-pack/index.html",
-      "/blog/tyler-tries-real-time-data/index.html",
-      "/blog/local-lakehouse/index.html",
-      "/blog/getting-started-in-os/index.html",
-      "/blog/learning-log/index.html",
-      "/blog/stock-market-data-pipeline/index.html"
     ]
   }
 ]

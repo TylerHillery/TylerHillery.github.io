@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-06-03">
-<meta name="description" content="My short review of the book Fundamentals of Data Engineering by Joe Reis &amp; Matt Housley.">
+<meta name="dcterms.date" content="2024-01-10">
+<meta name="description" content="My notes on Data Engineering with dbt by Roberto Zagni">
 
-<title>Tyler Hillery - Fundamentals of Data Engineering</title>
+<title>Tyler Hillery - Data Engineering with dbt</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,13 +137,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/de-fundamentals/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
@@ -154,15 +148,16 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fundamentals of Data Engineering</h1>
+<h1 class="title">Data Engineering with dbt</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Technical Books</div>
+    <div class="quarto-category">In Progress</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    My short review of the book <a href="https://a.co/d/hNfukbx">Fundamentals of Data Engineering</a> by Joe Reis &amp; Matt Housley.
+    My notes on <a href="https://a.co/d/dcbdZxQ">Data Engineering with dbt</a> by Roberto Zagni
   </div>
 </div>
 
@@ -179,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 3, 2023</p>
+      <p class="date">January 10, 2024</p>
     </div>
   </div>
   
@@ -189,14 +184,87 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p><strong>Rating</strong>: ⭐⭐⭐⭐⭐</p>
-<p>My tweet sums up how I felt about this book. Now that I have finished the whole thing, I would say it’s a must read for anyone in the data space.</p>
-<p></p><div id="tweet-35098"></div><script>tweet={"url":"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345","author_name":"Tyler Hillery","author_url":"https:\/\/twitter.com\/_TylerHillery","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EPerfect travel reading material. I’m halfway through and really liking it. I love the focus on data engineering as a discipline opposed to a tech stack. \u003Ca href=\"https:\/\/t.co\/FjapFCTHdV\"\u003Epic.twitter.com\/FjapFCTHdV\u003C\/a\u003E\u003C\/p\u003E&mdash; Tyler Hillery (@_TylerHillery) \u003Ca href=\"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345?ref_src=twsrc%5Etfw\"\u003EJune 2, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-35098").innerHTML = tweet["html"];</script><p></p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"># Relevant Links - <a href="https://github.com/PacktPublishing/Data-engineering-with-dbt">Book GitHub Repo</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"># Chapter 1. The Basics of SQL to Transform Data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">- Going to skim over this chapter as I already feel very confident with my SQL skills</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- The book uses Snowflake but I am going to follow along using BigQuery</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">- BigQuery datasets are like schemas in other databases</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"># Chapter 2. Setting Up Your dbt Cloud Development Environment</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">- I am going to use local dbt instead</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"># Chapter 3. Data Modeling for Data Engineering</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">- <strong><em>Entity</em></strong>: AN entity is a concept that we want to analyze, a thing of interest that we want to collect data about, such as a car, an order or a page visit</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- <strong><em>Attribute</em></strong>: An attribute is a property of an entity for which we want to store values, such as a car plate, a customer, or the total amount of a transaction.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">- <strong><em>Relationship</em></strong>: A relationship is a connection between two entities that are related to each other and captures how they are related, such as the ownership relation between a car and its owner, or the purchasing relation between a customer and a product</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- Lots of great info in this chapter on different data modeling techniques. I didn’t end up taking too many notes as I didn’t want to interrupt my flow.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"># Chapter 5. Transforming Data with dt</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- You can test specific sources but using <code>dbt test -s source:source_name.table</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"># Chapter 6. Writing Maintainable Code</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- Saving history with dbt - You can use the standard dbt <em>snapshots</em> which creates <strong>slowly changing dimension of type 2</strong> (SCD2) without writing any of the code. - This can work well for normal-size datasets (up to millions of rows) and is the simplest way to go - One major con of snapshots is that they are global objects, so you only have one copy and one version active for all environments. - Another con is you cannot preview or test the <code>select</code> query that feeds the data to the snapshot - Another method is to use <em>incremental models</em> to save new or changed data from each run. - applies set-based operations to capture changes in insert-only mode - effective way to manage and store huge amounts of data - requires writing custom macro</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">- <code>Snapshots</code> are not normal dbt models and they are not run with the <code>dbt run</code> command but instead with the <code>dbt snapshot</code>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- <code>snapshots</code> are stored in their own folder as they are the only tables that cannot be recreated at every run so you don’t want to drop them on accident</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">- The snapshot table is a global object and is shared by all environments.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- The general layout of a snapshot definition</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>sql {% snapshot snapshot_name %} {{ config(...) }} select ... from {{ source / ref }} {% endsnapshot %}</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">- Best way to have run snapshots is to have a stg model before them and make them <code>ephemeral</code> models so you don’t need to run them before the snapshot. This makes it so you don’t need to first run only the stg models for the snapshots, take the snapshot and then run all models except the snapshot ones.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"># Chapter 7. Working with Dimensional Data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I actually really enjoyed this chapter. I am turning into a fan of this “Pragmatic Data Platform” going from stg &gt; snapshot &gt; refined &gt; mart. Didn’t take to many notes on this chapter as I mostly following along with my own repo.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"># Chapter 8. Delivering Consistency in Your Data</td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -435,10 +503,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
-<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/de-fundamentals/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/de-fundamentals/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/de-fundamentals/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/data-engineering-with-dbt/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/data-engineering-with-dbt/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/data-engineering-with-dbt/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 
 <script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
-<script src="https://platform.twitter.com/widgets.js"></script>
 </body></html>
