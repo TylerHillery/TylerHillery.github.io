@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Tyler Hillery">
+<meta name="dcterms.date" content="2024-01-23">
+<meta name="description" content="My notes on The Mythical Man-Month by Frederick Brooks Jr.">
 
-<title>Tyler Hillery – blog</title>
+<title>Tyler Hillery - The Mythical Man-Month</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +26,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./assets/images/favicon.ico" rel="icon">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/social-share.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/social-share-0.1.0/all.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -62,41 +65,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-blog .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-blog'] = new List('listing-blog', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="alternate" type="application/rss+xml" title="Tyler Hillery" href="blog.xml"></head>
+</head>
 
 <body class="floating nav-fixed">
 
@@ -105,7 +77,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Tyler Hillery</span>
     </a>
   </div>
@@ -116,15 +88,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../../blog.html" rel="" target="">
  <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./notes.html" rel="" target="">
+    <a class="nav-link" href="../../notes.html" rel="" target="">
  <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html" rel="" target="">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
  <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
@@ -150,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -162,229 +134,84 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#blog" id="toc-blog" class="nav-link active" data-scroll-target="#blog">Blog</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link active" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#review" id="toc-review" class="nav-link" data-scroll-target="#review">Review</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/blog.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/mythical-man-month/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-right" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-
-
-<section id="blog" class="level2">
-<h2 class="anchored" data-anchor-id="blog">Blog</h2>
-<div id="listing-blog" class="quarto-listing quarto-listing-container-default">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-blog-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-blog'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Mythical Man-Month</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Technical Books</div>
   </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+  </div>
+
+<div>
+  <div class="description">
+    My notes on <a href="https://a.co/d/h2gXDb0">The Mythical Man-Month</a> by Frederick Brooks Jr.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tyler Hillery </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 23, 2024</p>
     </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Data Tools,Open-Source" data-listing-date-sort="1703721600000" data-listing-file-modified-sort="1706060435160" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./blog/tyler-tries-publishing-py-pack/index.html"> <img src="./assets/images/harlequin-trino.svg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/tyler-tries-publishing-py-pack/index.html">
-<h3 class="no-anchor listing-title">
-Tyler Tries Publishing a Python Package to PyPI
-</h3>
-<div class="listing-subtitle">
+  </div>
+  
+    
+  </div>
+  
 
-</div>
-<div class="listing-description">
-<p>My experience developing a python package and publishing it to PyPI.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/tyler-tries-publishing-py-pack/index.html">
-<div class="listing-date">
-Dec 28, 2023
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Real-Time Data,Data Apps,Data Engineering" data-listing-date-sort="1696118400000" data-listing-file-modified-sort="1706060435160" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19">
-<div class="thumbnail">
-<p><a href="./blog/tyler-tries-real-time-data/index.html"> <img src="./assets/images/streamlit_app_coinbase.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/tyler-tries-real-time-data/index.html">
-<h3 class="no-anchor listing-title">
-Tyler Tries Real-Time Data
-</h3>
-<div class="listing-subtitle">
+</header>
 
-</div>
-<div class="listing-description">
-<p>My experience building a real-time data pipeline to visualize Coinbase order book depth, highlighting the seamless integration of Redpanda, Materialize, dbt, and Streamlit.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/tyler-tries-real-time-data/index.html">
-<div class="listing-date">
-Oct 1, 2023
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Data Lakehouse,Iceberg" data-listing-date-sort="1687737600000" data-listing-file-modified-sort="1706060435160" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
-<div class="thumbnail">
-<p><a href="./blog/local-lakehouse/index.html"> <img src="./assets/images/local-lakehouse.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/local-lakehouse/index.html">
-<h3 class="no-anchor listing-title">
-Building a Local (Data) Lakehouse - Part 1: The Blueprint
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>Local (Data) Lakehouse is a personal sandbox environment to quickly spin up various tools for me to explore new ideas and learn.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/local-lakehouse/index.html">
-<div class="listing-date">
-Jun 26, 2023
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Open Source,dbt,duckdb" data-listing-date-sort="1657584000000" data-listing-file-modified-sort="1706060435160" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
-<div class="thumbnail">
-<p><a href="./blog/getting-started-in-os/index.html"> <img src="./assets/images/Open-Source-Software.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/getting-started-in-os/index.html">
-<h3 class="no-anchor listing-title">
-Why and How I Made My First Open Source Contribution
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>My experience on why and how I made my first open source contribution and why you should too.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/getting-started-in-os/index.html">
-<div class="listing-date">
-Jul 12, 2022
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Projects,Streamlit,Data Apps,Self Taught" data-listing-date-sort="1653955200000" data-listing-file-modified-sort="1706060435160" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./blog/learning-log/index.html"> <img src="./assets/images/learning-log.jpg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/learning-log/index.html">
-<h3 class="no-anchor listing-title">
-Make a Public Commitment to Learn
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>Making your learning public can help you stick to your goals. Find ways to communicate to others what your learning about. That is why I built the learning log.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/learning-log/index.html">
-<div class="listing-date">
-May 31, 2022
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="Projects,dbt,Airbyte,Preset,Google Cloud,Data Engineering,Python" data-listing-date-sort="1648598400000" data-listing-file-modified-sort="1706060435160" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
-<div class="thumbnail">
-<p><a href="./blog/stock-market-data-pipeline/index.html"> <img src="./assets/images/stock-market-data-pipeline.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./blog/stock-market-data-pipeline/index.html">
-<h3 class="no-anchor listing-title">
-Stock Market Data Pipeline
-</h3>
-<div class="listing-subtitle">
-
-</div>
-<div class="listing-description">
-<p>I wrote about my experience on setting up a data pipeline to help extract, ingest, store, transform and visualize stock market data using open source technologies such as Airbyte, Dagster, dbt &amp; Preset.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./blog/stock-market-data-pipeline/index.html">
-<div class="listing-date">
-Mar 30, 2022
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
-
+<hr>
+<section id="notes" class="level1">
+<h1>Notes</h1>
+<p>Love this quote on “Why is programming fun?”:</p>
+<blockquote class="blockquote">
+<p><em>Finally, there is the delight of working in such a tractable medium. The programmer, like the poet, works only slightly removed from pure thought-stuff. He builds his castles in the air, from air, creating by exertion of the imagination. Few media of creation are so flexible, so easy to polish and rework, so readily capable of realizing grand conceptual structure</em></p>
+</blockquote>
+<p>I now know what a “Man-Month” is:</p>
+<blockquote class="blockquote">
+<p><em>Second, our estimating techniques fallaciously confuse effort with progress, hiding the assumption that men and months are interchangeable.</em></p>
+</blockquote>
+<p>I really resonate with this way of working:</p>
+<blockquote class="blockquote">
+<p><em>For the human makers of things, the incompleteness and inconsistencies of our ideas become clear only during implementation. Thus it is that writing, experimentation, “working out” are essential disciplines for the theoretician.</em></p>
+</blockquote>
+</section>
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>I will be honest, this book did not resonate with me. The book is largely about how people in teams make things. I feel the book was greatly influenced by the time period it was written in and the types of projects the author had experience working on.</p>
+<p>The author largely talked about building low level products such as an OS and I could see how such a large under taking in developing something like an operating system might need a different approach than the projects I am use to.</p>
+<p>So, from a historically perspective I thought it was helpful to learn how large software engineering teams operated. I bet there are lots of valuable tidbits here that could be applied to big tech but most the projects I am working on don’t relate to these types of challenges and I often find myself operating better in a different environment than the one prescribed in the book.</p>
+<p>Nonetheless, if you want to learn more about how teams developed software back in the day, this is the book for you.</p>
 
 
 </section>
@@ -623,9 +450,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
 </div> <!-- /content -->
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/mythical-man-month/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/mythical-man-month/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/mythical-man-month/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/mythical-man-month/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/mythical-man-month/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

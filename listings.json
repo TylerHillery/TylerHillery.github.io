@@ -24,6 +24,8 @@
   {
     "listing": "/notes.html",
     "items": [
+      "/notes/mythical-man-month/index.html",
+      "/notes/meltano-reference/index.html",
       "/notes/data-engineering-with-dbt/index.html",
       "/notes/effective-python/index.html",
       "/notes/python-in-a-nutshell/index.html",
