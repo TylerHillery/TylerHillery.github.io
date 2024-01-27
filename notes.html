@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tyler Hillery – notes</title>
+<title>Tyler Hillery</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -48,7 +48,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -57,6 +63,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -96,15 +103,42 @@ ul.task-list li input[type="checkbox"] {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Tyler Hillery</span>
     </a>
@@ -116,48 +150,48 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="./blog.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./notes.html" rel="" target="" aria-current="page">
- <span class="menu-text">Notes</span></a>
+    <a class="nav-link active" href="./notes.html" aria-current="page"> 
+<span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html" rel="" target="">
- <span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="./projects.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/TylerHillery" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/TylerHillery"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/_TylerHillery" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/_TylerHillery"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.goodreads.com/user/show/150025597-tyler-hillery" rel="" target=""><i class="bi bi-book" role="img">
+    <a class="nav-link" href="https://www.goodreads.com/user/show/150025597-tyler-hillery"> <i class="bi bi-book" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="./blog.xml"> <i class="bi bi-rss" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -165,12 +199,13 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(17)</span></div><div class="category" data-category="Courses">Courses <span class="quarto-category-count">(2)</span></div><div class="category" data-category="In Progress">In Progress <span class="quarto-category-count">(2)</span></div><div class="category" data-category="On Hold">On Hold <span class="quarto-category-count">(1)</span></div><div class="category" data-category="References">References <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Self-Help Books">Self-Help Books <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Technical Books">Technical Books <span class="quarto-category-count">(12)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(17)</span></div><div class="category" data-category="Courses">Courses <span class="quarto-category-count">(2)</span></div><div class="category" data-category="In Progress">In Progress <span class="quarto-category-count">(1)</span></div><div class="category" data-category="On Hold">On Hold <span class="quarto-category-count">(1)</span></div><div class="category" data-category="References">References <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Self-Help Books">Self-Help Books <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Technical Books">Technical Books <span class="quarto-category-count">(12)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
 
 
 
@@ -201,32 +236,63 @@ ul.task-list li input[type="checkbox"] {
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Technical Books" data-listing-date-sort="1705968000000" data-listing-file-modified-sort="1706060435176" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="0" data-categories="Technical Books" data-listing-date-sort="1706227200000" data-listing-file-modified-sort="1706372997987" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="801">
 <div class="thumbnail">
-<p><a href="./notes/mythical-man-month/index.html"> <img src="./notes/mythical-man-month/mythical_man_month.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/data-engineering-with-dbt/index.html" class="no-external"></a></p><a href="./notes/data-engineering-with-dbt/index.html" class="no-external">
+<p><img src="./notes/data-engineering-with-dbt/de_with_dbt.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/data-engineering-with-dbt/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/mythical-man-month/index.html">
 <h3 class="no-anchor listing-title">
-The Mythical Man-Month
+<a href="./notes/data-engineering-with-dbt/index.html" class="no-external">Data Engineering with dbt</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/data-engineering-with-dbt/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/mythical-man-month/index.html">
 <div class="listing-description">
-<p>My notes on <span>The Mythical Man-Month</span> by Frederick Brooks Jr.</p>
+<a href="./notes/data-engineering-with-dbt/index.html" class="no-external">My notes on <span>Data Engineering with dbt</span> by Roberto Zagni</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./notes/data-engineering-with-dbt/index.html" class="no-external">
+<div class="listing-date">
+Jan 26, 2024
+</div>
+<div class="listing-author">
+Tyler Hillery
 </div>
 </a>
 </div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Technical Books" data-listing-date-sort="1705968000000" data-listing-file-modified-sort="1706372997995" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="299">
+<div class="thumbnail">
+<p><a href="./notes/mythical-man-month/index.html" class="no-external"></a></p><a href="./notes/mythical-man-month/index.html" class="no-external">
+<p><img src="./notes/mythical-man-month/mythical_man_month.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/mythical-man-month/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./notes/mythical-man-month/index.html" class="no-external">The Mythical Man-Month</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./notes/mythical-man-month/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
+Technical Books
+</div>
+</div>
+<div class="listing-description">
+<a href="./notes/mythical-man-month/index.html" class="no-external">My notes on <span>The Mythical Man-Month</span> by Frederick Brooks Jr.</a>
+</div>
+</div>
 <div class="metadata">
-<a href="./notes/mythical-man-month/index.html">
+<a href="./notes/mythical-man-month/index.html" class="no-external">
 <div class="listing-date">
 Jan 23, 2024
 </div>
@@ -236,19 +302,19 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="References,In Progress" data-listing-date-sort="1705795200000" data-listing-file-modified-sort="1706060435176" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="2" data-categories="References,In Progress" data-listing-date-sort="1705795200000" data-listing-file-modified-sort="1706372997991" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="187">
 <div class="thumbnail">
-<p><a href="./notes/meltano-reference/index.html"> <img src="./notes/meltano-reference/meltano.png" class="thumbnail-image"> </a></p>
+<p><a href="./notes/meltano-reference/index.html" class="no-external"></a></p><a href="./notes/meltano-reference/index.html" class="no-external">
+<p><img src="./notes/meltano-reference/meltano.png" class="thumbnail-image"></p>
+</a><p><a href="./notes/meltano-reference/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/meltano-reference/index.html">
 <h3 class="no-anchor listing-title">
-Meltano Reference Notes
+<a href="./notes/meltano-reference/index.html" class="no-external">Meltano Reference Notes</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/meltano-reference/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('References'); return false;">
 References
@@ -257,14 +323,12 @@ References
 In Progress
 </div>
 </div>
-<a href="./notes/meltano-reference/index.html">
 <div class="listing-description">
-<p>Reference notes on Meltano.</p>
+<a href="./notes/meltano-reference/index.html" class="no-external">Reference notes on Meltano.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/meltano-reference/index.html">
+<a href="./notes/meltano-reference/index.html" class="no-external">
 <div class="listing-date">
 Jan 21, 2024
 </div>
@@ -274,57 +338,19 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="Technical Books,In Progress" data-listing-date-sort="1704844800000" data-listing-file-modified-sort="1706060435168" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="3" data-categories="Technical Books,On Hold" data-listing-date-sort="1704672000000" data-listing-file-modified-sort="1706372997991" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="498">
 <div class="thumbnail">
-<p><a href="./notes/data-engineering-with-dbt/index.html"> <img src="./notes/data-engineering-with-dbt/de_with_dbt.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/effective-python/index.html" class="no-external"></a></p><a href="./notes/effective-python/index.html" class="no-external">
+<p><img src="./notes/effective-python/effective_python.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/effective-python/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/data-engineering-with-dbt/index.html">
 <h3 class="no-anchor listing-title">
-Data Engineering with dbt
+<a href="./notes/effective-python/index.html" class="no-external">Effective Python</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/effective-python/index.html" class="no-external"></a>
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
-Technical Books
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('In Progress'); return false;">
-In Progress
-</div>
-</div>
-<a href="./notes/data-engineering-with-dbt/index.html">
-<div class="listing-description">
-<p>My notes on <span>Data Engineering with dbt</span> by Roberto Zagni</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./notes/data-engineering-with-dbt/index.html">
-<div class="listing-date">
-Jan 10, 2024
-</div>
-<div class="listing-author">
-Tyler Hillery
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Technical Books,On Hold" data-listing-date-sort="1704672000000" data-listing-file-modified-sort="1706060435172" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./notes/effective-python/index.html"> <img src="./notes/effective-python/effective_python.jpg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./notes/effective-python/index.html">
-<h3 class="no-anchor listing-title">
-Effective Python
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
@@ -333,14 +359,12 @@ Technical Books
 On Hold
 </div>
 </div>
-<a href="./notes/effective-python/index.html">
 <div class="listing-description">
-<p>My notes on <span>Effective Python</span> by Brett Slatkin</p>
+<a href="./notes/effective-python/index.html" class="no-external">My notes on <span>Effective Python</span> by Brett Slatkin</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/effective-python/index.html">
+<a href="./notes/effective-python/index.html" class="no-external">
 <div class="listing-date">
 Jan 8, 2024
 </div>
@@ -350,32 +374,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="Technical Books" data-listing-date-sort="1704585600000" data-listing-file-modified-sort="1706060435180" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
+<div class="quarto-post image-right" data-index="4" data-categories="Technical Books" data-listing-date-sort="1704585600000" data-listing-file-modified-sort="1706372997999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1917">
 <div class="thumbnail">
-<p><a href="./notes/python-in-a-nutshell/index.html"> <img src="./notes/python-in-a-nutshell/python_in_a_nutshell.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/python-in-a-nutshell/index.html" class="no-external"></a></p><a href="./notes/python-in-a-nutshell/index.html" class="no-external">
+<p><img src="./notes/python-in-a-nutshell/python_in_a_nutshell.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/python-in-a-nutshell/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/python-in-a-nutshell/index.html">
 <h3 class="no-anchor listing-title">
-Python in a Nutshell
+<a href="./notes/python-in-a-nutshell/index.html" class="no-external">Python in a Nutshell</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/python-in-a-nutshell/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/python-in-a-nutshell/index.html">
 <div class="listing-description">
-<p>My notes on <span>Python in a Nutshell</span> by Alex Martelli, Anna Martelli Ravenscroft, Steven Holden, Paul McGuire.</p>
+<a href="./notes/python-in-a-nutshell/index.html" class="no-external">My notes on <span>Python in a Nutshell</span> by Alex Martelli, Anna Martelli Ravenscroft, Steven Holden, Paul McGuire.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/python-in-a-nutshell/index.html">
+<a href="./notes/python-in-a-nutshell/index.html" class="no-external">
 <div class="listing-date">
 Jan 7, 2024
 </div>
@@ -385,32 +407,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="Technical Books" data-listing-date-sort="1704412800000" data-listing-file-modified-sort="1706060435180" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22">
+<div class="quarto-post image-right" data-index="5" data-categories="Technical Books" data-listing-date-sort="1704412800000" data-listing-file-modified-sort="1706372997995" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4338">
 <div class="thumbnail">
-<p><a href="./notes/python-distilled/index.html"> <img src="./notes/python-distilled/python_distilled.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/python-distilled/index.html" class="no-external"></a></p><a href="./notes/python-distilled/index.html" class="no-external">
+<p><img src="./notes/python-distilled/python_distilled.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/python-distilled/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/python-distilled/index.html">
 <h3 class="no-anchor listing-title">
-Python Distilled
+<a href="./notes/python-distilled/index.html" class="no-external">Python Distilled</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/python-distilled/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/python-distilled/index.html">
 <div class="listing-description">
-<p>My notes on <span>Python Distilled</span> by David Beazley.</p>
+<a href="./notes/python-distilled/index.html" class="no-external">My notes on <span>Python Distilled</span> by David Beazley.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/python-distilled/index.html">
+<a href="./notes/python-distilled/index.html" class="no-external">
 <div class="listing-date">
 Jan 5, 2024
 </div>
@@ -420,32 +440,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="Technical Books" data-listing-date-sort="1703980800000" data-listing-file-modified-sort="1706060435180" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
+<div class="quarto-post image-right" data-index="6" data-categories="Technical Books" data-listing-date-sort="1703980800000" data-listing-file-modified-sort="1706372997995" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1753">
 <div class="thumbnail">
-<p><a href="./notes/pragmatic-programmer/index.html"> <img src="./notes/pragmatic-programmer/pragmatic_programmer.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/pragmatic-programmer/index.html" class="no-external"></a></p><a href="./notes/pragmatic-programmer/index.html" class="no-external">
+<p><img src="./notes/pragmatic-programmer/pragmatic_programmer.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/pragmatic-programmer/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/pragmatic-programmer/index.html">
 <h3 class="no-anchor listing-title">
-The Pragmatic Programmer
+<a href="./notes/pragmatic-programmer/index.html" class="no-external">The Pragmatic Programmer</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/pragmatic-programmer/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/pragmatic-programmer/index.html">
 <div class="listing-description">
-<p>My notes on <span>The Pragmatic Programmer</span> by David Thomas and Andrew Hunt.</p>
+<a href="./notes/pragmatic-programmer/index.html" class="no-external">My notes on <span>The Pragmatic Programmer</span> by David Thomas and Andrew Hunt.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/pragmatic-programmer/index.html">
+<a href="./notes/pragmatic-programmer/index.html" class="no-external">
 <div class="listing-date">
 Dec 31, 2023
 </div>
@@ -455,32 +473,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="Technical Books" data-listing-date-sort="1702944000000" data-listing-file-modified-sort="1706060435184" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
+<div class="quarto-post image-right" data-index="7" data-categories="Technical Books" data-listing-date-sort="1702944000000" data-listing-file-modified-sort="1706372997999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2348">
 <div class="thumbnail">
-<p><a href="./notes/zero-to-py/index.html"> <img src="./notes/zero-to-py/zero_to_py.png" class="thumbnail-image"> </a></p>
+<p><a href="./notes/zero-to-py/index.html" class="no-external"></a></p><a href="./notes/zero-to-py/index.html" class="no-external">
+<p><img src="./notes/zero-to-py/zero_to_py.png" class="thumbnail-image"></p>
+</a><p><a href="./notes/zero-to-py/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/zero-to-py/index.html">
 <h3 class="no-anchor listing-title">
-Zero to Py
+<a href="./notes/zero-to-py/index.html" class="no-external">Zero to Py</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/zero-to-py/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/zero-to-py/index.html">
 <div class="listing-description">
-<p>My notes on <span>Zero to Py</span> by Michael Green.</p>
+<a href="./notes/zero-to-py/index.html" class="no-external">My notes on <span>Zero to Py</span> by Michael Green.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/zero-to-py/index.html">
+<a href="./notes/zero-to-py/index.html" class="no-external">
 <div class="listing-date">
 Dec 19, 2023
 </div>
@@ -490,32 +506,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="Technical Books" data-listing-date-sort="1700265600000" data-listing-file-modified-sort="1706060435172" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="32">
+<div class="quarto-post image-right" data-index="8" data-categories="Technical Books" data-listing-date-sort="1700265600000" data-listing-file-modified-sort="1706372997987" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="32" data-listing-word-count-sort="6216">
 <div class="thumbnail">
-<p><a href="./notes/ddia/index.html"> <img src="./notes/ddia/ddia.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/ddia/index.html" class="no-external"></a></p><a href="./notes/ddia/index.html" class="no-external">
+<p><img src="./notes/ddia/ddia.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/ddia/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/ddia/index.html">
 <h3 class="no-anchor listing-title">
-Designing Data-Intensive Applications
+<a href="./notes/ddia/index.html" class="no-external">Designing Data-Intensive Applications</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/ddia/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/ddia/index.html">
 <div class="listing-description">
-<p>My notes on <span>Designing Data-Intensive Applications</span> by Martin Kleppmann.</p>
+<a href="./notes/ddia/index.html" class="no-external">My notes on <span>Designing Data-Intensive Applications</span> by Martin Kleppmann.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/ddia/index.html">
+<a href="./notes/ddia/index.html" class="no-external">
 <div class="listing-date">
 Nov 18, 2023
 </div>
@@ -525,32 +539,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="Self-Help Books" data-listing-date-sort="1697846400000" data-listing-file-modified-sort="1706060435164" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="9" data-categories="Self-Help Books" data-listing-date-sort="1697846400000" data-listing-file-modified-sort="1706372997979" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="267">
 <div class="thumbnail">
-<p><a href="./notes/atomic-habits/index.html"> <img src="./notes/atomic-habits/atomic_habits.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/atomic-habits/index.html" class="no-external"></a></p><a href="./notes/atomic-habits/index.html" class="no-external">
+<p><img src="./notes/atomic-habits/atomic_habits.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/atomic-habits/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/atomic-habits/index.html">
 <h3 class="no-anchor listing-title">
-Atomic Habits: An Easy &amp; Proven Way to Build Good Habits &amp; Break Bad Ones
+<a href="./notes/atomic-habits/index.html" class="no-external">Atomic Habits: An Easy &amp; Proven Way to Build Good Habits &amp; Break Bad Ones</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/atomic-habits/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Self-Help Books'); return false;">
 Self-Help Books
 </div>
 </div>
-<a href="./notes/atomic-habits/index.html">
 <div class="listing-description">
-<p>My short review of the book <span>Atomic Habits An Easy &amp; Proven Way to Build Good Habits &amp; Break Bad Ones</span> by James Clear.</p>
+<a href="./notes/atomic-habits/index.html" class="no-external">My short review of the book <span>Atomic Habits An Easy &amp; Proven Way to Build Good Habits &amp; Break Bad Ones</span> by James Clear.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/atomic-habits/index.html">
+<a href="./notes/atomic-habits/index.html" class="no-external">
 <div class="listing-date">
 Oct 21, 2023
 </div>
@@ -560,32 +572,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-categories="Technical Books" data-listing-date-sort="1696636800000" data-listing-file-modified-sort="1706060435164" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="10" data-categories="Technical Books" data-listing-date-sort="1696636800000" data-listing-file-modified-sort="1706372997979" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="58">
 <div class="thumbnail">
-<p><a href="./notes/97-de-things/index.html"> <img src="./notes/97-de-things/97_things_cover.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/97-de-things/index.html" class="no-external"></a></p><a href="./notes/97-de-things/index.html" class="no-external">
+<p><img src="./notes/97-de-things/97_things_cover.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/97-de-things/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/97-de-things/index.html">
 <h3 class="no-anchor listing-title">
-97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts
+<a href="./notes/97-de-things/index.html" class="no-external">97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/97-de-things/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/97-de-things/index.html">
 <div class="listing-description">
-<p>My short review of the book <span>97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts</span> by Tobias Macey.</p>
+<a href="./notes/97-de-things/index.html" class="no-external">My short review of the book <span>97 Things Every Data Engineer Should Know: Collective Wisdom from the Experts</span> by Tobias Macey.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/97-de-things/index.html">
+<a href="./notes/97-de-things/index.html" class="no-external">
 <div class="listing-date">
 Oct 7, 2023
 </div>
@@ -595,32 +605,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-categories="Technical Books" data-listing-date-sort="1693872000000" data-listing-file-modified-sort="1706060435172" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="11" data-categories="Technical Books" data-listing-date-sort="1693872000000" data-listing-file-modified-sort="1706372997987" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="153">
 <div class="thumbnail">
-<p><a href="./notes/data-pipelines-ref/index.html"> <img src="./notes/data-pipelines-ref/data_pipelines_ref.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/data-pipelines-ref/index.html" class="no-external"></a></p><a href="./notes/data-pipelines-ref/index.html" class="no-external">
+<p><img src="./notes/data-pipelines-ref/data_pipelines_ref.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/data-pipelines-ref/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/data-pipelines-ref/index.html">
 <h3 class="no-anchor listing-title">
-Data Pipelines Pocket Reference
+<a href="./notes/data-pipelines-ref/index.html" class="no-external">Data Pipelines Pocket Reference</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/data-pipelines-ref/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/data-pipelines-ref/index.html">
 <div class="listing-description">
-<p>My short review of the book <span>Data Pipelines Pocket Reference</span> by James Densmore.</p>
+<a href="./notes/data-pipelines-ref/index.html" class="no-external">My short review of the book <span>Data Pipelines Pocket Reference</span> by James Densmore.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/data-pipelines-ref/index.html">
+<a href="./notes/data-pipelines-ref/index.html" class="no-external">
 <div class="listing-date">
 Sep 5, 2023
 </div>
@@ -630,32 +638,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-categories="Courses" data-listing-date-sort="1685923200000" data-listing-file-modified-sort="1706060435168" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="12" data-categories="Courses" data-listing-date-sort="1685923200000" data-listing-file-modified-sort="1706372997983" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="28">
 <div class="thumbnail">
-<p><a href="./notes/csc-204-comp-arch-org/index.html"> <img src="./notes/csc-204-comp-arch-org/csc204.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/csc-204-comp-arch-org/index.html" class="no-external"></a></p><a href="./notes/csc-204-comp-arch-org/index.html" class="no-external">
+<p><img src="./notes/csc-204-comp-arch-org/csc204.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/csc-204-comp-arch-org/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/csc-204-comp-arch-org/index.html">
 <h3 class="no-anchor listing-title">
-Computer Organization and Architecture
+<a href="./notes/csc-204-comp-arch-org/index.html" class="no-external">Computer Organization and Architecture</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/csc-204-comp-arch-org/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Courses'); return false;">
 Courses
 </div>
 </div>
-<a href="./notes/csc-204-comp-arch-org/index.html">
 <div class="listing-description">
-<p>These are my notes for <span>CSC 204 Computer Organization and Architecture</span> through Oakton Community College. The course uses the book <span>The Essentials of Computer Organization and Architecture</span>.</p>
+<a href="./notes/csc-204-comp-arch-org/index.html" class="no-external">These are my notes for <span>CSC 204 Computer Organization and Architecture</span> through Oakton Community College. The course uses the book <span>The Essentials of Computer Organization and Architecture</span>.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/csc-204-comp-arch-org/index.html">
+<a href="./notes/csc-204-comp-arch-org/index.html" class="no-external">
 <div class="listing-date">
 Jun 5, 2023
 </div>
@@ -665,32 +671,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-categories="Technical Books" data-listing-date-sort="1685750400000" data-listing-file-modified-sort="1706060435172" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="13" data-categories="Technical Books" data-listing-date-sort="1685750400000" data-listing-file-modified-sort="1706372997987" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="37">
 <div class="thumbnail">
-<p><a href="./notes/de-fundamentals/index.html"> <img src="./notes/de-fundamentals/de_fund.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/de-fundamentals/index.html" class="no-external"></a></p><a href="./notes/de-fundamentals/index.html" class="no-external">
+<p><img src="./notes/de-fundamentals/de_fund.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/de-fundamentals/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/de-fundamentals/index.html">
 <h3 class="no-anchor listing-title">
-Fundamentals of Data Engineering
+<a href="./notes/de-fundamentals/index.html" class="no-external">Fundamentals of Data Engineering</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/de-fundamentals/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/de-fundamentals/index.html">
 <div class="listing-description">
-<p>My short review of the book <span>Fundamentals of Data Engineering</span> by Joe Reis &amp; Matt Housley.</p>
+<a href="./notes/de-fundamentals/index.html" class="no-external">My short review of the book <span>Fundamentals of Data Engineering</span> by Joe Reis &amp; Matt Housley.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/de-fundamentals/index.html">
+<a href="./notes/de-fundamentals/index.html" class="no-external">
 <div class="listing-date">
 Jun 3, 2023
 </div>
@@ -700,32 +704,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-categories="Technical Books" data-listing-date-sort="1682294400000" data-listing-file-modified-sort="1706060435164" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="14" data-categories="Technical Books" data-listing-date-sort="1682294400000" data-listing-file-modified-sort="1706372997979" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="55">
 <div class="thumbnail">
-<p><a href="./notes/code-hidden-language/index.html"> <img src="./notes/code-hidden-language/Code2Cover.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/code-hidden-language/index.html" class="no-external"></a></p><a href="./notes/code-hidden-language/index.html" class="no-external">
+<p><img src="./notes/code-hidden-language/Code2Cover.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/code-hidden-language/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/code-hidden-language/index.html">
 <h3 class="no-anchor listing-title">
-Code: The Hidden Language of Computer Hardware and Software
+<a href="./notes/code-hidden-language/index.html" class="no-external">Code: The Hidden Language of Computer Hardware and Software</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/code-hidden-language/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Technical Books'); return false;">
 Technical Books
 </div>
 </div>
-<a href="./notes/code-hidden-language/index.html">
 <div class="listing-description">
-<p>My short review of the book <span>Code The Hidden Language of Computer Hardware and Software</span> by Charles Petzold.</p>
+<a href="./notes/code-hidden-language/index.html" class="no-external">My short review of the book <span>Code The Hidden Language of Computer Hardware and Software</span> by Charles Petzold.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/code-hidden-language/index.html">
+<a href="./notes/code-hidden-language/index.html" class="no-external">
 <div class="listing-date">
 Apr 24, 2023
 </div>
@@ -735,32 +737,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-categories="Courses" data-listing-date-sort="1673913600000" data-listing-file-modified-sort="1706060435164" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="15" data-categories="Courses" data-listing-date-sort="1673913600000" data-listing-file-modified-sort="1706372997979" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="28">
 <div class="thumbnail">
-<p><a href="./notes/csc-155-cpp-cs-1/index.html"> <img src="./notes/csc-155-cpp-cs-1/csc_155.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./notes/csc-155-cpp-cs-1/index.html" class="no-external"></a></p><a href="./notes/csc-155-cpp-cs-1/index.html" class="no-external">
+<p><img src="./notes/csc-155-cpp-cs-1/csc_155.jpg" class="thumbnail-image"></p>
+</a><p><a href="./notes/csc-155-cpp-cs-1/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/csc-155-cpp-cs-1/index.html">
 <h3 class="no-anchor listing-title">
-Computer Science I in C++
+<a href="./notes/csc-155-cpp-cs-1/index.html" class="no-external">Computer Science I in C++</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/csc-155-cpp-cs-1/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Courses'); return false;">
 Courses
 </div>
 </div>
-<a href="./notes/csc-155-cpp-cs-1/index.html">
 <div class="listing-description">
-<p>These are my notes for <span>CSC 155 Computer Science 1 in C++</span> through Oakton Community College. The course uses the book <span>C++ Programming From Problem Analysis to Program Design</span>.</p>
+<a href="./notes/csc-155-cpp-cs-1/index.html" class="no-external">These are my notes for <span>CSC 155 Computer Science 1 in C++</span> through Oakton Community College. The course uses the book <span>C++ Programming From Problem Analysis to Program Design</span>.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/csc-155-cpp-cs-1/index.html">
+<a href="./notes/csc-155-cpp-cs-1/index.html" class="no-external">
 <div class="listing-date">
 Jan 17, 2023
 </div>
@@ -770,32 +770,30 @@ Tyler Hillery
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-categories="References" data-listing-date-sort="1671926400000" data-listing-file-modified-sort="1706060435184" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16">
+<div class="quarto-post image-right" data-index="16" data-categories="References" data-listing-date-sort="1671926400000" data-listing-file-modified-sort="1706372997999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3147">
 <div class="thumbnail">
-<p><a href="./notes/quarto-reference/index.html"> <img src="./notes/quarto-reference/quarto_logo.png" class="thumbnail-image"> </a></p>
+<p><a href="./notes/quarto-reference/index.html" class="no-external"></a></p><a href="./notes/quarto-reference/index.html" class="no-external">
+<p><img src="./notes/quarto-reference/quarto_logo.png" class="thumbnail-image"></p>
+</a><p><a href="./notes/quarto-reference/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./notes/quarto-reference/index.html">
 <h3 class="no-anchor listing-title">
-Quarto Reference Notes
+<a href="./notes/quarto-reference/index.html" class="no-external">Quarto Reference Notes</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./notes/quarto-reference/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('References'); return false;">
 References
 </div>
 </div>
-<a href="./notes/quarto-reference/index.html">
 <div class="listing-description">
-<p>Cool things that you can do with Quarto that I want to be able to reference back to</p>
+<a href="./notes/quarto-reference/index.html" class="no-external">Cool things that you can do with Quarto that I want to be able to reference back to</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./notes/quarto-reference/index.html">
+<a href="./notes/quarto-reference/index.html" class="no-external">
 <div class="listing-date">
 Dec 25, 2022
 </div>
@@ -894,10 +892,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -907,8 +904,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -921,6 +927,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -964,6 +1089,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -989,6 +1115,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1052,5 +1204,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

@@ -14,13 +14,14 @@
 <title>Tyler Hillery</title>
 <link>https://www.tylerhillery.com/blog.html</link>
 </image>
-<generator>quarto-1.3.450</generator>
+<generator>quarto-1.4.549</generator>
 <lastBuildDate>Thu, 28 Dec 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Tyler Tries Publishing a Python Package to PyPI</title>
   <dc:creator>Tyler Hillery</dc:creator>
-  <link>https://www.tylerhillery.com/blog/tyler-tries-publishing-py-pack/index.html</link>
+  <link>https://www.tylerhillery.com/blog/tyler-tries-publishing-py-pack/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -28,7 +29,7 @@
 <section id="tldr" class="level2">
 <h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
 <p>I developed a python package, <a href="https://pypi.org/project/harlequin_trino/">harlequin_trino</a>, and published it <a href="pypi.org">The Python Package Index</a> (PyPI). This provides a <a href="trino.io">Trino</a> adapter for <a href="harlequin.sh">Harelquin</a> a SQL IDE for your terminal.</p>
-<p></p><div id="tweet-88763"></div><script>tweet={"url":"https:\/\/twitter.com\/_TylerHillery\/status\/1738590957392519216","author_name":"Tyler Hillery","author_url":"https:\/\/twitter.com\/_TylerHillery","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E\u003Ca href=\"https:\/\/twitter.com\/tedconbeer?ref_src=twsrc%5Etfw\"\u003E@tedconbeer\u003C\/a\u003E I got a Christmas present for you, a working demo of the harlequin-trino adapter! \u003Ca href=\"https:\/\/t.co\/jB3cc6jPsU\"\u003Epic.twitter.com\/jB3cc6jPsU\u003C\/a\u003E\u003C\/p\u003E&mdash; Tyler Hillery (@_TylerHillery) \u003Ca href=\"https:\/\/twitter.com\/_TylerHillery\/status\/1738590957392519216?ref_src=twsrc%5Etfw\"\u003EDecember 23, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-88763").innerHTML = tweet["html"];</script><p></p>
+<p></p><div id="tweet-29122"></div><script>tweet={"url":"https:\/\/twitter.com\/_TylerHillery\/status\/1738590957392519216","author_name":"Tyler Hillery","author_url":"https:\/\/twitter.com\/_TylerHillery","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E\u003Ca href=\"https:\/\/twitter.com\/tedconbeer?ref_src=twsrc%5Etfw\"\u003E@tedconbeer\u003C\/a\u003E I got a Christmas present for you, a working demo of the harlequin-trino adapter! \u003Ca href=\"https:\/\/t.co\/jB3cc6jPsU\"\u003Epic.twitter.com\/jB3cc6jPsU\u003C\/a\u003E\u003C\/p\u003E&mdash; Tyler Hillery (@_TylerHillery) \u003Ca href=\"https:\/\/twitter.com\/_TylerHillery\/status\/1738590957392519216?ref_src=twsrc%5Etfw\"\u003EDecember 23, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-29122").innerHTML = tweet["html"];</script><p></p>
 </section>
 <section id="what-is-a-python-package-anyway" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-a-python-package-anyway">What is a Python Package Anyway?</h2>
@@ -67,15 +68,16 @@
  ]]></description>
   <category>Data Tools</category>
   <category>Open-Source</category>
-  <guid>https://www.tylerhillery.com/blog/tyler-tries-publishing-py-pack/index.html</guid>
+  <guid>https://www.tylerhillery.com/blog/tyler-tries-publishing-py-pack/</guid>
   <pubDate>Thu, 28 Dec 2023 00:00:00 GMT</pubDate>
   <media:content url="https://www.tylerhillery.com/assets/images/harlequin-trino.svg" medium="image" type="image/svg+xml"/>
 </item>
 <item>
   <title>Tyler Tries Real-Time Data</title>
   <dc:creator>Tyler Hillery</dc:creator>
-  <link>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</link>
+  <link>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -438,7 +440,7 @@ background-color: null;
 font-style: inherit;">}</span></span></code></pre></div>
 <p>To process these messages within the <code>KafkaProducer</code> I’ve created an infinite while loop that will keep running until the program is stopped.</p>
 <div class="cell" data-execution_count="1">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="cf" style="color: #003B4F;
 background-color: null;
@@ -796,7 +798,7 @@ font-style: inherit;">VALUE</span> FORMAT BYTES</span>
 </ul>
 <p>The staging model does some light transformations to get the data into a more usable form.</p>
 <div class="cell" data-execution_count="2">
-<details>
+<details class="code-fold">
 <summary>stg_coinbase_level2_channel</summary>
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1">{{ </span>
 <span id="cb7-2">    config(</span>
@@ -943,7 +945,7 @@ font-style: inherit;">from</span> final</span></code></pre></div>
 </div>
 <p>Because Materialize does not handle <a href="https://materialize.com/docs/transform-data/patterns/window-functions/#:~:text=Window%20functions%20compute%20results%20based,consecutive%20rows%20in%20each%20partition.">window functions</a> very well they provided some alternative approaches in their docs. I referenced the <a href="https://materialize.com/docs/transform-data/patterns/top-k/#top-1-using-distinct-on">Materialize Top K by group</a> that allowed me to return the top bid and ask record for each product id. The highest bid and lowest ask is referred to as the national best bid and offer (NBBO).</p>
 <div class="cell" data-execution_count="3">
-<details>
+<details class="code-fold">
 <summary>int_coinbase_nbbo</summary>
 <div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1">{{ </span>
 <span id="cb8-2">    config(</span>
@@ -1045,7 +1047,7 @@ font-style: inherit;">from</span> unioned</span></code></pre></div>
 </div>
 <p>The last model I created was the fct_coinbase_nbbo which pivots the NBB and NBO so there is only one record per product_id. This allows for the calculation of the NBBO spread and NBBO midpoint. The spread is the difference between the NBB and NBO. The NBBO midpoint is usually used as the reference price for the current market value of a security.</p>
 <div class="cell" data-execution_count="4">
-<details>
+<details class="code-fold">
 <summary>fct_coinbase_nbbo</summary>
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1">{{ </span>
 <span id="cb9-2">    config(</span>
@@ -1308,15 +1310,16 @@ font-style: inherit;">1000</span>)</span></code></pre></div>
   <category>Real-Time Data</category>
   <category>Data Apps</category>
   <category>Data Engineering</category>
-  <guid>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/index.html</guid>
+  <guid>https://www.tylerhillery.com/blog/tyler-tries-real-time-data/</guid>
   <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
   <media:content url="https://www.tylerhillery.com/assets/images/streamlit_app_coinbase.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
   <title>Building a Local (Data) Lakehouse - Part 1: The Blueprint</title>
   <dc:creator>Tyler Hillery</dc:creator>
-  <link>https://www.tylerhillery.com/blog/local-lakehouse/index.html</link>
+  <link>https://www.tylerhillery.com/blog/local-lakehouse/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -1330,7 +1333,7 @@ font-style: inherit;">1000</span>)</span></code></pre></div>
 <section id="data-warehouse" class="level3">
 <h3 class="anchored" data-anchor-id="data-warehouse"><strong>Data Warehouse</strong></h3>
 <p>The Data Warehouse is a database that is suppose to act as the coveted <em>single source of truth</em> of all data within a company. While you can use trusty old Postgres as Craig Kerstiens demonstrates here:</p>
-<p></p><div id="tweet-51717"></div><script>tweet={"url":"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120","author_name":"Craig Kerstiens","author_url":"https:\/\/twitter.com\/craigkerstiens","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EHaving a lot of conversations with folks lately &quot;can Postgres be used for metrics\/analytics?&quot; Short answer is yes. Some deeper blog posts coming, but we dogfood our own stuff \u003Ca href=\"https:\/\/twitter.com\/crunchydata?ref_src=twsrc%5Etfw\"\u003E@crunchydata\u003C\/a\u003E and just checked... we&#39;re handling 50m events daily currently for Crunchy Bridge.\u003C\/p\u003E&mdash; Craig Kerstiens (@craigkerstiens) \u003Ca href=\"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120?ref_src=twsrc%5Etfw\"\u003EApril 26, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-51717").innerHTML = tweet["html"];</script><p></p>
+<p></p><div id="tweet-17558"></div><script>tweet={"url":"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120","author_name":"Craig Kerstiens","author_url":"https:\/\/twitter.com\/craigkerstiens","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EHaving a lot of conversations with folks lately &quot;can Postgres be used for metrics\/analytics?&quot; Short answer is yes. Some deeper blog posts coming, but we dogfood our own stuff \u003Ca href=\"https:\/\/twitter.com\/crunchydata?ref_src=twsrc%5Etfw\"\u003E@crunchydata\u003C\/a\u003E and just checked... we&#39;re handling 50m events daily currently for Crunchy Bridge.\u003C\/p\u003E&mdash; Craig Kerstiens (@craigkerstiens) \u003Ca href=\"https:\/\/twitter.com\/craigkerstiens\/status\/1651336279806853120?ref_src=twsrc%5Etfw\"\u003EApril 26, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-17558").innerHTML = tweet["html"];</script><p></p>
 <p>The more common players you are going to see fulfill the data warehouse role is Snowflake, BigQuery &amp; Redshift. That’s because the workloads you run on data warehouses tend to be different in nature than the workloads you run on your application database. The term for this type of workload is commonly referred to as OLAP (Online Analytical Processing) which typically involves running aggregate queries across the entire dataset where as OLTP (Online Transactional Processing) is usually more concerned with single point queries where you are reading or updating one single row. This is a drastic simplification but it gets the point across.</p>
 <p>The reason the above mention names tend to be suited for OLAP is largely because they are distributed systems designed so that they can horizontally scale resources. The storage and compute are separated as well so they scale independently of each other so you don’t necessarily need to increase storage if you just want more compute resources. The distributed nature of the compute resources allows for massively parallel processing (MPP) so the database can split the work across several different nodes within the cluster.</p>
 <section id="snowflake-architecture" class="level5" style="font-size: 50%;text-align:center">
@@ -1378,7 +1381,7 @@ font-style: inherit;">1000</span>)</span></code></pre></div>
 <h5 class="anchored" data-anchor-id="architectural-diagram-of-the-structure-of-an-iceberg-table"><strong>Architectural diagram of the structure of an Iceberg table</strong></h5>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://www.tylerhillery.com/assets/images/iceberg-metadata.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="https://www.tylerhillery.com/assets/images/iceberg-metadata.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 <p><a href="https://www.dremio.com/wp-content/uploads/2023/03/iceberg-metadata.png"><em>https://www.dremio.com/wp-content/uploads/2023/03/iceberg-metadata.png</em></a></p>
@@ -1468,15 +1471,16 @@ font-style: inherit;">1000</span>)</span></code></pre></div>
 </section></div> ]]></description>
   <category>Data Lakehouse</category>
   <category>Iceberg</category>
-  <guid>https://www.tylerhillery.com/blog/local-lakehouse/index.html</guid>
+  <guid>https://www.tylerhillery.com/blog/local-lakehouse/</guid>
   <pubDate>Mon, 26 Jun 2023 00:00:00 GMT</pubDate>
   <media:content url="https://www.tylerhillery.com/assets/images/local-lakehouse.png" medium="image" type="image/png" height="80" width="144"/>
 </item>
 <item>
   <title>Why and How I Made My First Open Source Contribution</title>
   <dc:creator>Tyler Hillery</dc:creator>
-  <link>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</link>
+  <link>https://www.tylerhillery.com/blog/getting-started-in-os/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -1537,15 +1541,16 @@ In my next role I am looking for an opportunity for professional growth &amp; to
   <category>Open Source</category>
   <category>dbt</category>
   <category>duckdb</category>
-  <guid>https://www.tylerhillery.com/blog/getting-started-in-os/index.html</guid>
+  <guid>https://www.tylerhillery.com/blog/getting-started-in-os/</guid>
   <pubDate>Tue, 12 Jul 2022 00:00:00 GMT</pubDate>
   <media:content url="https://www.tylerhillery.com/assets/images/Open-Source-Software.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
   <title>Make a Public Commitment to Learn</title>
   <dc:creator>Tyler Hillery</dc:creator>
-  <link>https://www.tylerhillery.com/blog/learning-log/index.html</link>
+  <link>https://www.tylerhillery.com/blog/learning-log/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -1561,11 +1566,7 @@ In my next role I am looking for an opportunity for professional growth &amp; to
 <section id="learning-log" class="level3">
 <h3 class="anchored" data-anchor-id="learning-log"><strong>Learning Log 📝</strong></h3>
 <p>The learning log is a python app that was developed using the open source library <a href="https://streamlit.io/">Streamlit</a>. Streamlit makes it easy to turn python scripts into shareable web apps. The learning log helps keep track of your learning sessions. The heat map was designed very similarly to GitHub’s contribution graph. I added some additional metrics like total time logged learning and learning day streak. Streamlit makes it easy to share this app to the public so others can see what you are learning about. I encourage you to fork my repo and start logging your learning!</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://share.streamlit.io/tylerhillery/learning-log/main"><img src="https://www.tylerhillery.com/blog/learning-log/https:/static.streamlit.io/badges/streamlit_badge_black_white.svg" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
+<p><a href="https://share.streamlit.io/tylerhillery/learning-log/main"><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" class="img-fluid"></a></p>
 
 
 </section>
@@ -1575,15 +1576,16 @@ In my next role I am looking for an opportunity for professional growth &amp; to
   <category>Streamlit</category>
   <category>Data Apps</category>
   <category>Self Taught</category>
-  <guid>https://www.tylerhillery.com/blog/learning-log/index.html</guid>
+  <guid>https://www.tylerhillery.com/blog/learning-log/</guid>
   <pubDate>Tue, 31 May 2022 00:00:00 GMT</pubDate>
   <media:content url="https://www.tylerhillery.com/assets/images/learning-log.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Stock Market Data Pipeline</title>
   <dc:creator>Tyler Hillery</dc:creator>
-  <link>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</link>
+  <link>https://www.tylerhillery.com/blog/stock-market-data-pipeline/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -1831,7 +1833,7 @@ font-style: inherit;">'text/csv'</span>)</span></code></pre></div>
   <category>Google Cloud</category>
   <category>Data Engineering</category>
   <category>Python</category>
-  <guid>https://www.tylerhillery.com/blog/stock-market-data-pipeline/index.html</guid>
+  <guid>https://www.tylerhillery.com/blog/stock-market-data-pipeline/</guid>
   <pubDate>Wed, 30 Mar 2022 00:00:00 GMT</pubDate>
   <media:content url="https://www.tylerhillery.com/assets/images/stock-market-data-pipeline.png" medium="image" type="image/png" height="99" width="144"/>
 </item>

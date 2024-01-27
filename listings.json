@@ -1,5 +1,27 @@
 [
   {
+    "listing": "/notes.html",
+    "items": [
+      "/notes/data-engineering-with-dbt/index.html",
+      "/notes/mythical-man-month/index.html",
+      "/notes/meltano-reference/index.html",
+      "/notes/effective-python/index.html",
+      "/notes/python-in-a-nutshell/index.html",
+      "/notes/python-distilled/index.html",
+      "/notes/pragmatic-programmer/index.html",
+      "/notes/zero-to-py/index.html",
+      "/notes/ddia/index.html",
+      "/notes/atomic-habits/index.html",
+      "/notes/97-de-things/index.html",
+      "/notes/data-pipelines-ref/index.html",
+      "/notes/csc-204-comp-arch-org/index.html",
+      "/notes/de-fundamentals/index.html",
+      "/notes/code-hidden-language/index.html",
+      "/notes/csc-155-cpp-cs-1/index.html",
+      "/notes/quarto-reference/index.html"
+    ]
+  },
+  {
     "listing": "/projects.html",
     "items": [
       "/projects/harlequin-trino/index.html",
@@ -19,28 +41,6 @@
       "/blog/getting-started-in-os/index.html",
       "/blog/learning-log/index.html",
       "/blog/stock-market-data-pipeline/index.html"
-    ]
-  },
-  {
-    "listing": "/notes.html",
-    "items": [
-      "/notes/mythical-man-month/index.html",
-      "/notes/meltano-reference/index.html",
-      "/notes/data-engineering-with-dbt/index.html",
-      "/notes/effective-python/index.html",
-      "/notes/python-in-a-nutshell/index.html",
-      "/notes/python-distilled/index.html",
-      "/notes/pragmatic-programmer/index.html",
-      "/notes/zero-to-py/index.html",
-      "/notes/ddia/index.html",
-      "/notes/atomic-habits/index.html",
-      "/notes/97-de-things/index.html",
-      "/notes/data-pipelines-ref/index.html",
-      "/notes/csc-204-comp-arch-org/index.html",
-      "/notes/de-fundamentals/index.html",
-      "/notes/code-hidden-language/index.html",
-      "/notes/csc-155-cpp-cs-1/index.html",
-      "/notes/quarto-reference/index.html"
     ]
   }
 ]

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2024-01-10">
+<meta name="dcterms.date" content="2024-01-26">
 <meta name="description" content="My notes on Data Engineering with dbt by Roberto Zagni">
 
 <title>Tyler Hillery - Data Engineering with dbt</title>
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -51,7 +85,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -60,6 +100,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -74,9 +115,9 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Tyler Hillery</span>
     </a>
@@ -88,58 +129,71 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../blog.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../notes.html" rel="" target="">
- <span class="menu-text">Notes</span></a>
+    <a class="nav-link" href="../../notes.html"> 
+<span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../projects.html" rel="" target="">
- <span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/TylerHillery" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/TylerHillery"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/tylerhillery/"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/_TylerHillery" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/_TylerHillery"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.goodreads.com/user/show/150025597-tyler-hillery" rel="" target=""><i class="bi bi-book" role="img">
+    <a class="nav-link" href="https://www.goodreads.com/user/show/150025597-tyler-hillery"> <i class="bi bi-book" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../../blog.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../blog.xml"> <i class="bi bi-rss" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
-    
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#relevant-links" id="toc-relevant-links" class="nav-link active" data-scroll-target="#relevant-links">Relevant Links</a></li>
+  <li><a href="#chapter-1.-the-basics-of-sql-to-transform-data" id="toc-chapter-1.-the-basics-of-sql-to-transform-data" class="nav-link" data-scroll-target="#chapter-1.-the-basics-of-sql-to-transform-data">Chapter 1. The Basics of SQL to Transform Data</a></li>
+  <li><a href="#chapter-2.-setting-up-your-dbt-cloud-development-environment" id="toc-chapter-2.-setting-up-your-dbt-cloud-development-environment" class="nav-link" data-scroll-target="#chapter-2.-setting-up-your-dbt-cloud-development-environment">Chapter 2. Setting Up Your dbt Cloud Development Environment</a></li>
+  <li><a href="#chapter-3.-data-modeling-for-data-engineering" id="toc-chapter-3.-data-modeling-for-data-engineering" class="nav-link" data-scroll-target="#chapter-3.-data-modeling-for-data-engineering">Chapter 3. Data Modeling for Data Engineering</a></li>
+  <li><a href="#chapter-5.-transforming-data-with-dbt" id="toc-chapter-5.-transforming-data-with-dbt" class="nav-link" data-scroll-target="#chapter-5.-transforming-data-with-dbt">Chapter 5. Transforming Data with dbt</a></li>
+  <li><a href="#chapter-6.-writing-maintainable-code" id="toc-chapter-6.-writing-maintainable-code" class="nav-link" data-scroll-target="#chapter-6.-writing-maintainable-code">Chapter 6. Writing Maintainable Code</a></li>
+  <li><a href="#chapter-7.-working-with-dimensional-data" id="toc-chapter-7.-working-with-dimensional-data" class="nav-link" data-scroll-target="#chapter-7.-working-with-dimensional-data">Chapter 7. Working with Dimensional Data</a></li>
+  <li><a href="#review" id="toc-review" class="nav-link" data-scroll-target="#review">Review</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/data-engineering-with-dbt/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
@@ -151,7 +205,6 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="title">Data Engineering with dbt</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Technical Books</div>
-    <div class="quarto-category">In Progress</div>
   </div>
   </div>
 
@@ -174,7 +227,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 10, 2024</p>
+      <p class="date">January 26, 2024</p>
     </div>
   </div>
   
@@ -182,89 +235,89 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
 
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"># Relevant Links - <a href="https://github.com/PacktPublishing/Data-engineering-with-dbt">Book GitHub Repo</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"># Chapter 1. The Basics of SQL to Transform Data</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">- Going to skim over this chapter as I already feel very confident with my SQL skills</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- The book uses Snowflake but I am going to follow along using BigQuery</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">- BigQuery datasets are like schemas in other databases</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"># Chapter 2. Setting Up Your dbt Cloud Development Environment</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">- I am going to use local dbt instead</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"># Chapter 3. Data Modeling for Data Engineering</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">- <strong><em>Entity</em></strong>: AN entity is a concept that we want to analyze, a thing of interest that we want to collect data about, such as a car, an order or a page visit</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- <strong><em>Attribute</em></strong>: An attribute is a property of an entity for which we want to store values, such as a car plate, a customer, or the total amount of a transaction.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">- <strong><em>Relationship</em></strong>: A relationship is a connection between two entities that are related to each other and captures how they are related, such as the ownership relation between a car and its owner, or the purchasing relation between a customer and a product</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- Lots of great info in this chapter on different data modeling techniques. I didn’t end up taking too many notes as I didn’t want to interrupt my flow.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"># Chapter 5. Transforming Data with dt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- You can test specific sources but using <code>dbt test -s source:source_name.table</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"># Chapter 6. Writing Maintainable Code</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- Saving history with dbt - You can use the standard dbt <em>snapshots</em> which creates <strong>slowly changing dimension of type 2</strong> (SCD2) without writing any of the code. - This can work well for normal-size datasets (up to millions of rows) and is the simplest way to go - One major con of snapshots is that they are global objects, so you only have one copy and one version active for all environments. - Another con is you cannot preview or test the <code>select</code> query that feeds the data to the snapshot - Another method is to use <em>incremental models</em> to save new or changed data from each run. - applies set-based operations to capture changes in insert-only mode - effective way to manage and store huge amounts of data - requires writing custom macro</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">- <code>Snapshots</code> are not normal dbt models and they are not run with the <code>dbt run</code> command but instead with the <code>dbt snapshot</code>.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- <code>snapshots</code> are stored in their own folder as they are the only tables that cannot be recreated at every run so you don’t want to drop them on accident</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">- The snapshot table is a global object and is shared by all environments.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- The general layout of a snapshot definition</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>sql {% snapshot snapshot_name %} {{ config(...) }} select ... from {{ source / ref }} {% endsnapshot %}</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">- Best way to have run snapshots is to have a stg model before them and make them <code>ephemeral</code> models so you don’t need to run them before the snapshot. This makes it so you don’t need to first run only the stg models for the snapshots, take the snapshot and then run all models except the snapshot ones.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"># Chapter 7. Working with Dimensional Data</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">I actually really enjoyed this chapter. I am turning into a fan of this “Pragmatic Data Platform” going from stg &gt; snapshot &gt; refined &gt; mart. Didn’t take to many notes on this chapter as I mostly following along with my own repo.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"># Chapter 8. Delivering Consistency in Your Data</td>
-</tr>
-</tbody>
-</table>
+
+<hr>
+<section id="relevant-links" class="level1">
+<h1>Relevant Links</h1>
+<ul>
+<li><a href="https://github.com/PacktPublishing/Data-engineering-with-dbt">Book GitHub Repo</a></li>
+</ul>
+</section>
+<section id="chapter-1.-the-basics-of-sql-to-transform-data" class="level1">
+<h1>Chapter 1. The Basics of SQL to Transform Data</h1>
+<ul>
+<li><p>Going to skim over this chapter as I already feel very confident with my SQL skills</p></li>
+<li><p>The book uses Snowflake but I am going to follow along using BigQuery</p></li>
+<li><p>BigQuery datasets are like schemas in other databases</p></li>
+</ul>
+</section>
+<section id="chapter-2.-setting-up-your-dbt-cloud-development-environment" class="level1">
+<h1>Chapter 2. Setting Up Your dbt Cloud Development Environment</h1>
+<ul>
+<li>I am going to use local dbt instead</li>
+</ul>
+</section>
+<section id="chapter-3.-data-modeling-for-data-engineering" class="level1">
+<h1>Chapter 3. Data Modeling for Data Engineering</h1>
+<ul>
+<li><p><strong><em>Entity</em></strong>: AN entity is a concept that we want to analyze, a thing of interest that we want to collect data about, such as a car, an order or a page visit</p></li>
+<li><p><strong><em>Attribute</em></strong>: An attribute is a property of an entity for which we want to store values, such as a car plate, a customer, or the total amount of a transaction.</p></li>
+<li><p><strong><em>Relationship</em></strong>: A relationship is a connection between two entities that are related to each other and captures how they are related, such as the ownership relation between a car and its owner, or the purchasing relation between a customer and a product</p></li>
+<li><p>Lots of great info in this chapter on different data modeling techniques. I didn’t end up taking too many notes as I didn’t want to interrupt my flow.</p></li>
+</ul>
+</section>
+<section id="chapter-5.-transforming-data-with-dbt" class="level1">
+<h1>Chapter 5. Transforming Data with dbt</h1>
+<ul>
+<li>You can test specific sources but using <code>dbt test -s source:source_name.table</code></li>
+</ul>
+</section>
+<section id="chapter-6.-writing-maintainable-code" class="level1">
+<h1>Chapter 6. Writing Maintainable Code</h1>
+<ul>
+<li><p>Saving history with dbt</p>
+<ul>
+<li>You can use the standard dbt <em>snapshots</em> which creates <strong>slowly changing dimension of type 2</strong> (SCD2) without writing any of the code.
+<ul>
+<li>This can work well for normal-size datasets (up to millions of rows) and is the simplest way to go</li>
+<li>One major con of snapshots is that they are global objects, so you only have one copy and one version active for all environments.</li>
+<li>Another con is you cannot preview or test the <code>select</code> query that feeds the data to the snapshot</li>
+</ul></li>
+<li>Another method is to use <em>incremental models</em> to save new or changed data from each run.
+<ul>
+<li>applies set-based operations to capture changes in insert-only mode</li>
+<li>effective way to manage and store huge amounts of data</li>
+<li>requires writing custom macro</li>
+</ul></li>
+</ul></li>
+<li><p><code>Snapshots</code> are not normal dbt models and they are not run with the <code>dbt run</code> command but instead with the <code>dbt snapshot</code>.</p></li>
+<li><p><code>snapshots</code> are stored in their own folder as they are the only tables that cannot be recreated at every run so you don’t want to drop them on accident</p></li>
+<li><p>The snapshot table is a global object and is shared by all environments.</p></li>
+<li><p>The general layout of a snapshot definition</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1"></a>{% <span class="kw">snapshot</span> snapshot_name %}</span>
+<span id="cb1-2"><a href="#cb1-2"></a>{{ config(<span class="op">..</span>.) }}</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">select</span> <span class="op">..</span>. <span class="kw">from</span> {{ <span class="kw">source</span> <span class="op">/</span> <span class="fu">ref</span> }}</span>
+<span id="cb1-4"><a href="#cb1-4"></a>{% endsnapshot %}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Best way to have run snapshots is to have a stg model before them and make them <code>ephemeral</code> models so you don’t need to run them before the snapshot. This makes it so you don’t need to first run only the stg models for the snapshots, take the snapshot and then run all models except the snapshot ones.</p></li>
+</ul>
+</section>
+<section id="chapter-7.-working-with-dimensional-data" class="level1">
+<h1>Chapter 7. Working with Dimensional Data</h1>
+<p>I actually really enjoyed this chapter. I am turning into a fan of this “Pragmatic Data Platform” going from stg &gt; snapshot &gt; refined &gt; mart. Didn’t take to many notes on this chapter as I mostly following along with my own repo.</p>
+</section>
+<section id="review" class="level1">
+<h1>Review</h1>
+<p>I finished the rest of this book while on the plane so I wasn’t able to follow along with the examples like I usually like to with technical books like this. The first few chapters I was not a fan but this was probably because I am pretty familiar with dbt. Once it started getting into more advanced topics I actually really enjoyed it.</p>
+<p>It’s nice to learn about the different patterns and ways people are using dbt. I really enjoyed the part on how to create historical tables and I could see myself using so of the macros that were shown in this book. It’s important for me to not get complacent with these technologies because they are always evolving.</p>
+<p>It was nice that this book also wasn’t less about dbt itself and more about different patterns and principals you can apply and how to apply them with dbt. It would be very easy to use the pragmatic data platform with another tool.</p>
+<p>A nit pick I had about the book was how it focused on using dbt Cloud. There were lots of pictures and examples of the cloud UI which I wasn’t a fan of.</p>
+<p>Overall, I would recommend this book to those looking to how use dbt.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -346,10 +399,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -359,8 +411,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -373,6 +434,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -416,6 +596,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -441,6 +622,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -502,8 +709,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="TylerHillery/TylerHillery.github.io" data-repo-id="R_kgDOGrmb8Q" data-category="General" data-category-id="DIC_kwDOGrmb8c4CTm54" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/data-engineering-with-dbt/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer><div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/data-engineering-with-dbt/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/data-engineering-with-dbt/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/data-engineering-with-dbt/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/data-engineering-with-dbt/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/data-engineering-with-dbt/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/data-engineering-with-dbt/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+
 
 
 
