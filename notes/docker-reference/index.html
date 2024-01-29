@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tyler Hillery">
-<meta name="dcterms.date" content="2023-06-03">
-<meta name="description" content="My short review of the book Fundamentals of Data Engineering by Joe Reis &amp; Matt Housley.">
+<meta name="dcterms.date" content="2024-01-29">
+<meta name="description" content="Reference notes on Docker.">
 
-<title>Tyler Hillery - Fundamentals of Data Engineering</title>
+<title>Tyler Hillery - Docker Reference Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,9 +148,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#relevant-links" id="toc-relevant-links" class="nav-link active" data-scroll-target="#relevant-links">Relevant Links</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#common-commands" id="toc-common-commands" class="nav-link" data-scroll-target="#common-commands">Common commands</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/de-fundamentals/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/docker-reference/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -161,15 +163,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fundamentals of Data Engineering</h1>
+<h1 class="title">Docker Reference Notes</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Technical Books</div>
+    <div class="quarto-category">References</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    My short review of the book <a href="https://a.co/d/hNfukbx">Fundamentals of Data Engineering</a> by Joe Reis &amp; Matt Housley.
+    Reference notes on Docker.
   </div>
 </div>
 
@@ -186,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 3, 2023</p>
+      <p class="date">January 29, 2024</p>
     </div>
   </div>
   
@@ -198,11 +200,183 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p><strong>Rating</strong>: ⭐⭐⭐⭐⭐</p>
-<p>My tweet sums up how I felt about this book. Now that I have finished the whole thing, I would say it’s a must read for anyone in the data space.</p>
-<p></p><div id="tweet-96383"></div><script>tweet={"url":"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345","author_name":"Tyler Hillery","author_url":"https:\/\/twitter.com\/_TylerHillery","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EPerfect travel reading material. I’m halfway through and really liking it. I love the focus on data engineering as a discipline opposed to a tech stack. \u003Ca href=\"https:\/\/t.co\/FjapFCTHdV\"\u003Epic.twitter.com\/FjapFCTHdV\u003C\/a\u003E\u003C\/p\u003E&mdash; Tyler Hillery (@_TylerHillery) \u003Ca href=\"https:\/\/twitter.com\/_TylerHillery\/status\/1664680077815054345?ref_src=twsrc%5Etfw\"\u003EJune 2, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-96383").innerHTML = tweet["html"];</script><p></p>
+<hr>
+<section id="relevant-links" class="level1">
+<h1>Relevant Links</h1>
+<ul>
+<li><a href="https://docs.docker.com/">docker docs</a></li>
+<li><a href="https://hub.docker.com/">dockerhub</a></li>
+</ul>
+</section>
+<section id="notes" class="level1">
+<h1>Notes</h1>
+<ul>
+<li><p>OS is made of main components:</p>
+<ul>
+<li>Applications Layer</li>
+<li>Kernel</li>
+</ul></li>
+<li><p>Docker only virtualizes the applications layer and uses the host’s OS kernel</p></li>
+<li><p>VM virtualizes the applications layer and the OS kernel</p></li>
+<li><p>Docker images are in the MBs opposed to VMs are couple of GBs <em>usually</em></p></li>
+<li><p>You can’t run a linux based image on a windows host because the windows kernel can’t run linux applications.</p></li>
+<li><p>You can get around this by downloading Docker Desktop which runs a <strong>Hypervisor layer</strong> with a lightweight Linux distro</p></li>
+<li><p>The <strong>Hypervisor</strong> controls access to physical resources to run multiple VMs on one host machines</p></li>
+<li><p>Docker containers runs on the Docker Engine</p></li>
+<li><p>The <strong><em>docker image</em></strong> is an executable application artifact. I like to think of it as the blueprint. It contains</p>
+<ul>
+<li>Application: e.g.&nbsp;python app</li>
+<li>Services: python interrupter, pip etc.</li>
+<li>OS layer: linux</li>
+</ul></li>
+<li><p>I like to think of the <strong><em>docker container</em></strong> as a running instance of an image</p></li>
+<li><p>Containers can be impacted by <strong>noisy neighbors</strong></p></li>
+<li><p>High level of Docker Architecture</p>
+<ul>
+<li>Docker Host
+<ul>
+<li>Docker Daemon (dockerd)</li>
+<li>Containers</li>
+<li>Images</li>
+</ul></li>
+<li>Docker Client
+<ul>
+<li>Command Line</li>
+<li>Docker Desktop</li>
+</ul></li>
+<li>Registry
+<ul>
+<li>Repositories</li>
+</ul></li>
+</ul></li>
+<li><p>A <strong>writable layer</strong> allows’ container storage i.e.&nbsp;local storage in the container</p>
+<ul>
+<li>Each container has its own unique writable layer.</li>
+<li>Only exists for the lifecycle of the container, they don’t persist.</li>
+<li>Uses the <strong>union filesystem</strong> which does have a performance hit &amp; they are tightly coupled with the HOST</li>
+<li>Allows files and directories from separate file systems to be overlaid - forming a “single” file system.</li>
+</ul></li>
+<li><p>Types of container storage</p>
+<ul>
+<li><code>tmpfs</code> is another type of storage with the following characteristics:
+<ul>
+<li>Fast host memory</li>
+<li>Not Persistent</li>
+<li>Can’t be shared between containers</li>
+<li>Temp or sensitive files</li>
+</ul></li>
+<li>Host file system
+<ul>
+<li>Bind mounts to map host (or remote) folders to a container folder</li>
+<li>Allows other containers to access the storage</li>
+<li>Rely on host folder structure - it’s not managed by docker</li>
+</ul></li>
+<li>Volumes
+<ul>
+<li>Similar to host file system but storage is managed by docker</li>
+<li>Outside the lifecycle of the container</li>
+<li>Can be moved between containers</li>
+</ul></li>
+</ul></li>
+<li><p>Images are a collection of file system layers</p>
+<ul>
+<li>Layers can be reused and help avoid unnecessary uploads and downloads</li>
+</ul></li>
+<li><p>There are docker registers where you can download these docker images from. The most popular one is <a href="https://hub.docker.com/">dockerhub</a></p></li>
+<li><p>docker images have different versions of images, with a special one called <code>latest</code></p></li>
+<li><p>You don’t need to pull the image first, if you use <code>docker run</code> it will pull it first if you don’t have the image</p></li>
+<li><p>When binding container port to host port it’s best practice to use the same port # if possible</p></li>
+<li><p><code>docker run</code> will create a new container each time</p></li>
+<li><p>In the cli commands container id can be swapped with container name</p></li>
+<li><p>Registry vs Repository</p>
+<ul>
+<li>Registry: A service provider storage, a collection of repositories e.g.&nbsp;Docker Hub is a registry</li>
+<li>Repository: Collection of related images with same name but different versions</li>
+</ul></li>
+<li><p>To create your own image, you can create a <code>Dockerfile</code></p>
+<ul>
+<li>The Dockerfile starts with the base image name you want to start <code>FROM</code> e.g.&nbsp;node:19-alpine</li>
+<li><code>RUN</code> command will allow you to run command line commands e.g.&nbsp;<code>npm install</code></li>
+<li><code>COPY</code> command allows you to copy files from host machine into the container e.g.&nbsp;<code>COPY package.json /app/</code> <code>COPY src /app/</code></li>
+<li><code>ADD</code> similar to COPY but can add from a remote URL &amp; do extraction etc (e.g.&nbsp;<em>application/web files</em>)</li>
+<li><code>WORKDIR</code> sets the working directory for all commands after</li>
+<li><code>CMD</code> instruction to be executed when a Docker container starts
+<ul>
+<li>Only one <code>CMD</code> command per Dockerfile</li>
+</ul></li>
+<li><code>ENTRYPOINT</code> similar to CMD but can’t be overridden via docker run parameters</li>
+<li><code>EXPOSE</code> informs docker what port container app is running on (metadata only! - no network configuration)</li>
+</ul></li>
+<li><p>Docker Container Networking</p>
+<ul>
+<li>Host networking
+<ul>
+<li>containers share the hosts network</li>
+<li>can be problematic when containers use same port</li>
+<li>don’t get to choose the port mapping</li>
+</ul></li>
+<li>Bridge networking
+<ul>
+<li>Containers connect to a bridge network</li>
+<li>Each container gets a private IP</li>
+<li>Each container can use the same port as the IP is unique</li>
+<li>Any containers on the same bridge network can communicate with each other</li>
+<li>Container ports on accessible until they are published <code>host:container</code></li>
+</ul></li>
+</ul></li>
+<li><p>Docker Compose helps in creating, managing and cleanup of multi-container applications</p>
+<ul>
+<li>reads a docker-compose.yaml file for instructions</li>
+<li>Docker Compose with take care of running all the services on the same network</li>
+<li>docker compose will add the dir name of where it’s stored as a prefix to the container name but you can add the <code>--project-name</code> flag to change that</li>
+</ul></li>
+</ul>
+</section>
+<section id="common-commands" class="level1">
+<h1>Common commands</h1>
+<ul>
+<li><p><code>docker images</code> lists all images you have on your machine</p></li>
+<li><p><code>docker ps</code> list running containers -<code>a</code> will list the non running containers as well</p></li>
+<li><p><code>docker pull {name}:{tag}</code> to pull an image from a registry</p></li>
+<li><p><code>docker run {name}:{tag}</code> to create container from image</p>
+<ul>
+<li><code>-d</code> for detach so it runs in the background</li>
+<li><code>-p {HOST_PORT}:{CONTAINER_PORT}</code> to expose the container post to host</li>
+<li><code>--name {CONTAINER NAME}</code> to name your containers, otherwise the name is randomly generated</li>
+<li><code>-e</code> to set environment variables</li>
+<li>`–mount type=bind, source=“file/path”, target=“file/path” to create a bind mount</li>
+<li><code>-v file/path/source:file/path/target</code> same as above</li>
+<li><code>--mount source={volume name}, target=file/path</code> to create a volume</li>
+<li><code>-v {volume name}:file/path/target</code> same as above</li>
+</ul></li>
+<li><p><code>docker stop {container id}</code> to stop a running container</p></li>
+<li><p><code>docker restart {container id}</code> to stop and start container</p></li>
+<li><p><code>docker logs {container id}</code> to list the logs of the container. This is helpful in detach mode because the logs aren’t shown</p></li>
+<li><p><code>docker container prune</code> to delete all non running containers</p></li>
+<li><p><code>docker rm {container name or id}</code> to remove a docker container</p>
+<ul>
+<li><code>-f</code> or `–force`` to forcefully delete a running container</li>
+</ul></li>
+<li><p><code>docker build path/to/Dockerfile/dir</code> to build an image from a Dockerfile</p>
+<ul>
+<li><code>-t {image name}:{version}</code> to give Dockerfile a name and tag</li>
+</ul></li>
+<li><p><code>docker inspect {image name or id}</code> to get metadata about the image</p>
+<ul>
+<li>helpful to find the ip address</li>
+</ul></li>
+<li><p><code>docker exec -it {container name or id}</code> to run commands in the container</p>
+<ul>
+<li><code>sh</code> is common command to start a shell in container or <code>/bin/bash</code></li>
+</ul></li>
+<li><p><code>docker volume create</code> to create a volume</p></li>
+<li><p><code>docker volume inspect {volume name}</code> to get volume metadata</p></li>
+<li><p><code>docker volume ls</code> to list all volumes</p></li>
+<li><p><code>docker volume rm</code> to remove a volume</p></li>
+<li><p><code>docker network create {network}</code> to create network</p></li>
+<li><p><code>docker network ls</code> to list all networks</p></li>
+<li></li>
+</ul>
 
 
 </section>
@@ -600,11 +774,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <input type="hidden" id="giscus-base-theme" value="light">
 <input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/de-fundamentals/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/de-fundamentals/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/de-fundamentals/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/de-fundamentals/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/de-fundamentals/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/edit/main/notes/docker-reference/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/TylerHillery/TylerHillery.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://tylerhillery.com/notes/docker-reference/&amp;text=" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://tylerhillery.com/notes/docker-reference/&amp;title=" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=&amp;body=Check out this link:https://tylerhillery.com/notes/docker-reference/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://tylerhillery.com/notes/docker-reference/&amp;title=" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text= https://tylerhillery.com/notes/docker-reference/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a></div></div>
 
 
 
 
 <script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
-<script src="https://platform.twitter.com/widgets.js"></script>
 </body></html>
