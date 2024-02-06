@@ -343,11 +343,15 @@ ul.task-list li input[type="checkbox"] {
 <li><code>-d</code> for detach so it runs in the background</li>
 <li><code>-p {HOST_PORT}:{CONTAINER_PORT}</code> to expose the container post to host</li>
 <li><code>--name {CONTAINER NAME}</code> to name your containers, otherwise the name is randomly generated</li>
-<li><code>-e</code> to set environment variables</li>
+<li><code>-e or --env</code> to set environment variables</li>
 <li>`–mount type=bind, source=“file/path”, target=“file/path” to create a bind mount</li>
-<li><code>-v file/path/source:file/path/target</code> same as above</li>
+<li><code>-v file/path/source:file/path/target</code> same as above
+<ul>
+<li><code>:ro</code> at the end to make it a read only bind mount so the container can’t write any files to the host</li>
+</ul></li>
 <li><code>--mount source={volume name}, target=file/path</code> to create a volume</li>
 <li><code>-v {volume name}:file/path/target</code> same as above</li>
+<li><code>-w</code> to set working dir</li>
 </ul></li>
 <li><p><code>docker stop {container id}</code> to stop a running container</p></li>
 <li><p><code>docker restart {container id}</code> to stop and start container</p></li>
@@ -367,7 +371,7 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li><p><code>docker exec -it {container name or id}</code> to run commands in the container</p>
 <ul>
-<li><code>sh</code> is common command to start a shell in container or <code>/bin/bash</code></li>
+<li><code>sh</code> is common command to start a shell in container or <code>/bin/bash</code> or just <code>bash</code></li>
 </ul></li>
 <li><p><code>docker volume create</code> to create a volume</p></li>
 <li><p><code>docker volume inspect {volume name}</code> to get volume metadata</p></li>
